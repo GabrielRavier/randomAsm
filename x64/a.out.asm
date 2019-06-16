@@ -39,8 +39,8 @@ N_SET_INFO:
 	movzx esi, si
 	sal ecx, 24
 	sal edx, 16
-	or edx, esi
-	or ecx, edx
+	or esi, edx
+	or ecx, esi
 	movsx rcx, ecx
 	mov [rdi], rcx
 	ret
@@ -52,16 +52,16 @@ N_SET_INFO:
 	align 16
 N_BADMAG:
 	movzx rcx, word [rdi]
-	cmp rdx, 294
-	setne cl
+	mov eax, 1
+	sub rcx, 204
+	cmp rcx, 63
+	ja .return
 
-	cmp rdx, 267
-	setne al
+	mov rax, 0x9800000000000001
+	shr rax, cl
+	and eax, 1
+	xor rax, 1
+	and eax, 1
 
-	sub rdx, 263
-	and eax, ecx
-	cmp rdx, 1
-	seta dl
-
-	and eax, edx
-	ret
+.return:
+	rep ret
