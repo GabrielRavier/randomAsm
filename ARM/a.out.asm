@@ -37,15 +37,15 @@ N_BADMAG:
 	ldr r2, .dat
 	sub r0, r3, #260
 
-	cmp r0, r2
-	cmpne r0, #204
-	movne r0, #1
-	moveq r0, #0
-	sub r3, #3
+	cmp r3, r2
+	cmpne r3, #204
+	movne r3, #1
+	moveq r3, #0
+	sub r0, #3
 
-	cmp r3, #1
+	cmp r0, #1
 	movls r0, #0
-	andhi r0, #1
+	andhi r0, r3, #1
 	bx lr
 
 .dat:
