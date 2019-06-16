@@ -21,8 +21,8 @@ __option_is_short:
 	ldd r24, Z+2
 	ldd r25, Z+3
 
-	mov r19, r24
-	mov r20, r25
+	mov r18, r24
+	mov r19, r25
 
 	subi r18, lo8(1)
 	sbci r19, hi8(1)
