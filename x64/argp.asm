@@ -31,11 +31,6 @@ __option_is_short:
 	rep ret
 
 	align 16
-.ret0:
-	xor eax, eax
-	ret
-
-	align 16
 .l10:
 	sub rsp, 8
 	call isprint
@@ -47,15 +42,19 @@ __option_is_short:
 	movzx eax, al
 	ret
 
+	align 16
+.ret0:
+	xor eax, eax
+	ret
+
 
 
 
 
 	align 16
 __option_is_end:
-	mov ecx, [rdi + 8]
-	xor eax, eax
-	test ecx, ecx
+	mov eax, [rdi + 8]
+	test eax, eax
 	jne .return
 
 	cmp qword [rdi], 0
@@ -63,6 +62,11 @@ __option_is_end:
 
 .return:
 	rep ret
+
+	align 16
+.ret0:
+	xor eax, eax
+	ret
 
 	align 16
 .ret0:
