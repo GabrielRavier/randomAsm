@@ -60,10 +60,10 @@ N_BADMAG:
 	movzx edx, word [eax]
 
 	cmp edx, 267
-	setne cl
+	setne al
 
 	cmp edx, 204
-	setne al
+	setne cl
 
 	sub edx, 263
 	and eax, ecx
