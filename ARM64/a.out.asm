@@ -23,12 +23,12 @@ N_FLAGS:
 
 
 N_SET_INFO:
-	ubfiz w2, 16, 0
 	and w1, 0xFFFF
-	orr w1, w2, w1
-	orr w1, w3, lsl 24
-	sxtw x1, w1
-	str x1, [x0]
+	ubfiz w2, 16, 0
+	orr w2, w1
+	orr w2, w3, lsl 24
+	sxtw x2, w2
+	str x2, [x0]
 	ret
 
 
