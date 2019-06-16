@@ -23,8 +23,8 @@ N_FLAGS:
 
 
 N_SET_INFO:
-	uxth w1
 	ubfiz w2, 16, 0
+	and w1, 0xFFFF
 	orr w1, w2, w1
 	orr w1, w3, lsl 24
 	sxtw x1, w1
