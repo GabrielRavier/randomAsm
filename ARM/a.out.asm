@@ -23,8 +23,8 @@ N_FLAGS:
 
 
 N_SET_INFO:
-	orr r2, r1, r2, asl #16
-	orr r3, r2, r3, asl #24
+	orr r2, r1, r2, lsl #16
+	orr r3, r2, r3, lsl #24
 	str r3, [r0]
 	bx lr
 
@@ -34,14 +34,13 @@ N_SET_INFO:
 
 N_BADMAG:
 	ldrh r3, [r0]
-	ldr r0, .dat
+	ldr r2, .dat
+	sub r0, r3, #260
 
-	cmp r3, r0
-	cmpne r3, #204
+	cmp r0, r2
+	cmpne r0, #204
 	movne r0, #1
 	moveq r0, #0
-
-	sub r3, #260
 	sub r3, #3
 
 	cmp r3, #1
