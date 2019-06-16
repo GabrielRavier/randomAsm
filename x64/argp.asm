@@ -19,32 +19,25 @@ __argp_usage:
 
 	align 16
 __option_is_short:
-	mov eax, [rdi + 24]
-	and eax, 8
-	jne .l5
+	push rax
+	xor eax, eax
+
+	test byte [rdi + 24], 8
+	jne .return
 
 	mov edi, [rdi + 8]
-	lea edx, [rdi - 1]
-	cmp edx, 0xFE
-	jbe .l10
+	lea ecx, [rdi - 1]
+	cmp ecx, 0xFE
+	ja .return
 
-	rep ret
-
-	align 16
-.l10:
-	sub rsp, 8
 	call isprint
-
-	test eax, eax
+	mov ecx, eax
+	xor eax, eax
+	test ecx, ecx
 	setne al
 
-	add rsp, 8
-	movzx eax, al
-	ret
-
-	align 16
-.ret0:
-	xor eax, eax
+.return:
+	pop rcx
 	ret
 
 
@@ -53,34 +46,22 @@ __option_is_short:
 
 	align 16
 __option_is_end:
-	mov eax, [rdi + 8]
-	test eax, eax
+	xor eax, eax
+	cmp dword [rdi + 8], 0
 	jne .return
 
 	cmp qword [rdi], 0
+	jne .return
+
+	cmp qword [rdi + 32], 0
 	je .continue
 
 .return:
-	rep ret
-
-	align 16
-.ret0:
-	xor eax, eax
-	ret
-
-	align 16
-.ret0:
-	xor eax, eax
 	ret
 
 	align 16
 .continue:
-	cmp qword [rdi + 32], 0
-	jne .return
-
-	mov edx, [rdi + 40]
 	xor eax, eax
-	test edx, edx
+	cmp dword [rdi + 40], 0
 	sete al
-
 	ret
