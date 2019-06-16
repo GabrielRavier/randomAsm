@@ -23,12 +23,12 @@ N_FLAGS:
 
 
 N_SET_INFO:
-	slli a2, 16
-	or a1, a2
-	slli a2, a3, 24
-	or a1, a2
-	sext.w a1
-	sd a1, 0(a0)
+	slliw a2, 16
+	or a2, a1, a2
+	slliw a3, 24
+	or a2, a3
+	sext.w a2
+	sd a2, 0(a0)
 	ret
 
 
@@ -36,20 +36,16 @@ N_SET_INFO:
 
 
 N_BADMAG:
-	lui a1, 16
-	addiw a1, -1
+	lhu a5, 0(a0)
+	li a4, 0x3F
+	addi a5, -204
+	bgtu a5, a4, .ret1
 
-	lh a0, 0(a0)
-	addi a0, -204
-	and a1, a0
-	li a2, 0x3F
-	bltu a2, a1, .ret1
-
-	li a1, 13
-	slli a1, 59
-	addi a1, -2
-
-	srl a0, a1, a0
+	li a0, -13
+	slli a0, 59
+	addi a0, 1
+	srl a0, a5
+	not a0
 	andi a0, 1
 	ret
 
