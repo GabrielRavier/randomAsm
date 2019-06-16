@@ -1,0 +1,4 @@
+- Finish avx2intrin.h... one day...
+- Finish gcc target dependencies (online and /usr/lib/gcc/x86_64-redhat-linux/9/include/)
+- Finish clang target dependencies (online and /usr/lib64/clang/8.0.0/include/)
+- Do all of /usr/include
