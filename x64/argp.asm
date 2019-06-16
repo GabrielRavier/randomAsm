@@ -19,21 +19,26 @@ __argp_usage:
 
 	align 16
 __option_is_short:
-	xor eax, eax
-	test byte [rdi + 24], 0
-	jne .retEdx
+	mov eax, [rdi + 24]
+	and eax, 8
+	jne .l5
 
 	mov edi, [rdi + 8]
 	lea edx, [rdi - 1]
-	cmp edx, 254
-	jbe .continue
-
-.return:
-	rep ret
+	cmp edx, 0xFE
+	jbe .l10
+	ret
 
 	align 16
-.continue:
+.ret0:
+	xor eax, eax
+	ret
+
+	align 16
+.l10:
+	sub rsp, 8
 	call isprint
+
 	test eax, eax
 	setne al
 
@@ -44,11 +49,11 @@ __option_is_short:
 
 
 
+
 	align 16
 __option_is_end:
-	mov ecx, [rdi + 8]
-	xor eax, eax
-	test ecx, ecx
+	mov eax, [rdi + 8]
+	test eax, eax
 	jne .ret0
 
 	cmp qword [rdi], 0
@@ -56,6 +61,11 @@ __option_is_end:
 
 .return:
 	rep ret
+
+	align 16
+.ret0:
+	xor eax, eax
+	ret
 
 	align 16
 .continue:
