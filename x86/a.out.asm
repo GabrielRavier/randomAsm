@@ -38,9 +38,9 @@ N_FLAGS:
 
 	align 16
 N_SET_INFO:
-	movzx eax, byte [esp + 12]
-	movzx edx, word [esp + 8]
-	sal eax, 16
+	movzx edx, byte [esp + 12]
+	movzx eax, word [esp + 8]
+	sal edx, 16
 	or eax, edx
 
 	movzx edx, byte [esp + 16]
