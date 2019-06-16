@@ -34,13 +34,14 @@ N_SET_INFO:
 
 N_BADMAG:
 	ldrh r3, [r0]
-	ldr r2, .dat
-	sub r0, r3, #260
+	ldr r0, .dat
 
-	cmp r0, r2
-	cmpne r0, #204
+	cmp r3, r0
+	cmpne r3, #204
 	movne r0, #1
 	moveq r0, #0
+
+	sub r3, #260
 	sub r3, #3
 
 	cmp r3, #1
