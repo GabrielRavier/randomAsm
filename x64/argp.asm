@@ -48,9 +48,9 @@ __option_is_short:
 
 	align 16
 __option_is_end:
-	mov edx, [rdi + 8]
+	mov ecx, [rdi + 8]
 	xor eax, eax
-	test edx, edx
+	test ecx, ecx
 	jne .ret0
 
 	cmp qword [rdi], 0
@@ -64,8 +64,9 @@ __option_is_end:
 	cmp qword [rdi + 32], 0
 	jne .return
 
+	mov edx, [rdi + 40]
 	xor eax, eax
-	cmp dword [rdi + 40], 0
+	test edx, edx
 	sete al
 
 	ret
