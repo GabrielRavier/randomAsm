@@ -38,9 +38,9 @@ N_FLAGS:
 
 	align 16
 N_SET_INFO:
-	movzx edx, byte [esp + 12]
-	movzx eax, word [esp + 8]
-	sal edx, 16
+	movzx eax, byte [esp + 12]
+	movzx edx, word [esp + 8]
+	sal eax, 16
 	or eax, edx
 
 	movzx edx, byte [esp + 16]
@@ -57,18 +57,16 @@ N_SET_INFO:
 	align 16
 N_BADMAG:
 	mov eax, [esp + 4]
-	movzx eax, word [eax]
-	lea edx, [eax - 263]
-	cmp edx, 1
-	jbe .ret0
+	movzx edx, word [eax]
+	setne cl
 
-	cmp eax, 267
-	je .ret0
-
-	cmp eax, 204
+	cmp edx, 267
 	setne al
-	ret
 
-.ret0:
-	xor eax, eax
+	sub edx, 263
+	and eax, ecx
+	cmp edx, 1
+	seta dl
+
+	and eax, edx
 	ret
