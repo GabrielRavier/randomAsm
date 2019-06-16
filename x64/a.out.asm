@@ -41,7 +41,7 @@ N_SET_INFO:
 	sal edx, 16
 	or edx, esi
 	or edx, ecx
-	movsx edx, edx
+	movsx rdx, edx
 	mov [rdi], rdx
 	ret
 
