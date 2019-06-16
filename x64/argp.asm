@@ -20,30 +20,27 @@ __argp_usage:
 	align 16
 __option_is_short:
 	sub rsp, 8
-
-	xor edx, edx
+	xor eax, eax
 	test byte [rdi + 24], 0
 	jne .retEdx
 
 	mov edi, [rdi + 8]
-	lea eax, [rdi - 1]
-	cmp eax, 254
+	lea edx, [rdi - 1]
+	cmp edx, 254
 	jbe .continue
 
-.retEdx:
-	mov eax, edx
+.return:
 	add rsp, 8
 	ret
 
 	align 16
 .continue:
 	call isprint
-	xor edx, edx
 	test eax, eax
-	setne dl
+	setne al
 
 	add rsp, 8
-	mov eax, edx
+	movzx eax, al
 	ret
 
 
