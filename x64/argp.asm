@@ -48,21 +48,21 @@ __option_is_short:
 
 	align 16
 __option_is_end:
-	mov eax, [rdi + 8]
-	test eax, eax
+	mov edx, [rdi + 8]
+	xor eax, eax
+	test edx, edx
 	jne .ret0
 
 	cmp qword [rdi], 0
 	je .continue
 
-.ret0:
-	xor eax, eax
-	ret
+.return:
+	rep ret
 
 	align 16
 .continue:
 	cmp qword [rdi + 32], 0
-	jne .ret0
+	jne .return
 
 	xor eax, eax
 	cmp dword [rdi + 40], 0
