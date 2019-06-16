@@ -27,7 +27,8 @@ __option_is_short:
 	lea edx, [rdi - 1]
 	cmp edx, 0xFE
 	jbe .l10
-	ret
+
+	rep ret
 
 	align 16
 .ret0:
@@ -52,9 +53,10 @@ __option_is_short:
 
 	align 16
 __option_is_end:
-	mov eax, [rdi + 8]
-	test eax, eax
-	jne .ret0
+	mov ecx, [rdi + 8]
+	xor eax, eax
+	test ecx, ecx
+	jne .return
 
 	cmp qword [rdi], 0
 	je .continue
