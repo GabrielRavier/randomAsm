@@ -19,7 +19,6 @@ __argp_usage:
 
 	align 16
 __option_is_short:
-	sub rsp, 8
 	xor eax, eax
 	test byte [rdi + 24], 0
 	jne .retEdx
@@ -30,8 +29,7 @@ __option_is_short:
 	jbe .continue
 
 .return:
-	add rsp, 8
-	ret
+	rep ret
 
 	align 16
 .continue:
