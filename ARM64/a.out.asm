@@ -26,8 +26,8 @@ N_SET_INFO:
 	uxth w1
 	ubfiz w2, 16, 0
 	orr w1, w2, w1
-	orr w3, w1, w3, lsl 24
-	sxtw x1, w3
+	orr w1, w3, lsl 24
+	sxtw x1, w1
 	str x1, [x0]
 	ret
 
