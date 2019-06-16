@@ -38,19 +38,16 @@ N_FLAGS:
 
 	align 16
 N_SET_INFO:
-	push ebp
-	mov ebp, esp
-
-	movzx eax, byte [ebp + 16]
-	movzx edx, byte [ebp + 12]
+	movzx eax, byte [esp + 12]
+	movzx edx, word [esp + 8]
 	sal eax, 16
 	or eax, edx
-	movzx edx, byte [ebp + 20]
+
+	movzx edx, byte [esp + 16]
 	sal edx, 24
 	or eax, edx
-	mov edx, [ebp + 8]
+	mov edx, [esp + 4]
 	mov [edx], eax
-	pop ebp
 	ret
 
 
@@ -59,10 +56,7 @@ N_SET_INFO:
 
 	align 16
 N_BADMAG:
-	push ebp
-	mov ebp, esp
-
-	mov eax, [ebp + 8]
+	mov eax, [esp + 4]
 	movzx eax, word [eax]
 	lea edx, [eax - 263]
 	cmp edx, 1
@@ -73,10 +67,8 @@ N_BADMAG:
 
 	cmp eax, 204
 	setne al
-	pop ebp
 	ret
 
 .ret0:
 	xor eax, eax
-	pop ebp
 	ret
