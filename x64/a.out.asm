@@ -35,14 +35,12 @@ N_FLAGS:
 
 	align 16
 N_SET_INFO:
-	movzx edx, dl
-	movzx esi, si
-	sal ecx, 24
-	sal edx, 16
+	shl edx, 16
 	or edx, esi
-	or edx, ecx
-	movsx rdx, edx
-	mov [rdi], rdx
+	shl ecx, 24
+	or ecx, edx
+	movsxd rax, ecx
+	mov [rdi], rax
 	ret
 
 
