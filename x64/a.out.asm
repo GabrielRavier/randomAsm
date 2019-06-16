@@ -39,10 +39,10 @@ N_SET_INFO:
 	movzx esi, si
 	sal ecx, 24
 	sal edx, 16
-	or edx, esi
-	or edx, ecx
-	movsx rdx, edx
-	mov [rdi], rdx
+	or esi, edx
+	or esi, ecx
+	movsx rsi, esi
+	mov [rdi], rsi
 	ret
 
 
