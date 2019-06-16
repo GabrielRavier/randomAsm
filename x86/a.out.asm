@@ -58,9 +58,11 @@ N_SET_INFO:
 N_BADMAG:
 	mov eax, [esp + 4]
 	movzx edx, word [eax]
-	setne cl
 
 	cmp edx, 267
+	setne cl
+
+	cmp edx, 204
 	setne al
 
 	sub edx, 263
