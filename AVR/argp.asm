@@ -32,12 +32,8 @@ __option_is_short:
 	brlo .continue
 
 .ret0:
-	ldi r18, lo8(0)
-	ldi r19, hi8(0)
-
-.return:
-	mov r24, r18
-	mov r25, r19
+	ldi r24, lo8(0)
+	ldi r25, hi8(0)
 	ret
 
 .continue:
@@ -46,7 +42,14 @@ __option_is_short:
 	ldi r19, hi8(1)
 	sbiw r24, 0
 	brne .return
-	rjmp .ret0
+
+	ldi r18, lo8(0)
+	ldi r19, lo8(0)
+
+.return:
+	mov r24, r18
+	mov r25, r19
+	ret
 
 
 
