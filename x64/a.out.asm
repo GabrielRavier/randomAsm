@@ -40,9 +40,9 @@ N_SET_INFO:
 	sal ecx, 24
 	sal edx, 16
 	or edx, esi
-	or ecx, edx
-	movsx rcx, ecx
-	mov [rdi], rcx
+	or edx, ecx
+	movsx edx, edx
+	mov [rdi], rdx
 	ret
 
 
@@ -63,4 +63,4 @@ N_BADMAG:
 	and eax, 1
 
 .return:
-	rep ret
+	ret
