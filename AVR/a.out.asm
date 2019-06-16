@@ -30,29 +30,18 @@ N_FLAGS:
 
 
 N_SET_INFO:
-	mov r31, r20
-	clr r31
-	ldi r30, lo8(0)
-	or r22, r30
-	or r23, r31
+	mov r20, r22
+	mov r21, r23
 
-	mov r21, r18
-	clr r21
-	ldi r20, lo8(0)
-	or r22, r20
-	or r23, r21
-
-	mov r18, r22
-	mov r19, r23
-	ldi r20, lo8(0)
-	ldi r21, lo8(0)
+	ldi r22, lo8(0)
+	ldi r23, hi8(0)
 
 	mov r30, r24
 	mov r31, r25
-	st Z, r18
-	std Z+1, r19
-	std Z+2, r20
-	std Z+3, r21
+	st Z, r20
+	std Z+1, r21
+	std Z+2, r22
+	std Z+3, r23
 	ret
 
 
@@ -63,13 +52,13 @@ N_BADMAG:
 	mov r30, r24
 	mov r31, r25
 
-	ld r28, Z
-	ldd r19, Z+1
-	ldd r20, Z+2
-	ldd r21, Z+3
+	ld r20, Z
+	ldd r21, Z+1
+	ldd r22, Z+2
+	ldd r23, Z+3
 
-	andi r20, hlo8(0xFFFF)
-	andi r21, hhi8(0xFFFF)
+	andi r22, hlo8(0xFFFF)
+	andi r23, hhi8(0xFFFF)
 
 	mov r27, r21
 	mov r26, r20
@@ -87,20 +76,20 @@ N_BADMAG:
 	cpc r27, __zero_reg__
 	brlo .ret0
 
-	cpi r18, lo8(0x10B)
+	cpi r20, lo8(0x10B)
 	ldi r31, hi8(0x10B)
-	cpc r19, r31
-	ldi r31, hlo8(0x10B)
-	cpc r20, r31
-	ldi r31, hhi8(0x10B)
 	cpc r21, r31
+	ldi r31, hlo8(0x10B)
+	cpc r22, r31
+	ldi r31, hhi8(0x10B)
+	cpc r23, r31
 	breq .ret0
 
 	ldi r24, lo8(1)
-	cpi r18, lo8(0xCC)
-	cpc r19, __zero_reg__
-	cpc r20, __zero_reg__
+	cpi r20, lo8(0xCC)
 	cpc r21, __zero_reg__
+	cpc r22, __zero_reg__
+	cpc r23, __zero_reg__
 	breq .ret0
 
 	ret
