@@ -52,13 +52,15 @@ N_SET_INFO:
 	align 16
 N_BADMAG:
 	movzx rcx, word [rdi]
-	mov rax, 0x9800000000000001
-	mov edx, 1
+	mov eax, 1
 	sub rcx, 204
-	shr rax, cl
 	cmp rcx, 63
-	not rax
-	cmova rax, rdx
+	ja .return
 
+	mov rax, 0x9800000000000001
+	shr rax, cl
+	not rax
 	and eax, 1
-	ret
+
+.return:
+	rep ret
