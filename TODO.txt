@@ -1,4 +1,10 @@
 - Finish avx2intrin.h... one day...
+- Do all of /usr/include
+- Eventually do all of avx2-avx intrin files
 - Finish gcc target dependencies (online and /usr/lib/gcc/x86_64-redhat-linux/9/include/)
 - Finish clang target dependencies (online and /usr/lib64/clang/8.0.0/include/)
-- Do all of /usr/include
+- Do libgcc
+- Do compiler-rt
+- Do LLVM
+
+ARM arches : armv2 armv2a armv3 armv3m armv4 armv4t armv5 armv5t armv5e armv5te armv5tej armv6 armv6j armv6k armv6z armv6kz armv6zk armv6t2 armv6-m armv6s-m armv7 armv7-a armv7ve armv7-r armv7-m armv7e-m armv8-a armv8.1-a armv8.2-a armv8.3-a armv8.4-a armv8-m.base armv8-m.main armv8-r iwmmxt iwmmxt2
