@@ -9,6 +9,15 @@
 - Do uint128_t
 - Do uint256_t
 - Instruction set reproduction (x86, others)
-- Add 6502
+- Do gcc builtins (manual)
+- Do clang builtins (manual)
+- Do icc builtins (manual)
+- Do other compiler builtins
 
-ARM arches : armv2 armv2a armv3 armv3m armv4 armv4t armv5 armv5t armv5e armv5te armv5tej armv6 armv6j armv6k armv6z armv6kz armv6zk armv6t2 armv6-m armv6s-m armv7 armv7-a armv7ve armv7-r armv7-m armv7e-m armv8-a armv8.1-a armv8.2-a armv8.3-a armv8.4-a armv8-m.base armv8-m.main armv8-r iwmmxt iwmmxt2
+x86 arches (-march=) : i[36]86 pentium2 pentium3m pentium4m nocona core2 westmere sandybridge ivybridge haswell broadwell skylake skylake-avx512 cannonlake icelake-client icelake-server
+ARM arches (-march=) : armv2 armv2a armv3 armv3m armv4 armv4t armv5 armv5t armv5e armv5te armv5tej armv6 armv6j armv6k armv6z armv6kz armv6zk armv6t2 armv7 armv7ve armv8-a armv8.[1-4]-a
+ARM64 arches (-march=) : armv8-a armv8.[1-4]-a
+AVR arches (-mmcu=) : avr[1-5]
+MIPS arches (-march=) : mips[1-4] (3-4 for 64-bit)
+MSP 430 arches (-mmcu=) : msp430 msp430x msp430xv2
+PowerPC arches (-mcpu=) : power[3-5] power5+ power6 power6x power[7-8]
