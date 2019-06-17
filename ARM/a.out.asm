@@ -49,4 +49,4 @@ N_BADMAG:
 	bx lr
 
 .dat:
-	dw 0x10B
+	.word 0x10B

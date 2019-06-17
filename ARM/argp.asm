@@ -10,11 +10,11 @@ __argp_usage:
 	b __argp_state_help
 
 .pStderr:
-	dw stderr
+	.word stderr
 
 #if ARMv5
 .u262:
-	dw 262
+	.word 262
 #endif
 
 
