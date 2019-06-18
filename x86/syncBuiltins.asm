@@ -75,13 +75,3 @@ sync_lock_test_and_set_32:
 	mov eax, [esp + 8]
 	xchg eax, [edx]
 	ret
-
-
-
-
-
-	align 16
-sync_lock_release_32:
-	mov eax, [esp + 4]
-	mov dword [eax], 0
-	ret
