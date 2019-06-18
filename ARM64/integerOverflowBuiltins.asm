@@ -7,3 +7,18 @@ sadd_overflow:
 
 	lsr w0, 31
 	ret
+
+
+
+
+
+saddl_overflow:
+saddll_overflow:
+	add x3, x0, x1
+	eon x0, x1
+	eor x1, x3, x1
+	str x3, [x2]
+	and x0, x1, x0
+
+	lsr x0, 63
+	ret
