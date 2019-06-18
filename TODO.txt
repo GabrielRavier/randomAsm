@@ -5,7 +5,7 @@
 - Finish clang target dependencies (online and /usr/lib64/clang/8.0.0/include/)
 - Do libgcc
 - Do compiler-rt
-- Do LLVM
+- Do LLVM if I can figure out how to make metadata fuck off
 - Do uint128_t
 - Do uint256_t
 - Instruction set reproduction (x86, others)
