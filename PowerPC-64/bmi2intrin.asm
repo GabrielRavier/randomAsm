@@ -3,6 +3,7 @@ _mulx_u64:
 	mulld 3, 4
 	std 9, 0(5)
 	blr
+
 	.long 0
 	.quad 0
 
@@ -16,5 +17,6 @@ _mulx_u32:
 	rldicl 3, 0, 32
 	stw 9, 0(5)
 	blr
+
 	.long 0
 	.quad 0

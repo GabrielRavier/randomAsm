@@ -1,6 +1,7 @@
 currentAddress:
 	mflr 3
 	blr
+
 	.long 0
 	.quad 0
 
@@ -20,5 +21,6 @@ returnAddress:
 	ld 9, 0(9)
 	ld 3, 16(9)
 	blr
+
 	.long 0
 	.quad 0

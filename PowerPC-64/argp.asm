@@ -20,6 +20,7 @@ __argp_usage:
 	ld 0, 16(1)
 	mtlr 0
 	blr
+
 	.long 0
 	.byte 0, 9, 0, 1, 128, 0, 0, 0
 
@@ -91,5 +92,6 @@ __option_is_end:
 .ret0:
 	li 3, 0
 	blr
+
 	.long 0
 	.quad 0

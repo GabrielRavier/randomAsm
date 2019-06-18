@@ -1,4 +1,4 @@
-- Finish avx2intrin.h... one day...
+- Finish avx2intrin.h
 - Do all of /usr/include
 - Eventually do all of avx2-avx intrin files
 - Finish gcc target dependencies (online and /usr/lib/gcc/x86_64-redhat-linux/9/include/)
@@ -13,6 +13,11 @@
 - Do clang builtins (manual)
 - Do icc builtins (manual)
 - Do other compiler builtins
+- Libfuse maybe ? do a kernel sometime
+- Do sync builtins for larger sizes
+- Do sync builtins for smaller sizes
+- Do sync builtins for all sizes
+- Do other sync builtins
 
 x86 arches (-march=) : i[36]86 pentium2 pentium3m pentium4m nocona core2 westmere sandybridge ivybridge haswell broadwell skylake skylake-avx512 cannonlake icelake-client icelake-server
 ARM arches (-march=) : armv2 armv2a armv3 armv3m armv4 armv4t armv5 armv5t armv5e armv5te armv5tej armv6 armv6j armv6k armv6z armv6kz armv6zk armv6t2 armv7 armv7ve armv8-a armv8.[1-4]-a
