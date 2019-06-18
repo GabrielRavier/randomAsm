@@ -13,7 +13,7 @@
 - Do clang builtins (manual)
 - Do icc builtins (manual)
 - Do other compiler builtins
-- Libfuse maybe ? do a kernel sometime
+- Libfuse maybe ? Do kernel stuff sometime
 - Do sync builtins for larger sizes
 - Do sync builtins for smaller sizes
 - Do sync builtins for all sizes
