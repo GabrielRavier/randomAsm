@@ -88,7 +88,20 @@ _mulx_u32:
 	mov.w r12, r8
 	mov.w r13, r9
 
-	push.w sr { dint { nop { mov.w r8, &0x140 { mov.w r9, &0x142 { mov.w r14, &0x150 { mov.w r15, &0x152 { mov.w &0x154, r8 { mov.w &0x156, r9 { mov.w 0x158, r10 { mov.w &0x15A, r11 { pop.w sr
+	push.w sr
+	dint
+	nop
+
+	mov.w r8, &0x140
+	mov.w r9, &0x142
+	mov.w r14, &0x150
+	mov.w r15, &0x152
+
+	mov.w &0x154, r8
+	mov.w &0x156, r9
+	mov.w 0x158, r10
+	mov.w &0x15A, r11
+	pop.w sr
 
 	mov.w r8, -8(r4)
 	mov.w r9, -6(r4)

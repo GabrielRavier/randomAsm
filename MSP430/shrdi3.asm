@@ -7,7 +7,8 @@ __lshrdi3:
 	mov.w 16(r4), r8
 	mov.w 18(r4), r12
 
-	bit.w #32, r8 { jeq .bInBitsInWord
+	bit.w #32, r8
+	jeq .bInBitsInWord
 
 	mov.b #0, r9
 	mov.w r9, r5
@@ -15,7 +16,9 @@ __lshrdi3:
 	add.w #-32, r8
 	mov.w r14, r12
 	mov.w r15, r13
-	mov.w r8, r14 { mov.w #0, r15
+
+	mov.w r8, r14
+	mov.w #0, r15
 	call #__mspabi_srll
 
 .retAll:
@@ -28,11 +31,15 @@ __lshrdi3:
 
 .bInBitsInWord:
 	bis.w r8, r12
-	cmp.w #0, r12 { jeq .retA
+	cmp.w #0, r12
+	jeq .retA
 
 	mov.w r14, r11
 	mov.w r15, r6
-	mov.w r8, r12 { mov.w #0, r13
+
+	mov.w r8, r12
+	mov.w #0, r13
+
 	mov.w r12, -4(r4)
 	mov.w r13, -2(r4)
 	mov.w r14, r12
@@ -43,7 +50,10 @@ __lshrdi3:
 
 	mov.w r12, r9
 	mov.w r13, r5
-	mov.w #32, r14 { sub.w r8, r14
+
+	mov.w #32, r14
+	sub.w r8, r14
+
 	mov.w -6(r4), r11
 	mov.w r11, r12
 	mov.w r6, r13
