@@ -22,3 +22,24 @@ saddll_overflow:
 
 	slti a0, 0
 	ret
+
+
+
+
+
+uadd_overflow:
+	slli a0, 32
+	slli a1, 32
+	srli a0, 32
+	srli a1, 32
+
+	add a1, a0, a1
+
+	slli a0, a1, 32
+	srli a0, 32
+
+	sub a0, a1, a0
+	sw a1, 0(a2)
+
+	snez a0
+	ret

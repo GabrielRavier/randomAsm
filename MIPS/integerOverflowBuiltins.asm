@@ -70,3 +70,22 @@ saddll_overflow:
 
 	b .return
 	li $2, 1
+
+
+
+
+
+uadd_overflow:
+	addu $5, $4, $5
+	sltu $4, $5, $4
+	bne $4, $0, .ret1
+
+	move $2, $0
+
+.return:
+	j $31
+	sw $5, 0($6)
+
+.ret1:
+	b .return
+	li $2, 1

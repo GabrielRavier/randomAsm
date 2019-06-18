@@ -35,3 +35,20 @@ saddll_overflow:
 .ret1:
 	b .return
 	li $2, 1
+
+
+
+
+
+uadd_overflow:
+	dext $5, 0, 32
+	dext $4, 0, 32
+	daddu $4, $5
+	sll $3, $4, 0
+
+	dext $2, $3, 0, 32
+	xor $2, $4, $2
+	sw $3, 0($6)
+
+	j $31
+	sltu $2, $0, $2

@@ -63,3 +63,13 @@ saddll_overflow:
 	slt a0, a6, a1
 	bnez a3, .afterNotZ2
 	j .return
+
+
+
+
+
+uadd_overflow:
+	add a1, a0
+	sw a1, 0(a2)
+	sltu a0, a1, a0
+	ret

@@ -30,3 +30,19 @@ saddll_overflow:
 
 	.long 0
 	.byte 0, 9, 0, 0, 0, 0, 0, 0
+
+
+
+
+
+uadd_overflow:
+	add 4, 3
+	rldicl 9, 4, 0, 32
+	stw 4, 0(5)
+	subf 3, 9
+
+	srdi 3, 63
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 0, 0, 0, 0, 0

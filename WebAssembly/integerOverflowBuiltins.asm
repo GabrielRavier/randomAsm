@@ -59,3 +59,21 @@ saddll_overflow:
 	i32.ne
 	i32.and
 	end_function
+
+
+
+
+
+uadd_overflow:
+	local.get 2
+	local.get 0
+	local.get 1
+	i32.add
+
+	local.tee 1
+	i32.store 0
+
+	local.get 1
+	local.get 0
+	i32.lt_u
+	end_function

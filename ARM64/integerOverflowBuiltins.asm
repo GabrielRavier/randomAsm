@@ -22,3 +22,15 @@ saddll_overflow:
 
 	lsr x0, 63
 	ret
+
+
+
+
+
+uadd_overflow:
+	add w1, w0, w1
+	str w1, [x2]
+
+	cmp w1, w0
+	cset w0, cc
+	ret

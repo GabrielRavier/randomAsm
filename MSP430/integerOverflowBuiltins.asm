@@ -211,3 +211,27 @@ saddll_overflow:
 	jhs .return
 
 	br #.ret1
+
+
+
+
+
+uadd_overflow:
+	pushm.w #1, r4
+	mov.w r1, r4
+
+	mov.b #0, r15
+	add.w r12, r13
+
+	cmp.w r12, r13
+	jlo .ret1
+
+.return:
+	mov.w r13, @r14
+	mov.b r15, r12
+	popm.w #1, r4
+	ret
+
+.ret1:
+	mov.b #1, r15
+	br #.return
