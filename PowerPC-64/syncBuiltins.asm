@@ -84,3 +84,32 @@ sync_val_compare_and_swap_64:
 
 	.long 0
 	.byte 0, 9, 0, 0, 0, 0, 0, 0
+
+
+
+
+
+sync_synchronize:
+	sync
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 0, 0, 0, 0, 0
+
+
+
+
+
+sync_lock_test_and_set_64:
+	mr 9, 3
+
+.loop:
+	ldarx 3, 0, 9
+	stdcx. 4, 0, 9
+	bne 0, .loop
+
+	isync
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 0, 0, 0, 0, 0

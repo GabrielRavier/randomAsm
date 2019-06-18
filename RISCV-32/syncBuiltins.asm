@@ -43,3 +43,19 @@ sync_val_compare_and_swap_32:
 .end:
 	mv a0, a3
 	ret
+
+
+
+
+
+sync_synchronize:
+	fence rw, rw
+	ret
+
+
+
+
+
+sync_lock_test_and_set_32:
+	amoswap.w.aqrl a0, a1, (a0)
+	ret

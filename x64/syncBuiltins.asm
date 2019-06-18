@@ -47,3 +47,22 @@ sync_val_compare_and_swap_64:
 	mov rax, rsi
 	lock cmpxchg [rdi], rdx
 	ret
+
+
+
+
+
+	align 16
+sync_synchronize:
+	mfence
+	ret
+
+
+
+
+
+	align 16
+sync_lock_test_and_set_64:
+	mov eax, esi
+	xchg eax, [rdi]
+	ret

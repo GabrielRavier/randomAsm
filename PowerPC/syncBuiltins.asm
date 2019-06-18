@@ -71,3 +71,26 @@ sync_val_compare_and_swap_32:
 
 	mr 3, 9
 	blr
+
+
+
+
+
+sync_synchronize:
+	sync
+	blr
+
+
+
+
+
+sync_lock_test_and_set_32:
+.loop:
+	lwarx 9, 0, 3
+	stwcx. 4, 0, 3
+	bne- 0, .loop
+
+	isync
+
+	mr 3, 9
+	blr

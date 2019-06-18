@@ -56,3 +56,22 @@ sync_val_compare_and_swap_64:
 
 .end:
 	ret
+
+
+
+
+
+sync_synchronize:
+	fence iorw, iorw
+	ret
+
+
+
+
+
+sync_lock_test_and_set_64:
+	mv a5, a1
+	amoswap.d.aq a5, 0(a0)
+
+	mv a0, a5
+	ret

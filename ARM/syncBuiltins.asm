@@ -70,3 +70,28 @@ sync_val_compare_and_swap_32:
 
 	mov r0, r3
 	bx lr
+
+
+
+
+
+sync_synchronize:
+	dmb ish
+	bx lr
+
+
+
+
+
+sync_lock_test_and_set_32:
+.loop:
+	ldrex r3, [r0]
+	strex r2, r1, [r0]
+
+	cmp r2, #0
+	bne .loop
+
+	dmb ish
+
+	mov r0, r3
+	bx lr

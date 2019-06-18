@@ -84,3 +84,30 @@ sync_val_compare_and_swap_64:
 
 	mov x0, x3
 	ret
+
+
+
+
+
+sync_synchronize:
+	dmb ish
+	ret
+
+
+
+
+
+sync_lock_test_and_set_64:
+#if ARMv81
+	swpa x1, x2, [x0]
+#else
+.loop:
+	ldxr x2, [x0]
+	stxr w3, x1, [x0]
+	cbnz w3, .loop
+
+	dmb ish
+#endif
+
+	mov x0, x2
+	ret

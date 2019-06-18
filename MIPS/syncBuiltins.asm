@@ -76,3 +76,29 @@ sync_val_compare_and_swap_32:
 .end:
 	j $31
 	nop
+
+
+
+
+
+sync_synchronize:
+	sync
+	j $31
+	nop
+
+
+
+
+
+sync_lock_test_and_set_32:
+.loop:
+	ll $2, 0($4)
+	move $1, $5
+	sc 1, 0($4)
+
+	beq $1, $0, .loop
+	nop
+	sync
+
+	j $31
+	nop
