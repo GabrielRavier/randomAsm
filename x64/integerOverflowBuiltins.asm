@@ -3,6 +3,7 @@ global saddl_overflow
 global saddll_overflow
 
 global uadd_overflow
+global uaddl_overflow
 
 section .text align=16
 
@@ -35,6 +36,18 @@ saddll_overflow:
 uadd_overflow:
 	add edi, esi
 	mov [rdx], edi
+	setc al
+
+	ret
+
+
+
+
+
+	align 16
+uaddl_overflow:
+	add rdi, rsi
+	mov [rdx], rdi
 	setc al
 
 	ret

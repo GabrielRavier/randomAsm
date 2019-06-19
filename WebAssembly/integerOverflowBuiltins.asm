@@ -65,6 +65,7 @@ saddll_overflow:
 
 
 uadd_overflow:
+uaddl_overflow:
 	local.get 2
 	local.get 0
 	local.get 1
@@ -76,4 +77,22 @@ uadd_overflow:
 	local.get 1
 	local.get 0
 	i32.lt_u
+	end_function
+
+
+
+
+
+uaddll_overflow:
+	local.get 2
+	local.get 0
+	local.get 1
+	i64.add
+
+	local.tee 1
+	i64.store 0
+
+	local.get 1
+	local.get 0
+	i64.lt_u
 	end_function

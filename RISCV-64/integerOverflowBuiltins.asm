@@ -43,3 +43,15 @@ uadd_overflow:
 
 	snez a0
 	ret
+
+
+
+
+
+uaddl_overflow:
+uaddll_overflow:
+	add a1, a0, a1
+	sd a1, 0(a2)
+
+	sltu a0, a1, a0
+	ret

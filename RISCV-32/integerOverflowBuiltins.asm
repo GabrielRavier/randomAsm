@@ -69,7 +69,26 @@ saddll_overflow:
 
 
 uadd_overflow:
+uaddl_overflow:
 	add a1, a0
 	sw a1, 0(a2)
 	sltu a0, a1, a0
+	ret
+
+
+
+
+
+uaddll_overflow:
+	add a3, a1
+	add a2, a0
+	sltu a0, a2, a0
+	add a3, a0
+	beq a3, a1, .return
+
+	sltu a0, a3, a1
+
+.return:
+	sw a2, 0(a4)
+	sw a3, 4(a4)
 	ret

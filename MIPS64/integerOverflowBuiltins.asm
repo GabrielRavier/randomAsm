@@ -52,3 +52,15 @@ uadd_overflow:
 
 	j $31
 	sltu $2, $0, $2
+
+
+
+
+
+uaddl_overflow:
+uaddll_overflow:
+	daddu $2, $4, $5
+	sd $2, 0($6)
+
+	j $31
+	sltu $2, $4

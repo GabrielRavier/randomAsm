@@ -34,3 +34,16 @@ uadd_overflow:
 	cmp w1, w0
 	cset w0, cc
 	ret
+
+
+
+
+
+uaddl_overflow:
+uaddll_overflow:
+	add x1, x0, x1
+	str x1, [x2]
+
+	cmp x1, x0
+	cset w0, cc
+	ret

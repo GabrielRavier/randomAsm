@@ -76,6 +76,7 @@ saddll_overflow:
 
 
 uadd_overflow:
+uaddl_overflow:
 	addu $5, $4, $5
 	sltu $4, $5, $4
 	bne $4, $0, .ret1
@@ -85,6 +86,38 @@ uadd_overflow:
 .return:
 	j $31
 	sw $5, 0($6)
+
+.ret1:
+	b .return
+	li $2, 1
+
+
+
+
+
+uaddll_overflow:
+	addu $6, $4, $6
+	sltu $2, $6, $4
+	addu $7, $5, $7
+	addu $7, $2, $7
+	sltu $8, $7, $5
+
+	lw $3, 16($sp)
+	bne $8, $0, .ret1
+
+	move $2, $0
+	beq $5, $7, .eq
+	nop
+
+.return:
+	sw $6, 0($3)
+	j $31
+	sw $7, 4($3)
+
+.eq:
+	sltu $4, $6, $4
+	beq $4, $0, .return
+	nop
 
 .ret1:
 	b .return

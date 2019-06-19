@@ -46,3 +46,20 @@ uadd_overflow:
 
 	.long 0
 	.byte 0, 9, 0, 0, 0, 0, 0, 0
+
+
+
+
+
+uaddl_overflow:
+uaddll_overflow:
+	add 4, 3, 4
+	subfc 3, 4
+	std 4, 0(5)
+	subfe 3
+
+	rldicl 3, 0, 63
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 0, 0, 0, 0, 0
