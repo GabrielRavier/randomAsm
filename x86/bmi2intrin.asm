@@ -1,5 +1,8 @@
 global _mulx_u64
 global _mulx_u32
+extern uint128_t_operator_multiply
+extern uint128_t_operator_shiftRight
+extern uint128_t_operator_cast_uint64_t
 
 section .text align=16
 
