@@ -1,50 +1,50 @@
 __fp_cmp:
-	lsl ra3
+	lsl r25
 	sbc r0
-	lsl rb3
-	sbc rbe
+	lsl r21
+	sbc r26
 
-	ldi zl, 0x80
-	ldi zh, 0xFE
+	ldi r30, 0x80
+	ldi r31, 0xFE
 
-	cp r1, ra0
-	cpc r1, ra1
-	cpc zl, ra2
-	cpc zh, ra3
+	cp r1, r22
+	cpc r1, r23
+	cpc r30, r24
+	cpc r31, r25
 	brlo .return
 
-	cp r1, rb0
-	cpc r1, rb1
-	cpc zl, rb2
-	cpc zh, rb3
+	cp r1, r18
+	cpc r1, r19
+	cpc r30, r20
+	cpc r31, r21
 	brlo .return
 
-	sub ra0, rb0
-	sbc ra1, rb1
-	sbc ra2, rb2
-	sbc ra3, rb3
+	sub r22, r18
+	sbc r23, r19
+	sbc r24, r20
+	sbc r25, r21
 	brne .checkSigns
 
-	eor r0, rbe
+	eor r0, r26
 	breq .return
 
-	or rb0, rb1
-	or rb0, rb2
-	or rb0, rb3
+	or r18, r19
+	or r18, r20
+	or r18, r21
 	brne .buildRetVal
 	ret
 
 .checkSigns:
-	eor r0, rbe
+	eor r0, r26
 	brne .buildRetVal
 
-	sbci rbe, 1
+	sbci r26, 1
 
 .buildRetVal:
-	lsr rbe
-	ldi ra2, -1
-	adc ra2, r1
-	adc ra2, r1
+	lsr r26
+	ldi r24, -1
+	adc r24, r1
+	adc r24, r1
 
 .return:
 	ret

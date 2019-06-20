@@ -71,3 +71,60 @@ __ffsdi2:
 	ldi r24, 0
 	ldi r25, 0
 	rjmp .return
+
+
+
+
+
+__ffssi2:
+	clr r26
+	tst r22
+	brne .toLoop
+
+	subi r26, -8
+	or r22, r23
+	brne .toLoop
+
+	subi r26, -8
+	or r22, r24
+	brne .toLoop
+
+	subi r26, -8
+	or r22, r25
+	brne .toLoop
+	ret
+
+.toLoop:
+	mov r24, r22
+	jmp __loop_ffsqi2
+
+
+
+
+
+__ffshi2:
+	clr r26
+	cpse r24, __zero_reg__
+
+.doJmp:
+	jmp __loop_ffsqi2
+
+	ldi r26, 8
+	or r24, r25
+	brne .doJmp
+
+	ret
+
+
+
+
+
+__loop_ffsqi2:
+.loop:
+	inc r26
+	lsr r24
+	brcc .loop
+
+	mov r24, r26
+	clr r25
+	ret
