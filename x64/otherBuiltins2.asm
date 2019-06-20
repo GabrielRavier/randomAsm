@@ -43,11 +43,16 @@ global logbl
 global lrintf
 global lrintl
 global lrint
+global lroundf
+global lroundl
+global lround
 global nearbyintl
 global remainderf
 global remainderl
 global remainder
 global rintf
+global rintl
+global rint
 global roundf
 global roundl
 global round
@@ -159,6 +164,7 @@ asinhl:
 .return:
 	ret
 
+	align 16
 .continue:
 	fxch st1
 
@@ -634,6 +640,7 @@ lrint:
 
 	align 16
 llroundf:
+lroundf:
 	movss xmm2, [dat3]
 	movss xmm1, [dat7]
 	andps xmm2, xmm0
@@ -648,6 +655,7 @@ llroundf:
 
 	align 16
 llroundl:
+lroundl:
 	fnstcw word [rsp - 10]
 	fld tword [rsp + 8]
 
@@ -683,6 +691,7 @@ llroundl:
 
 	align 16
 llround:
+lround:
 	movsd xmm2, [dat4]
 	movsd xmm1, [dat8]
 	andpd xmm2, xmm0
@@ -834,6 +843,39 @@ rintf:
 	movaps xmm0, xmm2
 	subss xmm1, xmm3
 	orps xmm0, xmm1
+
+.return:
+	ret
+
+
+
+
+
+	align 16
+rintl:
+	fld tword [rsp + 8]
+	frndint
+	ret
+
+
+
+
+
+	align 16
+rint:
+	movsd xmm2, [dat6]
+	movsd xmm3, [dat10]
+	movapd xmm1, xmm0
+	andpd xmm1, xmm2
+
+	comisd xmm3, xmm1
+	jbe .return
+
+	addsd xmm1, xmm3
+	andnpd xmm2, xmm0
+	movapd xmm0, xmm2
+	subsd xmm1, xmm3
+	orpd xmm0, xmm1
 
 .return:
 	ret
