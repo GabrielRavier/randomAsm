@@ -119,3 +119,47 @@ __aeabi_fcmplt:
 	movcc r0, #1
 	movcs r0, #0
 	ldr pc, [sp], #8
+
+
+
+
+
+__aeabi_dcmpge:
+	str lr, [sp, #-8]!
+	bl __aeabi_cdrcmple
+	movls r0, #1
+	movhi r0, #0
+	ldr pc, [sp], #8
+
+
+
+
+
+__aeabi_fcmpge:
+	str lr, [sp, #-8]!
+	bl __aeabi_cfrcmple
+	movls r0, #1
+	movhi r0, #0
+	ldr pc, [sp], #8
+
+
+
+
+
+__aeabi_dcmple:
+	str lr, [sp, #-8]!
+	bl __aeabi_cdcmple
+	movls r0, #1
+	movhi r0, #0
+	ldr pc, [sp], #8
+
+
+
+
+
+__aeabi_fcmple:
+	str lr, [sp, #-8]!
+	bl __aeabi_cfcmple
+	movls r0, #1
+	movhi r0, #0
+	ldr pc, [sp], #8

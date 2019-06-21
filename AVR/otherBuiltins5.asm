@@ -1,0 +1,2 @@
+trap:
+	call abort

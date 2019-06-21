@@ -10,3 +10,17 @@ __lesf2:
 
 .return:
 	ret
+
+
+
+
+
+__gesf2:
+__gtsf2:
+	call __fp_cmp
+	brcc .return
+
+	ldi r24, -1
+
+.return:
+	ret
