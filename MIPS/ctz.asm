@@ -89,3 +89,30 @@ __ctzsi2:
 
 	j $31
 	addu $2, $3, $2
+
+
+
+
+
+__ctzdi2:
+	addiu $sp, -0x20
+	sw $16, 24($sp)
+
+	sltu $16, $4, 1
+	subu $16, $0, $16
+
+	nor $2, $0, $16
+	and $5, $16, $5
+	and $4, $2, $4
+
+	sw $31, 28($sp)
+	jal __ctzsi2
+	or $4, $5, $4
+
+	lw $31, 28($sp)
+	andi $16, 0x20
+	addu $2, $16, $2
+
+	lw $16, 24($sp)
+	j $31
+	addiu $sp, 0x20

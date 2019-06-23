@@ -78,3 +78,78 @@ __lshrdi3:
 	add.w #6, r1
 	popm.w #7, r10
 	ret
+
+
+
+
+
+1:
+	add.w #-1, r14
+	clrc
+
+	rrc.w r13
+	rrc.w r12
+
+__mspabi_srll:
+	cmp #0, r14
+	jnz 1b
+	ret
+
+
+
+
+
+__mspabi_srll_8:
+	clrc
+	rrc.w r13
+	rrc.w r12
+
+__mspabi_srll_7:
+	clrc
+	rrc.w r13
+	rrc.w r12
+
+__mspabi_srll_6:
+	clrc
+	rrc.w r13
+	rrc.w r12
+
+__mspabi_srll_5:
+	clrc
+	rrc.w r13
+	rrc.w r12
+
+__mspabi_srll_4:
+	clrc
+	rrc.w r13
+	rrc.w r12
+
+__mspabi_srll_3:
+	clrc
+	rrc.w r13
+	rrc.w r12
+
+__mspabi_srll_2:
+	clrc
+	rrc.w r13
+	rrc.w r12
+
+__mspabi_srll_1:
+	clrc
+	rrc.w r13
+	rrc.w r12
+	ret
+
+
+
+
+
+1:
+	add.w #-1, r13
+	rra.w r12
+
+__mspabi_srai:
+	cmp #0, r13
+	jnz 1b
+
+	ret

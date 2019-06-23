@@ -40,8 +40,10 @@
 - Some libc stuff
 - Some libc++ stuff
 - Square function
-- Godbolt examples (C, C++)
-- C books
+- Godbolt examples (C, C++, etc.)
+- C books (The C programming language, etc.)
+- C++ books
+- Stuff from N3864
 
 x86 arches (-march=) : i[36]86 penntium2 pentium3m pentium4m nocona core2 westmere sandybridge ivybridge haswell broadwell skylake skylake-avx512 cannonlake icelake-client icelake-server
 ARM arches (-march=) : armv2 armv2a armv3 armv3m armv4 armv4t armv5 armv5t armv5e armv5te armv5tej armv6 armv6j armv6k armv6z armv6kz armv6zk armv6t2 armv7 armv7ve armv8-a armv8.[1-4]-a
