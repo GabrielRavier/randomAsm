@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	mulhdu 9, 3, 4
 	mulld 3, 4

@@ -1,3 +1,5 @@
+	.text
+
 cimagf:
 cimagl:
 cimag:

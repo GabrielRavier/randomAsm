@@ -1,3 +1,5 @@
+	.text
+
 currentAddress:
 	addi sp, -0x10
 	sd ra, 8(sp)

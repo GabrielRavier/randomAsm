@@ -1,3 +1,5 @@
+	.text
+
 N_MAGIC:
 	mov @r15, r15
 	ret

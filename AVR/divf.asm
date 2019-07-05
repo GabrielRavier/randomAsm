@@ -1,3 +1,5 @@
+	.text
+
 __divsf3:
 	call __divsf3x
 	call __fp_round

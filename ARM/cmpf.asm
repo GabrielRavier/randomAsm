@@ -1,3 +1,5 @@
+	.text
+
 __aeabi_cmpsf2:
 __aeabi_nesf2:
 __aeabi_eqsf2:

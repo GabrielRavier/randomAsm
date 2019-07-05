@@ -1,3 +1,5 @@
+	.text
+
 trap:
 	unreachable
 	unreachable

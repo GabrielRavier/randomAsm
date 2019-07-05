@@ -1,3 +1,5 @@
+	.text
+
 powi:
 __powidf2:
 	addi sp, -0x10

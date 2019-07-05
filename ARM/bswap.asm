@@ -1,3 +1,10 @@
+#include "common.inc"
+
+	.text
+	defFunc bswap16
+	defFunc bswap32
+	defFunc bswap64
+
 bswap16:
 	lsr r3, r0, #8
 	orr r0, r3, r0, lsl #8

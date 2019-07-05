@@ -1,3 +1,5 @@
+	.text
+
 clz:
 	j $31
 	clz $2, $4

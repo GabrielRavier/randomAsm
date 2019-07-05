@@ -1,3 +1,5 @@
+	.text
+
 clear_cache:
 	addi 4, 31
 	rldicr 3, 0, 58

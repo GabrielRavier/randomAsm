@@ -1,3 +1,5 @@
+	.text
+
 prefetchReadHighLocality:
 	j $31
 	pref 6, 0($4)

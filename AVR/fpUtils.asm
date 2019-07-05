@@ -1,3 +1,5 @@
+	.text
+
 __fp_cmp:
 	lsl r25
 	sbc r0

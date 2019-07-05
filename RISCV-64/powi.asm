@@ -1,3 +1,5 @@
+	.text
+
 powi:
 __powidf2:
 	lui a2, %hi(.one)

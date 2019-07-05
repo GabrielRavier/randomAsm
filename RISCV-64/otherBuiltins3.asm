@@ -1,3 +1,5 @@
+	.text
+
 fabsf:
 	fabs.s fa0
 	ret

@@ -1,3 +1,5 @@
+	.text
+
 __ffsdi2:
 	cmp r0, #0
 	bne .not0

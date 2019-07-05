@@ -1,3 +1,5 @@
+	.text
+
 __clzdi2:
 	srai a4, a0, 32
 	seqz a3, a4

@@ -1,3 +1,5 @@
+	.text
+
 __subdi3:
 	sub r18, r10
 	sbc r19, r11

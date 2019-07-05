@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	push r8
 	push r9

@@ -1,3 +1,5 @@
+	.text
+
 clz:
 	slli a0, 32
 	addi sp, -0x10

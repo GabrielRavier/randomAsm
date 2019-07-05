@@ -1,3 +1,5 @@
+	.text
+
 __argp_usage:
 	adrp x1, stderr
 	mov w2, 0x106

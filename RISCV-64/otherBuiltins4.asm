@@ -1,3 +1,5 @@
+	.text
+
 abs:
 	sraiw a5, a0, 0x1F
 	xor a0, a5

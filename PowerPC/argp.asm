@@ -1,3 +1,5 @@
+	.text
+
 __argp_usage:
 	lis 9, stderr@ha
 	li 5, 0x106

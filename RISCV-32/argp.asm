@@ -1,3 +1,5 @@
+	.text
+
 __argp_usage:
 	lui a1, %hi(stderr)
 	lw a1, %lo(stderr)(a1)

@@ -1,3 +1,9 @@
+#include "common.inc"
+
+	.text
+	defFunc _mulx_u64
+	defFunc _mulx_u32
+
 _mulx_u64:
 	push {r4, r5, r6, r8, r9, lr}
 

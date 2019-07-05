@@ -1,3 +1,5 @@
+	.text
+
 bzero:
 	local.get 0
 	i32.const 0

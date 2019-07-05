@@ -1,3 +1,5 @@
+	.text
+
 bswap16:
 	eor r25, r24
 	eor r24, r25

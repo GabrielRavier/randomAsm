@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 saddl_overflow:
 	add a3, a0, a1

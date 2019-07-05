@@ -1,3 +1,5 @@
+	.text
+
 __paritydi2:
 	srai a5, a0, 32
 	xor a0, a5, a0

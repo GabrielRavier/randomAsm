@@ -1,3 +1,5 @@
+	.text
+
 __ctzdi2:
 	clr r3, r0
 	lsr r3, #5

@@ -1,3 +1,5 @@
+	.text
+
 cabsf:
 	mul.s $f13
 	madd.s $f12, $f13, $f12, $f12

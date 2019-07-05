@@ -1,3 +1,5 @@
+	.text
+
 powi:
 __powidf2:
 	lui $6, %hi(%neg(%gp_rel(powi)))

@@ -1,3 +1,5 @@
+	.text
+
 .pStderr:
 	.quad stderr
 

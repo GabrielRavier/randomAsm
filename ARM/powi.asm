@@ -1,3 +1,5 @@
+	.text
+
 powi:
 powil:
 __powidf2:

@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	mulhu a5, a0, a1
 	mul a0, a1

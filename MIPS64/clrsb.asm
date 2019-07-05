@@ -1,3 +1,5 @@
+	.text
+
 __clrsbdi2:
 	sll $4, 0
 	seh $3, $4

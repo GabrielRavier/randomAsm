@@ -1,3 +1,5 @@
+	.text
+
 clz:
 clzl:
 	clz r0

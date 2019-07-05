@@ -1,3 +1,5 @@
+	.text
+
 __clrsbdi2:
 	srli a5, a0, 8
 	andi a5, 0xFF

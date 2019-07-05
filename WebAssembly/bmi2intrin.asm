@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	global.get __stack_pointer
 	i32.const 16

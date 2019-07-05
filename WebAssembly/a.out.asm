@@ -1,3 +1,5 @@
+	.text
+
 N_MAGIC:
 	local.get 0
 	i32.load16_u 0

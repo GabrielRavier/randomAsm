@@ -1,3 +1,5 @@
+	.text
+
 __clzhi2:
 	clr r26
 	tst r25

@@ -1,3 +1,5 @@
+	.text
+
 N_MAGIC:
 	movw r30, r24
 	ld r24, Z

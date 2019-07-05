@@ -1,3 +1,5 @@
+	.text
+
 fabsf:
 	lui a1, 0x80000
 	addi a1, -1

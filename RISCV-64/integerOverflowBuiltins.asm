@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 	add a1, a0, a1
 	sext.w a5, a1

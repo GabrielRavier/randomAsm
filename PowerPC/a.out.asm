@@ -1,3 +1,5 @@
+	.text
+
 N_MAGIC:
 	lhz 3, 2(3)
 	blr

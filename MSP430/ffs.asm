@@ -1,3 +1,5 @@
+	.text
+
 __ffsdi2:
 	pushm.w #1, r10
 	pushm.w #1, r4

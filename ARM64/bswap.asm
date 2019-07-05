@@ -1,3 +1,5 @@
+	.text
+
 bswap16:
 	rev16 w0
 	ret

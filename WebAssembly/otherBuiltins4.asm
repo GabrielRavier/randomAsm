@@ -1,3 +1,5 @@
+	.text
+
 abs:
 labs:
 	local.get 0

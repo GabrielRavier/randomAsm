@@ -1,3 +1,5 @@
+	.text
+
 __ctzdi2:
 	addic 9, 4, -1
 	subfe 9

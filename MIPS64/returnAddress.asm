@@ -1,3 +1,5 @@
+	.text
+
 currentAddress:
 	daddiu $sp, -0x10
 	sd $31, 8($sp)

@@ -1,3 +1,5 @@
+	.text
+
 __cmpsf2:
 __eqsf2:
 __nesf2:

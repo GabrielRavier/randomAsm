@@ -1,3 +1,5 @@
+	.text
+
 sync_fetch_and_add_64:
 #if ARMv81
 	ldaddal x1, x2, [x0]

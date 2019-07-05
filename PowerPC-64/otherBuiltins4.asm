@@ -1,3 +1,5 @@
+	.text
+
 abs:
 	srawi 9, 3, 0x1F
 	xor 3, 9, 3

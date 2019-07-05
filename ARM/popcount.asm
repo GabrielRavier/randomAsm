@@ -1,3 +1,5 @@
+	.text
+
 __popcountsi2:
 	ldr r3, .u55555555
 	ldr r2, .u33333333

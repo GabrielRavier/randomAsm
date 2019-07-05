@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 	add w3, w0, w1
 	eon w0, w1

@@ -1,3 +1,5 @@
+	.text
+
 cimagf:
 	local.get 0
 	f32.load 4

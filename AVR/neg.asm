@@ -1,3 +1,5 @@
+	.text
+
 __negdi2:
 	com r22
 	com r23

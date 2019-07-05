@@ -1,3 +1,5 @@
+	.text
+
 clz:
 	clz w0
 	ret

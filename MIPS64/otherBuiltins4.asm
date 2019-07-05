@@ -1,3 +1,5 @@
+	.text
+
 abs:
 	move $2, $4
 	slt $3, $2, 0

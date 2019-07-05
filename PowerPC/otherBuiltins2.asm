@@ -1,3 +1,5 @@
+	.text
+
 cimagf:
 	stwu 1, -16(1)
 	stw 4, 8(1)

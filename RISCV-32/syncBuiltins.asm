@@ -1,3 +1,5 @@
+	.text
+
 sync_fetch_and_add_32:
 	amoadd.w.arql a0, a1, (a0)
 	ret

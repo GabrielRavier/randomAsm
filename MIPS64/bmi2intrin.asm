@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	dmultu $4, $5
 	mfhi $3

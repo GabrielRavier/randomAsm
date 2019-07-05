@@ -1,3 +1,5 @@
+	.text
+
 clz:
 clzl:
 	srli a1, a0, 1

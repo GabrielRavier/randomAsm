@@ -1,3 +1,5 @@
+	.text
+
 bcmp:
 	addis 2, 12, .TOC. - bcmp@ha
 	addi 2, .TOC. - bcmp@l

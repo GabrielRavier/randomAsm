@@ -1,3 +1,5 @@
+	.text
+
 bswap16:
 	local.get 0
 	i32.const 24

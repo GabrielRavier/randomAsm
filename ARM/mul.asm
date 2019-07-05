@@ -1,3 +1,5 @@
+	.text
+
 __aeabi_lmul:
 __aeabi_muldi3:
 __muldi3:

@@ -1,3 +1,5 @@
+	.text
+
 __clrsbdi2:
 	rldicl 9, 3, 56, 32
 	extsb. 10, 9

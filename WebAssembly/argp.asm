@@ -1,3 +1,5 @@
+	.text
+
 __argp_usage:
 	local.get 0
 	i32.const 0

@@ -1,3 +1,5 @@
+	.text
+
 abs:
 	sbrs r25, 7
 	ret

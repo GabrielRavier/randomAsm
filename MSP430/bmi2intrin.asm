@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	pushm.w #2, r10
 	pushm.w #1, r4

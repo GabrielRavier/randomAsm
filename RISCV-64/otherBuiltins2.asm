@@ -1,3 +1,5 @@
+	.text
+
 cabsf:
 	fmul.s fa1
 	fmadd.s fa0, fa1

@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	stwu 1, -80(1)
 	mflr 0

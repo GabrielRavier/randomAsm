@@ -1,3 +1,5 @@
+	.text
+
 __popcountsi2:
 	lis 9, 0x5555
 	srwi 10, 3, 1

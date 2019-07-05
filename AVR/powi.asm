@@ -1,3 +1,5 @@
+	.text
+
 powi:
 powif:
 powil:

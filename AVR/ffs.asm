@@ -1,3 +1,5 @@
+	.text
+
 __ffsdi2:
 	push r28
 	push r29

@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 	movw r30, r20
 

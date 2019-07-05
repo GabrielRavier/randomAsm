@@ -1,3 +1,5 @@
+	.text
+
 __popcountdi2:
 	li $2, 0x55550000
 	daddiu $2, 0x5555

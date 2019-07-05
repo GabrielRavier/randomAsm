@@ -1,3 +1,5 @@
+	.text
+
 __umulhisi3:
 	mul a0, b0
 	movw c0, r0

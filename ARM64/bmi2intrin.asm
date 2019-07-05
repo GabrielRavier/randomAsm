@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	umulh x3, x0, x1
 	mul x0, x1

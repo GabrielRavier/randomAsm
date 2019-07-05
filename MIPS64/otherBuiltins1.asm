@@ -1,3 +1,5 @@
+	.text
+
 ffsll:
 ffsl:
 	dsubu $2, $0, $4

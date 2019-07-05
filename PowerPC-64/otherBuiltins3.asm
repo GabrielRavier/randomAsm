@@ -1,3 +1,5 @@
+	.text
+
 ceilf:
 	frip 1
 	blr

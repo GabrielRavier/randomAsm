@@ -1,3 +1,5 @@
+	.text
+
 abs:
 labs:
 	srai a1, a0, 31

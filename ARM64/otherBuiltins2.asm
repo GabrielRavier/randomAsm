@@ -1,3 +1,5 @@
+	.text
+
 cabsf:
 	fmul s1
 	fmadd s0, s1

@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 saddl_overflow:
 	local.get 2

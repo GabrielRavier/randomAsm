@@ -1,3 +1,5 @@
+	.text
+
 abs:
 labs:
 	cmp r0, #0

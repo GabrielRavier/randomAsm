@@ -1,3 +1,5 @@
+	.text
+
 ceilf:
 	local.get 0
 	f32.ceil

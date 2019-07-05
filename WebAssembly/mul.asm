@@ -1,3 +1,5 @@
+	.text
+
 __mulddi3:
 	local.get 0
 	local.get 2

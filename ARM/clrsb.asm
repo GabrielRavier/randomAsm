@@ -1,3 +1,5 @@
+	.text
+
 __clrsbsi2:
 	cmp r0, #0
 	mvnlt r0

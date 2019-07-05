@@ -1,3 +1,5 @@
+	.text
+
 bswap16:
 	slli a1, a0, 8
 	slli a0, 24

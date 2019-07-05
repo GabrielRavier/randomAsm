@@ -1,3 +1,5 @@
+	.text
+
 __argp_usage:
 	daddiu $sp, -0x10
 	sd $28, 0(sp)

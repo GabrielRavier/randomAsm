@@ -1,3 +1,5 @@
+	.text
+
 clear_cache:
 #if 0
 	mrs x4, ctr_el0

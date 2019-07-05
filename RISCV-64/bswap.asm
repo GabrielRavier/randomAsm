@@ -1,3 +1,5 @@
+	.text
+
 bswap16:
 	srliw a5, a0, 8
 	slli a0, 8

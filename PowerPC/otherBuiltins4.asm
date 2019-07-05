@@ -1,3 +1,5 @@
+	.text
+
 abs:
 labs:
 	srawi 9, 3, 0x1F

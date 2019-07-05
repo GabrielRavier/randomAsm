@@ -1,3 +1,5 @@
+	.text
+
 1:
 	add.w #-1, r14
 	add.w r12, r12

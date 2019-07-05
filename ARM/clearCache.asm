@@ -1,3 +1,5 @@
+	.text
+
 clear_cache:
 #if WinCE
 	push {r4, r5, lr}

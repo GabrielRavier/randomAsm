@@ -1,3 +1,5 @@
+	.text
+
 __argp_usage:
 	lds r22, __iob+4
 	lds r23, __iob+5

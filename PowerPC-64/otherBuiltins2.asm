@@ -1,3 +1,5 @@
+	.text
+
 cimagf:
 cimag:
 	fmr 1, 2

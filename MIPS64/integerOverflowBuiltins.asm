@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 	daddu $4, $5
 	sll $3, $4, 0

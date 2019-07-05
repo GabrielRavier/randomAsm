@@ -1,3 +1,5 @@
+	.text
+
 sync_fetch_and_add_32:
 	local.get 0
 	local.get 0

@@ -1,3 +1,5 @@
+	.text
+
 __paritydi2:
 	eor r24, r18
 	eor r24, r19

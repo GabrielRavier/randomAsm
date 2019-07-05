@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	addi sp, -0x40
 	sw ra, 60(sp)

@@ -1,3 +1,5 @@
+	.text
+
 __ffsdi2:
 	cmpwi 7, 4, 0
 	bne- 7, .l2

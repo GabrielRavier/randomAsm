@@ -1,3 +1,5 @@
+	.text
+
 bzero:
 	movw r20, r22
 	ldi r22, 0

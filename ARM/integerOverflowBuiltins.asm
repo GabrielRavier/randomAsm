@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 saddl_overflow:
 	adds r1, r0, r1

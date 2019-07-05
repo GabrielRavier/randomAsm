@@ -1,3 +1,5 @@
+	.text
+
 __argp_usage:
 	ldr r3, .pStderr
 #if !ARMv5

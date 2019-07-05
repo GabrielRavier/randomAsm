@@ -1,3 +1,5 @@
+	.text
+
 powi:
 __powidf2:
 	lis 9, .one@ha

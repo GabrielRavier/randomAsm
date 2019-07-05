@@ -1,8 +1,14 @@
+	.bss
+
 uint128_0:
 	.zero 16
 
+	.data
+
 uint128_1:
 	.quad 0, 1
+
+	.text
 
 uint128_t_constructor_default:
 	movw r30, r24

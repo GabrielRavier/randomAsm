@@ -1,3 +1,5 @@
+	.text
+
 clz:
 clzl:
 	local.get 0

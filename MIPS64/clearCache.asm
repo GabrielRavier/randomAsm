@@ -1,3 +1,5 @@
+	.text
+
 clear_cache:
 	daddiu $sp, -0x10
 	sd $28, 0($sp)

@@ -1,3 +1,5 @@
+	.text
+
 __paritydi2:
 	daddiu $sp, -0x10
 	sd $28, 0($sp)

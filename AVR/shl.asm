@@ -1,3 +1,5 @@
+	.text
+
 __ashldi3:
 	mov __tmp_reg__, r16
 

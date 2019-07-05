@@ -1,3 +1,5 @@
+	.text
+
 __aeabi_ddiv:
 	push {r4, r5, r6, pc}
 

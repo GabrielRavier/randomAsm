@@ -1,3 +1,5 @@
+	.text
+
 sync_fetch_and_add_64:
 	mv a5, a0
 

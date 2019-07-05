@@ -1,3 +1,5 @@
+	.text
+
 __adddi3:
 	add r18, r10
 	adc r19, r11

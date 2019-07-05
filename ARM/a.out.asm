@@ -1,3 +1,5 @@
+	.text
+
 N_MAGIC:
 	ldrh r0, [r0]
 	bx lr

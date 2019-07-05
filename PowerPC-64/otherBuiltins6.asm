@@ -1,3 +1,5 @@
+	.text
+
 clz:
 	cntlzw 3
 	extsw 3

@@ -1,3 +1,5 @@
+	.text
+
 __argp_usage:
 	pushm.w #1, r4
 	mov.w r1, r4

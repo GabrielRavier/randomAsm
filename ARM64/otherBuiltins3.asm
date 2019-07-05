@@ -1,3 +1,5 @@
+	.text
+
 ceilf:
 	frintp s0
 	ret

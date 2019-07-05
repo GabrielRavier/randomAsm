@@ -1,3 +1,5 @@
+	.text
+
 __paritysi2:
 	srwi 9, 3, 16
 	xor 3, 9, 3

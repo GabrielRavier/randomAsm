@@ -1,3 +1,5 @@
+	.text
+
 powi:
 __powidf2:
 	local.get 0

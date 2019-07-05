@@ -1,3 +1,5 @@
+	.text
+
 bzero:
 	mr 5, 4
 	li 4, 0

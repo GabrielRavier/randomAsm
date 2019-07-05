@@ -1,3 +1,5 @@
+	.text
+
 powi:
 __powidf2:
 	addis 2, 12, .TOC. - powi@ha

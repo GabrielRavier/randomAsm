@@ -1,3 +1,5 @@
+	.text
+
 bswap16:
 	sll $4, 0
 	wsbh $2, $4

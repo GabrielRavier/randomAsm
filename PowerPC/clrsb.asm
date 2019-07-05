@@ -1,3 +1,5 @@
+	.text
+
 __clrsbsi2:
 	cmpwi 0, 3, 0
 	blt- 0, .lt

@@ -1,3 +1,5 @@
+	.text
+
 __muldi3_6:
 	call __umulhisi3
 

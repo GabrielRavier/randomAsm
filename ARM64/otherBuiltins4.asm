@@ -1,3 +1,5 @@
+	.text
+
 abs:
 	cmp w0, 0
 	csneg w0, ge

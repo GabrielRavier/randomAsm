@@ -1,3 +1,5 @@
+	.text
+
 currentAddress:
 	mflr 3
 	blr

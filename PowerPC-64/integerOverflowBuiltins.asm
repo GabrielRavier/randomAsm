@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 	add 9, 3, 4
 	eqv 3, 4

@@ -1,3 +1,5 @@
+	.text
+
 __cmpdi2:
 	cp r18, r10
 	cpc r19, r11

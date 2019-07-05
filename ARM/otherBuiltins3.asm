@@ -1,3 +1,5 @@
+	.text
+
 fabsf:
 	bic r0, #0x80000000
 	bx lr

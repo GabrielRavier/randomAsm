@@ -1,3 +1,5 @@
+	.text
+
 __popcounthi2:
 	call __popcountqi2
 	push r24

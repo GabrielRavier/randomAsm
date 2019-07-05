@@ -1,3 +1,5 @@
+	.text
+
 clz:
 	call __clzhi2
 	ret

@@ -1,3 +1,5 @@
+	.text
+
 get_fpcr:
 	mrs x0, fpcr
 	ret

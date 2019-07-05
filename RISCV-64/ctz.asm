@@ -1,3 +1,5 @@
+	.text
+
 __ctzdi2:
 	sext.w a5, a0
 	addi sp, -0x10

@@ -1,3 +1,5 @@
+	.text
+
 __mulsf3:
 	call __mulsf3x
 	jmp __fp_round

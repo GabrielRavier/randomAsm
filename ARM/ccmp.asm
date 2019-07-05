@@ -1,3 +1,5 @@
+	.text
+
 __aeabi_cdrcmple:
 	mov ip, r0
 	mov r0, r2

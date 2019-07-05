@@ -1,3 +1,5 @@
+	.text
+
 bswap16:
 	rlwinm 10, 3, 8, 16, 23
 	rlwinm 9, 3, 8, 24, 31

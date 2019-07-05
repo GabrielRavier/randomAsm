@@ -1,3 +1,5 @@
+	.text
+
 currentAddress:
 	mv r0, ra
 	ret

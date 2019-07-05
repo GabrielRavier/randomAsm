@@ -1,3 +1,5 @@
+	.text
+
 prefetchReadHighLocality:
 prefetchWriteHighLocality:
 	prfm PLDL1KEEP, [x0]

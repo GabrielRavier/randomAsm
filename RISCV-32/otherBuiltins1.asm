@@ -1,3 +1,5 @@
+	.text
+
 bzero:
 	mv a2, a1
 	li a1, 0

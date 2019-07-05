@@ -1,3 +1,5 @@
+	.text
+
 delay_cycles_0:
 	ret
 

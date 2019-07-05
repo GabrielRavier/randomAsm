@@ -1,3 +1,5 @@
+	.text
+
 __paritysi2:
 	eor r0, lsr #16
 	eor r0, lsr #8
