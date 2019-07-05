@@ -8,7 +8,7 @@
 - Do LLVM if I can figure out how to make metadata fuck off
 - Do uint128_t
 - Do uint256_t
-- Instruction set reproduction (x86, others)
+- Instruction set reproduction (x86, 6502, others)
 - Do clang builtins (manual)
 - Do icc builtins (manual)
 - Do other compiler builtins
@@ -52,7 +52,7 @@
 - Godbolt libs
 - Do operators for different types
 - alt.sources stuff
-- Windows src (leaks, ReactOS, Wine, Windows Research Kernel, etc.)
+- Windows src (leaks, ReactOS, Wine, Windows Research Kernel, NT4 source repo, Win 2000 leaks, first XBOX leaks, Win 10 Anniversary Update Shared Source Kit, Win CE 6.0, etc.)
 - Torvalds
 - Microsoft
 - Apple
@@ -60,6 +60,8 @@
 - BSD src
 - Windows Internals
 - Zer0Mem0ry
+- Planet Source Code
+- Beyond BIOS, Undocumented PC
 
 x86 arches (-march=) : i[36]86 penntium2 pentium3m pentium4m nocona core2 westmere sandybridge ivybridge haswell broadwell skylake skylake-avx512 cannonlake icelake-client icelake-server
 ARM arches (-march=) : armv2 armv2a armv3 armv3m armv4 armv4t armv5 armv5t armv5e armv5te armv5tej armv6 armv6j armv6k armv6z armv6kz armv6zk armv6t2 armv7 armv7ve armv8-a armv8.[1-4]-a
