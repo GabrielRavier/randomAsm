@@ -62,6 +62,7 @@
 - Zer0Mem0ry
 - Planet Source Code
 - Beyond BIOS, Undocumented PC
+- Very small kernels
 
 x86 : -march=icelake-server
 ARM : -march=armv8.4-a
