@@ -3275,7 +3275,7 @@ uint128_t_bits:
 	bis.w r15, r10
 
 	cmp.w #0, r10
-	jne .l8
+	jne .continue
 
 	mov.w 8(r11), r12
 	mov.w 10(r11), r13
@@ -3288,12 +3288,29 @@ uint128_t_bits:
 	bis.w r15, r11
 
 	cmp.w #0, r11
-	jeq .l6
+	jeq .retR11
 
 	call #__clzdi2
 	mov.b #0x40, r13
 	sub.w r12, r13
 	mov.w r13, r12
+	and #0xFF, r12
+
+	popm.w #1, r4
+	popm.w #1, r10
+	ret
+
+.retR11:
+	mov.w r11, r12
+	popm.w #1, r4
+	popm.w #1, r10
+	ret
+
+.continue:
+	call #__clzdi2
+	mov.b #-0x80, r13
+	sub.b r12, r13
+	mov.b r13, r12
 	and #0xFF, r12
 
 	popm.w #1, r4

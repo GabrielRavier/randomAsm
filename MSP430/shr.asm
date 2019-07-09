@@ -1,3 +1,5 @@
+	.text
+
 __lshrdi3:
 	pushm.w #7, r10
 	mov.w r1, r4
