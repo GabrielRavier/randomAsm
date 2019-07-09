@@ -1124,7 +1124,7 @@ uint128_t_operator_exclamation_mark:
 	bis.w r15, r13
 	bis.w r14, r13
 
-	cmp.W #0, r13
+	cmp.w #0, r13
 	jeq .return
 
 	mov.b #0, r12
