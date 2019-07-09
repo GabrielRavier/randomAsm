@@ -65,8 +65,7 @@
 - Very small kernels
 
 x86 : -march=icelake-server
-ARM : -march=armv8.4-a
-ARM64 : -march=armv8.4-a
+ARM/ARM64 : -march=armv8.4-a
 AVR : -mmcu=avr5
 MIPS : -march=mips4
 MSP 430 : -mmcu=msp430xv2
