@@ -1,25 +1,22 @@
 N_MAGIC:
-	lhu $2, 0($4)
 	j $31
-	nop
+	lhu $2, 0($4)
 
 
 
 
 
 N_MACHTYPE:
-	lbu $2, 2($4)
 	j $31
-	nop
+	lbu $2, 2($4)
 
 
 
 
 
 N_FLAGS:
-	lbu $2, 3($4)
 	j $31
-	nop
+	lbu $2, 3($4)
 
 
 
@@ -42,14 +39,14 @@ N_SET_INFO:
 
 N_BADMAG:
 	lhu $2, 0($4)
-	nop
 	addiu $3, $2, -263
 	sltu $3, 2
 	bne $3, $0, .retR0
-
 	li $3, 0x10B
+	
 	beq $2, $3, .retR0
-
+	nop
+	
 	xori $2, 0xCC
 	j $31
 	sltu $2, $0, $2
