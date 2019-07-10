@@ -1,3 +1,5 @@
+	.text
+
 bswap16:
 	andi $4, 0xFFFF
 	sll $2, $4, 8

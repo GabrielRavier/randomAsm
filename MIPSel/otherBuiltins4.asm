@@ -1,3 +1,5 @@
+	.text
+
 abs:
 labs:
 	bltz $4, .doSub

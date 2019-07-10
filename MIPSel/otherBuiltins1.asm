@@ -1,3 +1,5 @@
+	.text
+
 bzero:
 	move $6, $5
 	j memset

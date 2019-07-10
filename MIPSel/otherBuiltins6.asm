@@ -1,3 +1,5 @@
+	.text
+
 clz:
 clzl:
 	addiu $sp, -0x20

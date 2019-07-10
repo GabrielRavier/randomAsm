@@ -1,3 +1,5 @@
+	.text
+
 _mulx_u64:
 	addiu $sp, -80
 	move $2, $0

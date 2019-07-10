@@ -1,3 +1,5 @@
+	.text
+
 square:
 	mult $4
 	mflo $2

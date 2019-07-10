@@ -1,3 +1,5 @@
+	.text
+
 __popcountsi2:
 	li $3, 0x55550000
 	srl $2, $4, 1

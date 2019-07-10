@@ -1,3 +1,5 @@
+	.text
+
 cimagf:
 	mtc1 $5, $f0
 	j $31

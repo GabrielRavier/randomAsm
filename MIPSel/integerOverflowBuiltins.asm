@@ -1,3 +1,5 @@
+	.text
+
 sadd_overflow:
 saddl_overflow:
 	move $2, $0

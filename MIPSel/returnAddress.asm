@@ -1,3 +1,5 @@
+	.text
+
 currentAddress:
 	addiu $sp, -8
 	sw $31, 4($sp)

@@ -1,3 +1,5 @@
+	.text
+
 __clrsbsi2:
 	sll $4, 24
 	sra $4, 24

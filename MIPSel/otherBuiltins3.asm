@@ -1,3 +1,5 @@
+	.text
+
 fabsf:
 	j $31
 	abs.s $f0, $f12

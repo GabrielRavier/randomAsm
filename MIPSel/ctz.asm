@@ -1,3 +1,5 @@
+	.text
+
 __ctzsi2:
 	andi $2, $4, 0xFFFF
 	bne $2, $0, .ne

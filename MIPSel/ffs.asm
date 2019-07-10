@@ -1,3 +1,5 @@
+	.text
+
 __ffsdi2:
 	addiu $sp, -0x20
 	bne $4, $0, .ne

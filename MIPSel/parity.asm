@@ -1,3 +1,5 @@
+	.text
+
 __paritysi2:
 	srl $2, $4, 16
 	xor $4, $2, $4
