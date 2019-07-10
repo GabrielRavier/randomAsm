@@ -12,19 +12,15 @@ __argp_usage:
 
 __option_is_short:
 	lw $2, 12($4)
-	nop
-
 	andi $2, 8
 	bne $2, $0, .ret2
 	nop
 
 	lw $4, 4($4)
-	nop
-
 	addiu $3, $4, -1
 	sltu $3, 0xFF
-	bne $3, $0, .continue
-	nop
+	bnel $3, $0, .continue
+	addiu $sp, -0x20
 
 	j $31
 	nop
@@ -34,13 +30,11 @@ __option_is_short:
 	move $2, $0
 
 .continue:
-	addiu $sp, -0x20
 	sw $31, 28($sp)
-
 	jal isprint
 	nop
-
-	lw $31, 28($sp)
+	
+	lw $31, 28
 	sltu $2, $0, $2
 	j $31
 	addiu $sp, 0x20
@@ -51,16 +45,12 @@ __option_is_short:
 
 __option_is_end:
 	lw $2, 4($4)
-	nop
-
 	bne $2, $0, .ret2
 	nop
 
 	lw $3, 0($4)
-	nop
-
-	beq $3, $0, .continue
-	nop
+	beql $3, $0, .continue
+	lw $3, 16($4)
 
 .return:
 	j $31
@@ -71,9 +61,6 @@ __option_is_end:
 	move $2, $0
 
 .continue:
-	lw $3, 16($4)
-	nop
-
 	bne $3, $0, .return
 	nop
 
