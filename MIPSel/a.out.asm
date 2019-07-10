@@ -1,3 +1,5 @@
+	.text
+
 N_MAGIC:
 	j $31
 	lhu $2, 0($4)

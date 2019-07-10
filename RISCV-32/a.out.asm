@@ -1,3 +1,5 @@
+	.text
+
 N_MAGIC:
 	lhu a0, 0(a0)
 	ret

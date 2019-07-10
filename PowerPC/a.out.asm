@@ -40,12 +40,13 @@ N_BADMAG:
 	lhz 9, 2(3)
 	addi 10, 9, -263
 	cmplwi 7, 10, 1
-	ble- 7, .ret0
+	ble 7, .ret0
 
-	cmplwi 7, 9, 267
+	cmplwi 7, 9, 0x10B
 	li 3, 0
-	beqlr- 7
+	beqlr 7
 	xori 9, 0xCC
+
 	cntlzw 9
 	srwi 9, 5
 	xori 3, 9, 1

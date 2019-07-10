@@ -45,7 +45,6 @@ N_BADMAG:
 	daddiu $2, -204
 	sltu $3, $2, 64
 	beq $3, $0, .ret1
-
 	li $3, -13
 
 	dsll $3, 59

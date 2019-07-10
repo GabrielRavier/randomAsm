@@ -3,8 +3,9 @@
 N_MAGIC:
 	lhz 3, 0(3)
 	blr
+	
 	.long 0
-	.quad 0
+	.quad 0, 9, 0, 0, 0, 0, 0, 0
 
 
 
@@ -13,8 +14,9 @@ N_MAGIC:
 N_MACHTYPE:
 	lbz 3, 2(3)
 	blr
+	
 	.long 0
-	.quad 0
+	.quad 0, 9, 0, 0, 0, 0, 0, 0
 
 
 
@@ -23,41 +25,48 @@ N_MACHTYPE:
 N_FLAGS:
 	lbz 3, 3(3)
 	blr
+	
 	.long 0
-	.quad 0
+	.quad 0, 9, 0, 0, 0, 0, 0, 0
 
 
 
 
 
 N_SET_INFO:
-	rlwimi 4, 5, 16, 8, 15
-	rlwimi 4, 6, 24, 0, 7
-	extsw 4
-	std 4, 0(3)
+	slwi 5, 16
+	slwi 6, 24
+	or 5, 4
+	or 5, 6
+	extsw 5
+	std 5, 0(3)
 	blr
+	
 	.long 0
-	.quad 0
+	.quad 0, 9, 0, 0, 0, 0, 0, 0
 
 
 
 
 
 N_BADMAG:
-	lhz 3, 0(3)
-	addi 3, -204
-	clrlwi 3, 16
-	cmplwi 3, 63
-	bgt 0, .ret1
-
-	li 4, -52
-	rldicr 4, 59, 63
-	srd 3, 4, 3
-	clrldi 3, 63
+	lhz 9, 0(3)
+	addi 9, -204
+	cmpldi 7, 9, 0x3F
+	bgt 7, .ret1
+	
+	lis 3, 0x9800
+	sldi 3, 32
+	
+	ori 3, 1
+	srd 3, 9
+	not 3
+	rldicl 3, 0, 0x3F
 	blr
-
+	
 .ret1:
 	li 3, 1
 	blr
+	
 	.long 0
-	.quad 0
+	.quad 0, 9, 0, 0, 0, 0, 0, 0
