@@ -1487,6 +1487,17 @@ uint128_t_operator_plus_plus:
 	std 0, 16(1)
 	stdu 1, -32(1)
 
+	bl uint128_t_operator_plus_equal
+	nop
+
+	addi 1, 0x20
+	ld 0, 16(1)
+	mtlr 0
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 1, 0x80, 0, 0, 0
+
 .pUint128_1:
 	.quad uint128_1
 
@@ -1495,45 +1506,215 @@ uint128_t_operator_plus_plus:
 
 
 uint128_t_operator_plus_plus_int:
+	addis 2, 12, .TOC. - uint128_t_operator_plus_plus_int@ha
+	addi 2, .TOC. - uint128_t_operator_plus_plus_int@l
+	mflr 0
+
+	std 30, -16(1)
+	std 31, -8(1)
+	mr 30, 4
+	mr 31, 3
+
+	std 0, 16(1)
+	stdu 1, -48(1)
+
+	bl uint128_t_constructor
+	nop
+
+	mr 3, 30
+	bl uint128_t_operator_plus_plus
+	nop
+
+	addi 1, 0x30
+	mr 3, 31
+	ld 0, 16(1)
+	ld 30, -16(1)
+	ld 31, -8(1)
+	mtlr 0
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 1, 0x80, 2, 0, 0
 
 
 
 
 
 uint128_t_operator_minus_minus:
+	addis 2, 12, .TOC. - uint128_t_operator_minus_minus@ha
+	addi 2, .TOC. - uint128_t_operator_minus_minus@l
+	mflr 0
+
+	addis 4, 2, .pUint128_1@toc@ha
+	ld 4, .pUint128_1@toc@l(4)
+
+	std 0, 16(1)
+	stdu 1, -32(1)
+
+	bl uint128_t_operator_minus_equal
+	nop
+
+	addi 1, 0x20
+	ld 0, 16(1)
+	mtlr 0
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 1, 0x80, 0, 0, 0
+
+.pUint128_1:
+	.quad uint128_1
 
 
 
 
 
 uint128_t_operator_minus_minus_int:
+	addis 2, 12, .TOC. - uint128_t_operator_minus_minus_int@ha
+	addi 2, .TOC. - uint128_t_operator_minus_minus_int@l
+	mflr 0
+
+	std 30, -16(1)
+	std 31, -8(1)
+	mr 30, 4
+	mr 31, 3
+
+	std 0, 16(1)
+	stdu 1, -48(1)
+
+	bl uint128_t_constructor
+	nop
+
+	mr 3, 30
+	bl uint128_t_operator_minus_minus
+	nop
+
+	addi 1, 0x30
+	mr 3, 31
+	ld 0, 16(1)
+	ld 30, -16(1)
+	ld 31, -8(1)
+	mtlr 0
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 1, 0x80, 2, 0, 0
 
 
 
 
 
 uint128_t_operator_single_plus:
+	addis 2, 12, .TOC. - uint128_t_operator_single_plus@ha
+	addi 2, .TOC. - uint128_t_operator_single_plus@l
+	mflr 0
+
+	std 31, -8(1)
+	mr 31, 3
+
+	std 0, 16(1)
+	stdu 1, -48(1)
+
+	bl uint128_t_constructor
+	nop
+
+	addi 1, 0x30
+	mr 3, 31
+
+	ld 0, 16(1)
+	ld 31, -8(1)
+	mtlr 0
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 1, 0x80, 1, 0, 0
 
 
 
 
 
 uint128_t_operator_single_minus:
+	addis 2, 12, .TOC. - uint128_t_operator_single_minus@ha
+	addi 2, .TOC. - uint128_t_operator_single_minus@l
+	mflr 0
+
+	std 31, -8(1)
+	mr 31, 3
+
+	std 0, 16(1)
+	stdu 1, -64(1)
+
+	addi 3, 1, 0x20
+	call uint128_t_operator_not
+	nop
+
+	addis 5, 2, .pUint128_1@toc@ha
+	ld 5, .pUint128_1@toc@l(5)
+	addi 4, 1, 0x20
+
+	mr 3, 31
+	bl uint128_t_operator_plus
+	nop
+
+	addi 1, 0x40
+	mr 3, 31
+	ld 0, 16(1)
+	ld 31, -8(1)
+	mtlr 0
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 1, 0x80, 1, 0, 0
+
+.pUint128_1:
+	.quad uint128_1
 
 
 
 
 
 uint128_t_upper:
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 0, 0, 0, 0, 0
 
 
 
 
 
 uint128_t_lower:
+	addi 3, 8
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 0, 0, 0, 0, 0
 
 
 
 
 
 uint128_t_bits:
+	ld 9, 0(3)
+	cmpdi 7, 9, 0
+	bne 7, .finish
+
+	ld 9, 8(3)
+	li 3, 0
+
+	cmpdi 7, 9, 0
+	beqlr 7
+
+	cntlzd 3, 9
+	subfic 3, 0x40
+	rlwinm 3, 0, 0xFF
+	blr
+
+.finish:
+	cntlzd 3, 9
+	subfic 3, -0x80
+	rlwinm 3, 0, 0xFF
+	blr
+
+	.long 0
+	.byte 0, 9, 0, 0, 0, 0, 0, 0
