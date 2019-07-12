@@ -685,56 +685,260 @@ uint128_t_operator_shiftRight_equal:
 
 
 
-
 uint128_t_operator_exclamation_mark:
+	mflr 0
+	stwu 1, -16(1)
+	stw 0, 20(1)
+
+	bl uint128_t_operator_cast_bool
+
+	lwz 0, 20(1)
+	addi 1, 0x10
+
+	xori 3, 1
+	rlwinm 3, 0, 0xFF
+	blr
 
 
 
 
 
 uint128_t_operator_and_and:
+	mflr 0
+	stwu 1, -32(1)
+	stw 31, 28(1)
+	stw 0, 36(1)
+	mr 31, 4
+
+	bl uint128_t_operator_cast_bool
+	cmpwi 7, 3, 0
+	bne 7, .continue
+
+	lwz 0, 36(1)
+	lwz 31, 28(1)
+	addi 1, 0x20
+	mtlr 0
+	blr
+
+.continue:
+	lwz 0, 36(1)
+	mr 3, 31
+	lwz 31, 28(1)
+	addi 1, 0x20
+	mtlr 0
+	b uint128_t_operator_cast_bool
 
 
 
 
 
 uint128_t_operator_or_or:
+	mflr 0
+	stwu 1, -32(1)
+	stw 31, 28(1)
+	stw 0, 36(1)
+	mr 31, 4
+
+	bl uint128_t_operator_cast_bool
+	cmpwi 7, 3, 0
+	beq 7, .continue
+
+	lwz 0, 36(1)
+	lwz 31, 28(1)
+	addi 1, 0x20
+	mtlr 0
+	blr
+
+.continue:
+	lwz 0, 36(1)
+	mr 3, 31
+	lwz 31, 28(1)
+	addi 1, 0x20
+	mtlr 0
+	b uint128_t_operator_cast_bool
 
 
 
 
 
 uint128_t_operator_equal_equal:
+	lwz 10, 0(3)
+	lwz 9, 0(4)
+
+	cmpw 7, 10, 9
+	beq 7, .continue
+
+.ret0:
+	li 3, 0
+	blr
+
+.continue:
+	lwz 10, 4(3)
+	lwz 9, 4(4)
+
+	cmpw 7, 10, 9
+	bne 7, .ret0
+
+	lwz 9, 12(3)
+	lwz 10, 12(4)
+	lwz 7, 8(3)
+	lwz 8, 8(4)
+
+	xor 9, 10
+	xor 3, 7, 8
+	or. 10, 3, 9
+	mfcr 3, 0x80
+	rlwinm 3, 1
+	blr
 
 
 
 
 
 uint128_t_operator_not_equal:
+	mflr 0
+	stwu 1, -16(1)
+	stw 0, 20(1)
+
+	bl uint128_t_operator_equal_equal
+	lwz 0, 20(1)
+	addi 1, 0x10
+
+	xori 3, 1
+	blr
 
 
 
 
 
 uint128_t_operator_above:
+	lwz 10, 0(3)
+	lwz 9, 0(4)
+	lwz 7, 4(3)
+	lwz 8, 4(4)
+
+	cmpw 7, 10, 9
+	beq 7, .continue
+
+.checkLe:
+	cmplw 6, 10, 9
+	li 3, 1
+	ble 6, .checkEq
+
+.return:
+	rlwinm 3, 0, 0xFF
+	blr
+
+.checkEq:
+	beq 7, .checkGt
+
+.ret0:
+	li 3, 0
+	rlwinm 3, 0, 0xFF
+	blr
+
+.checkGt:
+	cmplw 7, 8
+	bgt 7, .return
+	b .ret0
+
+.continue:
+	cmpw 6, 7, 8
+	bne 6, .checkLe
+
+	lwz 10, 8(3)
+	lwz 9, 8(4)
+	li 3, 1
+	cmplw 7, 10, 9
+	bgt 7, .ret8
+
+	cmpw 7, 10, 9
+	beq 7, .checkUpper
+
+	li 3, 0
+
+.ret8:
+	rlwinm 3, 0, 0xFF
+	blr
+
+.checkUpper:
+	lwz 10, 12(3)
+	lwz 9, 12(4)
+	cmplw 7, 10, 9
+	bgt 7, .ret8
+	b .ret0
 
 
 
 
 
 uint128_t_operator_below:
+	mflr 0
+	stwu 1, -32(1)
+	stw 30, 24(1)
+	srw 31, 28(1)
+	mr 30, 3
+	mr 31, 4
+	stw 0, 36(1)
+
+	bl uint128_t_operator_equal_equal
+	cmpwi 7, 3, 0
+	beq 7, .continue
+
+	lwz 0, 36(1)
+	lwz 30, 24(1)
+	lwz 31, 28(1)
+
+	li 3, 0
+	addi 1, 0x20
+	mtlr 0
+	blr
+
+.continue:
+	mr 3, 30
+	mr 4, 31
+	bl uint128_t_operator_above
+
+	lwz 0, 36(1)
+	lwz 30, 24(1)
+	lwz 31, 28(1)
+
+	addi 1, 0x20
+	mtlr 0
+	rlwinm 3, 0, 0xFF
+	blr
 
 
 
 
 
 uint128_t_operator_above_equal:
+	mflr 0
+	stwu 1, -16(1)
+	stw 0, 20(1)
+
+	bl uint128_t_operator_below
+	lwz 0, 20(1)
+	addi 1, 0x10
+
+	xori 3, 1
+	blr
 
 
 
 
 
 uint128_t_operator_below_equal:
+	mflr 0
+	stwu 1, -16(1)
+	stw 0, 20(1)
+
+	bl uint128_t_operator_above
+	lwz 0, 20(1)
+	addi 1, 0x10
+
+	xori 3, 1
+	blr
 
 
 

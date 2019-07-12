@@ -63,6 +63,7 @@
 - Planet Source Code
 - Beyond BIOS, Undocumented PC
 - Very small kernels
+- Decompilations (CS, SM64, etc.)
 
 x86 : -march=icelake-server
 ARM/ARM64 : -march=armv8.4-a
