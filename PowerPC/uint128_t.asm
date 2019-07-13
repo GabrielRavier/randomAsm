@@ -945,6 +945,56 @@ uint128_t_operator_below_equal:
 
 
 uint128_t_operator_plus:
+	lwz 8, 8(4)
+	lwz 9, 12(4)
+	lwz 10, 8(5)
+	lwz 11, 12(5)
+	stwu 1, -32(1)
+
+	lwz 6, 0(4)
+	lwz 7, 4(4)
+
+	addc 11, 9
+	adde 10, 8
+	cmplw 7, 8, 10
+
+	stw 30, 24(1)
+	stw 31, 28(1)
+
+	lwz 30, 0(5)
+	lwz 31, 4(5)
+
+	addc 31, 7
+	adde 30, 6
+
+	li 6, 0
+	li 7, 1
+	bgt 7, .return
+
+	cmpw 7, 8, 10
+	beq 7, .checkGt
+
+.notGt:
+	li 7, 0
+
+.return:
+	addc 7, 31
+	adde 6, 30
+
+	stw 10, 8(3)
+	lwz 30, 24(1)
+	lwz 31, 28(1)
+	stw 11, 12(3)
+	stw 7, 4(3)
+	stw 6, 0(3)
+
+	addi 1, 0x20
+	blr
+
+.checkGt:
+	cmplw 7, 9, 11
+	bgt 7, .return
+	b .notGt
 
 
 
@@ -980,6 +1030,46 @@ uint128_t_operator_plus_equal:
 
 
 uint128_t_operator_minus:
+	lwz 8, 8(4)
+	lwz 9, 12(4)
+	lwz 10, 8(5)
+	lwz 11, 12(5)
+	mr 7, 5
+
+	lwz 5, 4(4)
+	lwz 4, 0(4)
+	lwz 6, 0(7)
+	lwz 7, 4(7)
+
+	subfc 11, 9
+	subfe 10, 8
+	cmplw 7, 10, 8
+	subfc 5, 7, 5
+	subfe 4, 6, 4
+
+	li 6, 0
+	li 7, 1
+	bgt 7, .return
+
+	cmpw 7, 10, 8
+	beq 7, .checkGt
+
+.notGt:
+	li 7, 0
+
+.return:
+	subfc 7, 5
+	subfe 6, 4
+	stw 10, 8(3)
+	stw 11, 12(3)
+	stw 6, 0(3)
+	stw 7, 4(3)
+	blr
+
+.checkGt:
+	cmplw 7, 11, 9
+	bgt 7, .return
+	b .notGt
 
 
 
