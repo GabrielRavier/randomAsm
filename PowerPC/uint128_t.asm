@@ -1104,6 +1104,195 @@ uint128_t_operator_minus_equal:
 
 
 uint128_t_operator_multiply:
+	stwu 1, -272(1)
+	lwz 0, 12(5)
+	lwz 12, 8(5)
+	stw 27, 252(1)
+	lwz 27, 12(4)
+	stw 16, 208(1)
+	stw 17, 212(1)
+	lwz 16, 4(5)
+	lwz 17, 8(4)
+	stw 15, 204(1)
+
+	mullw 11, 27, 0
+	mulhwu 10, 27, 0
+
+	lwz 15, 4(4)
+	stw 28, 256(1)
+	lwz 5, 0(5)
+	stw 29, 260(1)
+	stw 30, 264(1)
+
+	mulhwu 28, 12, 27
+	mullw 29, 12, 27
+	mulhwu 30, 16, 27
+
+	stw 31, 268(1)
+
+	mulhwu 6, 12, 17
+
+	stw 23, 236(1)
+
+	mullw 31, 16, 27
+	mullw 7, 12, 17
+
+	stw 18, 216(1)
+	stw 19, 220(1)
+
+	mulhwu 8, 17, 0
+	mullw 9, 17, 0
+
+	stw 20, 224(1)
+	stw 21, 228(1)
+	stw 11, 44(1)
+
+	mullw 11, 15, 0
+
+	stw 10, 40(1)
+
+	mulhwu 10, 15, 0
+	mullw 23, 5, 27
+
+	stw 22, 232(1)
+	stw 24, 240(1)
+
+	mullw 19, 16, 17
+
+	stw 25, 244(1)
+	stw 26, 248(1)
+
+	li 22, 0
+	li 20, 0
+
+	stw 28, 32(1)
+	stw 29, 36(1)
+
+	li 28, 0
+	li 18, 0
+
+	stw 30, 24(1)
+	stw 31, 28(1)
+
+	li 30, 0
+	li 26, 0
+
+	stw 6, 64(1)
+	stw 7, 68(1)
+
+	li 24, 0
+	li 6, 0
+
+	stw 8, 72(1)
+	lwz 31, 24(1)
+	lwz 29, 32(1)
+
+	li 8, 0
+	li 16, 0
+
+	stw 9, 76(1)
+	lwz 21, 28(1)
+	lwz 27, 68(1)
+	stw 11, 108(1)
+	stw 10, 104(1)
+
+	li 10, 0
+
+	addc 23, 31
+	adde 22, 30
+
+	lwz 25, 36(1)
+	lwz 7, 40(1)
+	lwz 11, 64(1)
+	lwz 9, 72(1)
+
+	mullw 31, 12, 15
+	addc 21, 29
+	adde 20, 28
+
+	lwz 5, 0(4)
+	lwz 15, 204(1)
+
+	addc 23, 19
+	adde 22, 18
+
+	lwz 18, 216(1)
+	lwz 19, 220(1)
+	lwz 17, 76(1)
+
+	addc 21, 27
+	adde 20, 26
+
+	lwz 29, 108(1)
+
+	addc 23, 11
+	adde 22, 10
+
+	lwz 10, 44(1)
+
+	addc 7, 25
+	adde 6, 24
+
+	lwz 25, 104(1)
+	li 30, 0
+
+	addc 21, 9
+	adde 20, 8
+	addc 31, 23
+	adde 30, 22
+
+	stw 10, 12(3)
+	lwz 22, 232(1)
+	lwz 23, 236(1)
+
+	addc 7, 17
+	adde 6, 16
+
+	li 28, 0
+
+	mullw 27, 5, 0
+	addc 21, 29
+	adde 20, 28
+
+	li 24, 0
+	lwz 28, 256(1)
+	lwz 29, 260(1)
+	stw 7, 8(3)
+
+	addc 25, 31
+	adde 24, 30
+
+	lwz 30, 264(1)
+	lwz 31, 268(1)
+
+	mr 17, 6
+	li 16, 0
+	li 26, 0
+
+	addc 17, 21
+	adde 16, 20
+
+	addc 27, 25
+	adde 26, 24
+	lwz 20, 224(1)
+	lwz 21, 228(1)
+	lwz 24, 240(1)
+	lwz 25, 244(1)
+
+	mr 5, 16
+	li 4, 0
+	stw 17, 4(3)
+	lwz 16, 208(1)
+	lwz 17, 212(1)
+
+	addc 5, 27
+	adde 4, 26
+
+	lwz 26, 248(1)
+	lwz 27, 252(1)
+	stw 5, 0(3)
+	addi 1, 0x110
+	blr
 
 
 
