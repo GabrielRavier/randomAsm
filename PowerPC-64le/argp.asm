@@ -13,8 +13,8 @@ __argp_usage:
 	li 5, 0x106
 
 	std 0, 16(1)
-	ld 4, 0(9)
 	stdu 1, -32(1)
+	ld 4, 0(9)
 	bl __argp_state_help
 	nop
 
@@ -33,39 +33,41 @@ __argp_usage:
 __option_is_short:
 	addis 2, 12, .TOC. - __option_is_short@ha
 	addi 2, .TOC. - __option_is_short@l
+	lwz 9, 24(3)
+	rlwinm 9, 0, 28, 28
+	extsw. 10, 9
+	bne 0, .ret0
+	
+	lwa 3, 8(3)
+	addi 9, 3, -1
+	cmplwi 7, 9, 0xFE
+	ble 7, .continue
+	
+	mr 3, 10
+	
+.continue:
 	mflr 0
-	std 31, -8(1)
 	std 0, 16(1)
-	stdu 1, -48(1)
-	mr 31, 1
-
-	lbz 4, 24(3)
-	andi. 4, 8
-	li 4, 0
-	bne 0, .return
-
-	lwz 3, 8(3)
-	addi 5, 3, -1
-	cmplwi 5, 0xFE
-	bgt 0, .return
-
-	extsw 3
+	stdu 1, -32(1)
+	
 	bl isprint
 	nop
-
-	cntlzw 3
-	srwi 3, 5
-	xori 4, 3, 1
-
-.return:
-	clrldi 3, 4, 0x20
-	addi 1, 0x30
+	
+	addi 1, 0x20
+	cntlzw 9, 3
 	ld 0, 16(1)
-	ld 31, -8(1)
+	srwi 9, 5
 	mtlr 0
+	xori 10, 9, 1
+	mr 3, 10
 	blr
+	
+.ret0:
+	li 3, 0
+	blr
+	
 	.long 0
-	.quad 0
+	.byte 0, 9, 0, 1, 0x80, 0, 0, 0
 
 
 
@@ -96,4 +98,4 @@ __option_is_end:
 	blr
 
 	.long 0
-	.quad 0
+	.byte 0, 0, 0, 0, 0, 0, 0, 0
