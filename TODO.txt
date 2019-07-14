@@ -5,7 +5,7 @@
 - Finish clang target dependencies (online and /usr/lib64/clang/8.0.0/include/)
 - Do libgcc
 - Do compiler-rt
-- Do LLVM if I can figure out how to make metadata fuck off
+- Do LLVM if I can figure out how to make metadata fuck off (-g0)
 - Do uint128_t
 - Do uint256_t
 - Instruction set reproduction (x86, 6502, others)
@@ -64,6 +64,7 @@
 - Beyond BIOS, Undocumented PC
 - Very small kernels
 - Decompilations (CS, SM64, etc.)
+- PAL library (https://github.com/parallella/pal)
 
 x86 : -march=icelake-server
 ARM/ARM64 : -march=armv8.4-a
@@ -73,3 +74,9 @@ MSP 430 : -mmcu=msp430xv2
 PowerPC : -mcpu=power8
 RISV-32 : -march=rv32imafdc
 RISV-64 : -march=rv64imafdc
+
+Info:
+
+ARM, ARM64, AVR, RISCV-32, RISCV-64, WebAssembly, x86, x64, MIPS, MIPS64, MSP430, PowerPC, PowerPC-64le : godbolt.org->C++
+m6502 : godbolt.org->C
+Epiphany : http://gcc.parallella.org/
