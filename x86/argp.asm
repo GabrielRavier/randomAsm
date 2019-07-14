@@ -23,7 +23,7 @@ __argp_usage:
 
 
 
-	align 1-
+	align 16
 __option_is_short:
 	sub esp, 12
 	mov ecx, [esp + 16]
