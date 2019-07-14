@@ -1326,14 +1326,244 @@ uint128_t_operator_multiply_equal:
 
 
 
-
 uint128_t_divmod:
+	mflr 0
+	stwu 1, -128(1)
+	stw 28, 112(1)
+
+	lis 28, uint128_1@ha
+
+	stw 26, 104(1)
+	mr 26, 3
+
+	la 28, uint128_1@l(28)
+	mr 3, 6
+
+	stw 25, 100(1)
+	stw 27, 108(1)
+	mr 4, 28
+	stw 0, 132(1)
+	stw 23, 92(1)
+	mr 27, 6
+	stw 24, 96(1)
+	stw 29, 116(1)
+	mr 25, 5
+	stw 30, 120(1)
+	stw 31, 124(1)
+
+	bl uint128_t_operator_equal_equal
+	cmpwi 7, 3, 0
+	bne 7, .doMrs2
+
+	mr 3, 25
+	mr 4, 27
+	bl uint128_t_operator_equal_equal
+	cmpwi 7, 3, 0
+	bne 7, .doMrs
+
+	lis 31, uint128_0@ha
+	mr 3, 25
+	la 31, uint128_0@l(31)
+	mr 4, 31
+	bl uint128_t_operator_equal_equal
+	cmpwi 7, 3, 0
+	beq 7, .checkBelow
+
+.doConstructs:
+	mr 3, 26
+	mr 4, 31
+	bl uint128_t_constructor
+
+	addi 3, 26, 0x10
+	mr 4, 25
+	bl uint128_t_constructor
+
+	lwz 0, 132(1)
+	mr 3, 26
+	lwz 23, 92(1)
+	lwz 24, 96(1)
+	lwz 25, 100(1)
+	lwz 26, 104(1)
+	lwz 27, 108(1)
+	lwz 28, 112(1)
+	lwz 29, 116(1)
+	lwz 30, 120(1)
+	lwz 31, 124(1)
+	addi 1, 0x80
+	mtlr 0
+	blr
+
+.doMrs:
+	mr 3, 26
+	mr 4, 28
+
+.do0:
+	bl uint128_t_constructor
+
+	lis 4, uint128_0@ha
+	addi 3, 26, 0x10
+	la 4, uint128_0@l(4)
+	bl uint128_t_constructor
+
+	lwz 0, 132(1)
+	mr 3, 26
+	lwz 23, 92(1)
+	lwz 24, 96(1)
+	lwz 25, 100(1)
+	lwz 26, 104(1)
+	lwz 27, 108(1)
+	lwz 28, 112(1)
+	lwz 29, 116(1)
+	lwz 30, 120(1)
+	lwz 31, 124(1)
+	addi 1, 0x80
+	mtlr 0
+	blr
+
+.doMrs2:
+	mr 3, 26
+	mr 4, 25
+	b .do0
+
+.checkBelow:
+	mr 3, 25
+	mr 4, 27
+
+	bl uint128_t_operator_below
+	cmpwi 7, 3, 0
+	bne 7, .doConstructs
+
+	addi 3, 1, 8
+	mr 4, 31
+	bl uint128_t_constructor
+
+	mr 4, 31
+	addi 3, 1, 0x18
+	bl uint128_t_constructor
+
+	mr 3, 25
+	bl uint128_t_bits
+	mr. 24, 3
+	beq 0, .doMoves
+
+	li 30, 0
+	li 31, 0
+	li 23, 0
+	b .doShifts
+
+.checkAboveEq:
+	mr 4, 27
+	addi 3, 1, 0x18
+	bl uint128_t_operator_above_equal
+	cmpwi 7, 3, 0
+	bne 7, .doMinEq
+
+.doAnd:
+	andi. 24, 29, 0xFF
+	beq 0, .doMoves
+
+.doShifts:
+	mr 4, 28
+	addi 3, 1, 8
+	bl uint128_t_operator_shiftLeft_equal
+
+	mr 4, 28
+	addi 3, 1, 0x18
+	addi 29, 24, -1
+	bl uint128_t_operator_shiftLeft_equal
+
+	addi 5, 1, 0x28
+	mr 4, 25
+
+	stw 30, 40(1)
+	stw 31, 44(1)
+	addi 3, 1, 0x38
+	stw 29, 52(1)
+	stw 23, 48(1)
+	bl uint128_t_operator_shiftRight
+	lwz 9, 68(1)
+	addi 3, 1, 0x28
+
+	stw 30, 40(1)
+	stw 31, 44(1)
+	stw 23, 48(1)
+	rlwinm 9, 0, 0x1F, 0x1F
+	stw 9, 52(1)
+
+	bl uint128_t_operator_cast_bool
+	cmpwi 7, 3, 0
+	beq 7, .checkAboveEq
+
+	addi 3, 1, 0x18
+	bl uint128_t_operator_plus_plus
+
+	mr 4, 27
+	addi 3, 1, 0x18
+	bl uint128_t_operator_above_equal
+
+	cmpwi 7, 3, 0
+	beq 7, .doAnd
+
+.doMinEq:
+	mr 4, 27
+	addi 3, 1, 0x18
+	bl uint128_t_operator_minus_equal
+
+	addi 3, 1, 8
+	bl uint128_t_operator_plus_plus
+
+	andi. 24, 29, 0xFF
+	bne 0, .doShifts
+
+.doMoves:
+	mr 3, 26
+	addi 4, 1, 8
+	bl uint128_t_constructor_uint128_t_double_ref
+
+	addi 3, 26, 0x10
+	addi 4, 1, 0x18
+	bl uint128_t_constructor_uint128_t_double_ref
+
+	lwz 0, 132(1)
+	mr 3, 26
+	lwz 23, 92(1)
+	lwz 24, 96(1)
+	lwz 25, 100(1)
+	lwz 26, 104(1)
+	lwz 27, 108(1)
+	lwz 28, 112(1)
+	lwz 29, 116(1)
+	lwz 30, 120(1)
+	lwz 31, 124(1)
+	addi 1, 0x80
+	mtlr 0
+	blr
 
 
 
 
 
 uint128_t_operator_divide:
+	mflr 0
+	stwu 1, -64(1)
+	mr 6, 5
+	mr 5, 4
+	stw 31, 60(1)
+	mr 31, 3
+	addi 3, 1, 8
+	stw 0, 68(1)
+
+	bl uint128_t_divmod
+	mr 3, 31
+	addi 4, 1, 8
+	bl uint128_t_constructor_uint128_t_double_ref
+
+	lwz 0, 68(1)
+	mr 3, 31
+	lz 31, 60(1)
+	addi 1, 0x40
+	mtlr 0
+	blr
 
 
 
@@ -1369,6 +1599,26 @@ uint128_t_operator_divide_equal:
 
 
 uint128_t_operator_modulo:
+	mflr 0
+	stwu 1, -64(1)
+	mr 6, 5
+	mr 5, 4
+	stw 31, 60(1)
+	mr 31, 3
+	addi 3, 1, 8
+	stw 0, 68(1)
+
+	bl uint128_t_divmod
+	mr 3, 31
+	addi 4, 1, 0x18
+	bl uint128_t_constructor_uint128_t_double_ref
+
+	lwz 0, 68(1)
+	mr 3, 31
+	lz 31, 60(1)
+	addi 1, 0x40
+	mtlr 0
+	blr
 
 
 
@@ -1404,51 +1654,178 @@ uint128_t_operator_modulo_equal:
 
 
 uint128_t_operator_plus_plus:
+	lis 4, uint128_1@ha
+	la 4, uint128_1@l(4)
+	b uint128_t_operator_plus_equal
 
 
 
 
 
 uint128_t_operator_plus_plus_int:
+	mflr 0
+	stwu 1, -32(1)
+	stw 0, 36(1)
+	stw 30, 24(1)
+	mr 30, 4
+	stw 31, 28(1)
+	mr 31, 3
+
+	bl uint128_t_constructor
+
+	mr 3, 30
+	bl uint128_t_operator_plus_plus
+
+	lwz 0, 36(1)
+	mr 3, 31
+	lwz 30, 24(1)
+	lwz 31, 28(1)
+	addi 1, 0x20
+	mtlr 0
+	blr
 
 
 
 
 
 uint128_t_operator_minus_minus:
+	lis 4, uint128_1@ha
+	la 4, uint128_1@l(4)
+	b uint128_t_operator_minus_equal
 
 
 
 
 
 uint128_t_operator_minus_minus_int:
+	mflr 0
+	stwu 1, -32(1)
+	stw 0, 36(1)
+	stw 30, 24(1)
+	mr 30, 4
+	stw 31, 28(1)
+	mr 31, 3
+
+	bl uint128_t_constructor
+
+	mr 3, 30
+	bl uint128_t_operator_minus_minus
+
+	lwz 0, 36(1)
+	mr 3, 31
+	lwz 30, 24(1)
+	lwz 31, 28(1)
+	addi 1, 0x20
+	mtlr 0
+	blr
 
 
 
 
 
 uint128_t_operator_single_plus:
+	mflr 0
+	stwu 1, -32(1)
+	stw 0, 36(1)
+	stw 31, 28(1)
+	mr 31, 3
+
+	bl uint128_t_constructor
+
+	lwz 0, 36(1)
+	mr 3, 31
+	lwz 31, 28(1)
+	addi 1, 0x20
+	mtlr 0
+	blr
 
 
 
 
 
 uint128_t_operator_single_minus:
+	mflr 0
+	stwu 1, -48(1)
+	stw 31, 44(1)
+	mr 31, 3
+
+	addi 3, 1, 8
+	stw 0, 52(1)
+	bl uint128_t_operator_not
+
+	lis 5, uint128_1@ha
+	mr 3, 31
+	addi 4, 1, 8
+	la 5, uint128_1@l(5)
+	bl uint128_t_operator_plus
+
+	lwz 0, 52(1)
+	mr 3, 31
+	lwz 31, 44(1)
+	addi 1, 0x30
+	mtlr 0
+	blr
 
 
 
 
 
 uint128_t_upper:
+	blr
 
 
 
 
 
 uint128_t_lower:
+	addi 3, 8
+	blr
 
 
 
 
 
 uint128_t_bits:
+	lwz 9, 0(3)
+	lwz 10, 4(3)
+
+	or. 8, 9, 10
+	bne 0, .ne
+
+	lwz 9, 8(3)
+	lwz 10, 12(3)
+	li 3, 0
+
+	or. 8, 9, 10
+	beqlr 0
+
+	cmpwi 7, 9, 0
+	cntlzw 3, 9
+	beq 7, .eq
+
+	subfic 3, 0x40
+	rlwinm 3, 0, 0xFF
+	blr
+
+.ne:
+	cmpwi 7, 9, 0
+	cntlzw 3, 9
+	beq 7, .eq2
+
+	subfic 3, -0x80
+	rlwinm 3, 0, 0xFF
+	blr
+
+.eq2:
+	cntlzw 3, 10
+	addi 3, 0x20
+	subfic 3, -0x80
+	rlwinm 3, 0, 0xFF
+	blr
+
+.eq:
+	cntlzw 3, 10
+	addi 3, 0x20
+	subfic 3, 0x40
+	rlwinm 3, 0, 0xFF
+	blr
