@@ -1,3 +1,6 @@
+pushw0sp:
+	ldy #3
+
 pushwysp:
 	lda sp
 	sub #2
