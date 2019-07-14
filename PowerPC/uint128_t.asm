@@ -253,7 +253,6 @@ uint128_t_operator_xor_equal:
 
 
 
-
 uint128_t_operator_not:
 	lxvd2x 0, 4
 	xxlnor 0
@@ -1023,7 +1022,6 @@ uint128_t_operator_plus_equal:
 	addi 1, 0x30
 	mtlr 0
 	blr
-
 
 
 
