@@ -65,6 +65,7 @@
 - Very small kernels
 - Decompilations (CS, SM64, etc.)
 - PAL library (https://github.com/parallella/pal)
+- Parallela godbolt examples (http://gcc.parallella.org/)
 
 x86 : -march=icelake-server
 ARM/ARM64 : -march=armv8.4-a
