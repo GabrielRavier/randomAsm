@@ -151,6 +151,16 @@ uint128_t_operator_and_equal:
 
 
 uint128_t_operator_or:
+	ld a6, 8(a2)
+	ld a5, 8(a1)
+	ld a4, 0(a1)
+	ld a2, 0(a2)
+	or a5, a6
+
+	sd a5, 8(a0)
+	or a4, a2
+	sd a4, 0(a0)
+	ret
 
 
 
@@ -182,6 +192,16 @@ uint128_t_operator_or_equal:
 
 
 uint128_t_operator_xor:
+	ld a6, 8(a2)
+	ld a5, 8(a1)
+	ld a4, 0(a1)
+	ld a2, 0(a2)
+	xor a5, a6
+
+	sd a5, 8(a0)
+	xor a4, a2
+	sd a4, 0(a0)
+	ret
 
 
 
