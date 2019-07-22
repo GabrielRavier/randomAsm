@@ -69,6 +69,11 @@
 - Underhanded C contest
 - Underhanded Crypto contest
 - Underhanded V contest
+- Unreal Engine stuff
+- Epic Games stuff
+- Nintendo stuff
+- Sega stuff
+- Game decomp stuff
 
 x86 : -march=icelake-server
 ARM/ARM64 : -march=armv8.4-a
