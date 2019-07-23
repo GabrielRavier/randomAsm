@@ -638,6 +638,19 @@ uint128_t_operator_below_equal:
 
 
 uint128_t_operator_plus:
+	ld a3, 0(a1)
+	ld a4, 0(a2)
+	ld a5, 0(a1)
+	ld a2, 0(a2)
+
+	add a4, a3, a4
+	sgtu a3, a4
+	add a5, a2
+	add a5, a3
+
+	sd a5, 0(a0)
+	sd a4, 8(a0)
+	ret
 
 
 
@@ -669,6 +682,19 @@ uint128_t_operator_plus_equal:
 
 
 uint128_t_operator_minus:
+	ld a4, 8(a1)
+	ld a6, 8(a2)
+	ld a5, 0(a1)
+	ld a1, 0(a2)
+
+	sgtu a2, a6, a4
+	sub a4, a6
+	sub a5, a1
+	sub a5, a2
+
+	sd a5, 0(a0)
+	sd a4, 8(a0)
+	ret
 
 
 
@@ -700,6 +726,86 @@ uint128_t_operator_minus_equal:
 
 
 uint128_t_operator_multiply:
+	ld a6, 8(a1)
+	ld a3, 8(a2)
+	ld a5, 0(a2)
+
+	li a4, -1
+	srli a4, 0x20
+	and t1, a6, a4
+
+	srli t5, a3, 0x20
+	and t0, a5, a4
+	mul a2, t1, t5
+
+	srli a5, 0x20
+	and t3, a3, a4
+
+	srli a3, a6, 0x20
+	ld a1, 0(a1)
+	and t4, a1, a4
+
+	srli a1, 0x20
+	mul t0, t1, t0
+
+	srli t2, a2, 0x20
+	and a2, a4
+	mul a5, t1
+	and a6, t6, a4
+	and a6, t2
+
+	srli t6, 0x20
+	mul t1, t3
+	and a5, a4
+	add a5, t6
+	mul t0, a3, t0
+
+	srli t6, t1, 0x20
+	add t6, a2, t6
+	and t1, a4
+	mul t2, a3, t5
+	and t0, a4
+	add a5, t0
+	mul a3, t3
+	and a2, t2, a4
+
+	srli t2, 0x20
+	add t0, a5, t2
+	add a6, a2
+	mul a5, t4, t3
+	and a2, a3, a4
+	add a2, t6
+
+	srli a3, 0x20
+	add a3, a6, a3
+
+	srli a6, a2, 0x20
+	slli a2, 0x20
+	or a2, t1
+
+	sd a2, 8(a0)
+	and a2, a5, a4
+	mul t4, t5
+	add a3, a2, a3
+	add a3, a6, a3
+	and a2, a3, a4
+
+	srli t1, a5, 0x20
+	srli a5, a3, 0x20
+	mul a3, a1, t3
+
+	and t4, a4
+	add t4, t0, t4
+	add t4, t1
+
+	and a4, a3, a4
+	add a4, t4
+	add a5, a4
+
+	slli a5, 0x20
+	or a5, a2
+	sd a5, 0(a0)
+	ret
 
 
 
@@ -731,6 +837,37 @@ uint128_t_operator_multiply_equal:
 
 
 uint128_t_divmod:
+	addi sp, -0x80
+	sd s3, 88(sp)
+	lui s3, %hi(uint128_1)
+	sd s0, 112(sp)
+	addi a1, s3, %lo(uint128_1)
+	mv s0, a0
+	mv a0, a3
+	sd s1, 104(sp)
+	sd s2, 96(sp)
+	sd s4, 80(sp)
+	mv s2, a2
+	sd ra, 120(sp)
+	sd s5, 72(sp)
+	sd s6, 64(sp)
+	mv s1, a3
+
+	call uint128_t_operator_equal_equal
+	addi s4, s0, 0x10
+	mv a1, s2
+	bnez a0, .l19
+
+	mv a1, s1
+	mv a0, s2
+	call uint128_t_operator_equal_equal
+	beqz a0, .l4
+
+	addi a1, s3, %lo(uint128_1)
+
+.l19:
+	mv a0, s0
+	call uint128_t_constructor
 
 
 
