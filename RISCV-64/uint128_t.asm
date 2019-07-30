@@ -997,6 +997,24 @@ uint128_t_divmod:
 
 
 uint128_t_operator_divide:
+	addi sp, -0x30
+	sd s0, 32(sp)
+	mv a3, a2
+	mv s0, a0
+	mv a2, a1
+	mv a0, sp
+	sd ra, 40(sp)
+	call uint128_t_divmod
+
+	mv a0, s0
+	mv a1, sp
+	call uint128_t_constructor_uint128_t_double_ref
+
+	mv a0, s0
+	ld ra, 40(sp)
+	ld s0, 32(sp)
+	addi sp, 0x30
+	jr ra
 
 
 
@@ -1028,6 +1046,24 @@ uint128_t_operator_divide_equal:
 
 
 uint128_t_operator_modulo:
+	addi sp, -0x30
+	sd s0, 32(sp)
+	mv a3, a2
+	mv s0, a0
+	mv a2, a1
+	mv a0, sp
+	sd ra, 40(sp)
+	call uint128_t_divmod
+
+	mv a0, s0
+	addi a1, sp, 0x10
+	call uint128_t_constructor_uint128_t_double_ref
+
+	mv a0, s0
+	ld ra, 40(sp)
+	ld s0, 32(sp)
+	addi sp, 0x30
+	jr ra
 
 
 
@@ -1059,51 +1095,162 @@ uint128_t_operator_modulo_equal:
 
 
 uint128_t_operator_plus_plus:
+	lui a1, %hi(uint128_1)
+	addi a1, %lo(uint128_1)
+	tail uint128_t_operator_plus_equal
 
 
 
 
 
 uint128_t_operator_plus_plus_int:
+	addi sp, -0x20
+	sd ra, 24(sp)
+	sd s0, 16(sp)
+	sd s1, 8(sp)
+	mv s0, a0
+	mv s1, a1
+
+	call uint128_t_constructor
+
+	mv a0, s1
+	call uint128_t_operator_plus_plus
+
+	mv a0, s0
+	ld ra, 24(sp)
+	ld s0, 16(sp)
+	ld s1, 8(sp)
+	addi sp, 0x20
+	jr ra
 
 
 
 
 
 uint128_t_operator_minus_minus:
+	lui a1, %hi(uint128_1)
+	addi a1, %lo(uint128_1)
+	tail uint128_t_operator_minus_equal
 
 
 
 
 
 uint128_t_operator_minus_minus_int:
+	addi sp, -0x20
+	sd ra, 24(sp)
+	sd s0, 16(sp)
+	sd s1, 8(sp)
+	mv s0, a0
+	mv s1, a1
+
+	call uint128_t_constructor
+
+	mv a0, s1
+	call uint128_t_operator_minus_minus
+
+	mv a0, s0
+	ld ra, 24(sp)
+	ld s0, 16(sp)
+	ld s1, 8(sp)
+	addi sp, 0x20
+	jr ra
 
 
 
 
 
 uint128_t_operator_single_plus:
+	addi sp, -0x10
+	sd s0, 0(sp)
+	sd ra, 8(sp)
+	mv s0, a0
+
+	call uint128_t_constructor
+
+	mv a0, s0
+	ld ra, 8(sp)
+	ld s0, 0(sp)
+	addi sp, 0x10
+	jr ra
 
 
 
 
 
 uint128_t_operator_single_minus:
+	addi sp, -0x20
+	sd s0, 16(sp)
+	mv s0, a0
+	mv a0, sp
+	sd ra, 24(sp)
+
+	call uint128_t_operator_not
+	lui a2, %hi(uint128_1)
+	mv a0, s0
+	mv a1, sp
+	addi a2, %lo(uint128_1)
+	call uint128_t_operator_plus
+
+	mv a0, s0
+	ld ra, 24(sp)
+	ld s0, 16(sp)
+	addi sp, 0x20
+	jr ra
 
 
 
 
 
 uint128_t_upper:
+	ret
 
 
 
 
 
 uint128_t_lower:
+	addi a0, 8
+	ret
 
 
 
 
 
 uint128_t_bits:
+	ld a5, 0(a0)
+	addi sp, -0x10
+	sd ra, 8(sp)
+	bnez a5, .nez2
+
+	ld a5, 8(a0)
+	li a0, 0
+	bnez a5, .nez
+
+	ld ra, 8(sp)
+	addi sp, 0x10
+	jr ra
+
+.nez:
+	mv a0, a5
+	call __clzdi2
+
+	ld ra, 8(sp)
+	li a5, 0x40
+	subw a0, a5, a0
+	andi a0, 0xFF
+
+	addi sp, 0x10
+	jr ra
+
+.nez2:
+	mv a0, a5
+	call __clzdi2
+
+	ld ra, 8(sp)
+	li a5, -0x80
+	subw a0, a5, a0
+	andi a0, 0xFF
+
+	addi sp, 0x10
+	jr ra
