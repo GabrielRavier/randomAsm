@@ -856,18 +856,141 @@ uint128_t_divmod:
 	call uint128_t_operator_equal_equal
 	addi s4, s0, 0x10
 	mv a1, s2
-	bnez a0, .l19
+	bnez a0, .doConstructs
 
 	mv a1, s1
 	mv a0, s2
 	call uint128_t_operator_equal_equal
-	beqz a0, .l4
+	beqz a0, .check0
 
 	addi a1, s3, %lo(uint128_1)
 
-.l19:
+.doConstructs:
 	mv a0, s0
 	call uint128_t_constructor
+
+	lui a1, %hi(uint128_0)
+	addi a1, %lo(uint128_0)
+	mv a0, s4
+	call uint128_t_constructor
+
+.return:
+	mv a0, s0
+	ld ra, 120(sp)
+	ld s0, 112(sp)
+	ld s1, 104(sp)
+	ld s2, 96(sp)
+	ld s3, 88(sp)
+	ld s4, 80(sp)
+	ld s5, 72(sp)
+	ld s6, 64(sp)
+	addi sp, 0x80
+	jr ra
+
+.check0:
+	lui s5, %hi(uint128_0)
+	addi a1, s5, %lo(uint128_0)
+	mv a0, s2
+	call uint128_t_operator_equal_equal
+	beqz a0, .checkBelow
+
+.do0s:
+	addi a1, s5, %lo(uint128_0)
+	mv a0, s0
+	call uint128_t_constructor
+
+	mv a1, s2
+	mv a0, s4
+	call uint128_t_constructor
+	j .return
+
+.checkBelow:
+	mv a1, s1
+	mv a0, s2
+	call uint128_t_operator_below
+	bnez a0, .do0s
+
+	addi a1, s5, %lo(uint128_0)
+	addi a0, sp, 0x20
+	call uint128_t_constructor
+
+	addi a0, sp, 0x30
+	addi a1, s5, %lo(uint128_0)
+	call uint128_t_constructor
+
+	mv a0, s2
+	call uint128_t_bits
+	beqz a0, .doMoves
+
+	sext.w s5, a0
+	addiw a0, -1
+	addiw s6, s5, -2
+	andi a0, 0xFF
+	addiw s5, -1
+	subw s6, a0
+
+.gotNe:
+	addi a1, s3, %lo(uint128_1)
+	addi a0, sp, 0x20
+	call uint128_t_operator_shiftLeft_equal
+
+	addi a1, s3, %lo(uint128_1)
+	addi a0, sp, 0x30
+	call uint128_t_operator_shiftLeft_equal
+
+	slli a5, s5, 0x20
+	srli a5, 0x20
+
+	addi a2, sp, 0x10
+	mv a1, s2
+	mv a0, sp
+
+	sd a5, 24(sp)
+	sd zero, 16(sp)
+	call uint128_t_operator_shiftRight
+
+	ld a5, 8(sp)
+	addi a0, sp, 0x10
+	sd zero, 16(sp)
+	andi a5, 1
+	sd a5, 24(sp)
+
+	call uint128_t_operator_cast_bool
+	addiw s5, -1
+	bnez a0, .doPlusPlus
+
+.checkAboveEq:
+	mv a1, s1
+	addi a0, sp, 0x30
+	call uint128_t_operator_above_equal
+	bnez a0, .doMinEq
+
+.checkNe:
+	bne s6, s5, .gotNe
+
+.doMoves:
+	addi a1, sp, 0x20
+	mv a0, s0
+	call uint128_t_constructor_uint128_t_double_ref
+
+	addi a1, sp, 0x30
+	mv a0, s4
+	call uint128_t_constructor_uint128_t_double_ref
+	j .return
+
+.doMinEq:
+	mv a1, s1
+	addi a0, sp, 0x30
+	call uint128_t_operator_minus_equal
+
+	addi a0, sp, 0x20
+	call uint128_t_operator_plus_plus
+	j .checkNe
+
+.doPlusPlus:
+	addi a0, sp, 0x30
+	call uint128_t_operator_plus_plus
+	j .checkAboveEq
 
 
 
