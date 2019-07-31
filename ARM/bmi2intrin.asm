@@ -1,5 +1,5 @@
 	.text
-	
+
 _mulx_u64:
 	push {r4, r5, r6, r8, r9, lr}
 
@@ -52,33 +52,6 @@ _mulx_u64:
 
 
 _mulx_u32:
-#if ARMv6
 	umull r0, r1, r0, r1
 	str r1, [r2]
 	bx lr
-#elif ARMv5e
-	push {r4, r5}
-	umull r4, r5, r0, r1
-	mov r0, r4
-	str r5, [r2]
-	pop {r4, r5}
-	bx lr
-#elif ARMv3m
-	str r4, [sp, #-4]!
-	umull r3, r4, r0, r1
-	mov r0, r3
-	str r4, [r2]
-	ldr r4, [sp], #4
-	bx lr
-#else
-	push {r4, lr}
-	mov r4, r2
-
-	mov r3, #0
-	mov r2, r1
-	mov r1, r3
-	bl __aeabi_lmul
-
-	str r1, [r4]
-	pop {r4, pc}
-#endif
