@@ -7,8 +7,10 @@ __aeabi_ddiv:
 	orr ip, #0x700
 	ands r3, ip, xh, lsr #20
 	andsne r5, ip, yh, lsr #20
-	teqne r4, ip
-	teqne r5, ip
+
+	.irp reg, r4, r5
+		teqne \reg, ip
+	.endr
 	bleq .s
 
 	sub r4, r5
