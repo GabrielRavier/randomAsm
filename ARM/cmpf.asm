@@ -101,67 +101,37 @@ __aeabi_cmpdf2:
 
 
 
-__aeabi_dcmplt:
+.macro mkCmpWrapper funcName, funcCalled, cond1, cond2
+\funcName:
 	str lr, [sp, #-8]!
-	bl __aeabi_cdcmple
+	bl \funcCalled
 
-	movcc r0, #1
-	movcs r0, #0
+	mov\cond1 r0, #1
+	mov\cond2 r0, #0
 	ldr pc, [sp], #8
+.endm
+
+.macro mkCmpCcCsWrapper funcName, funcCalled
+	mkCmpWrapper \funcName, \funcCalled, cc, cs
+.endm
+
+	mkCmpCcCsWrapper __aeabi_dcmplt, __aeabi_cdcmple
+	mkCmpCcCsWrapper __aeabi_fcmplt, __aeabi_cfcmple
 
 
 
 
 
-__aeabi_fcmplt:
-	str lr, [sp, #-8]!
+.macro mkCmpLsHiWrapper funcName, funcCalled
+	mkCmpWrapper \funcName, \funcCalled, ls, hi
+.endm
 
-	bl __aeabi_cfcmple
-
-	movcc r0, #1
-	movcs r0, #0
-	ldr pc, [sp], #8
+	mkCmpLsHiWrapper __aeabi_dcmpge, __aeabi_cdrcmple
+	mkCmpLsHiWrapper __aeabi_fcmpge, __aeabi_cfrcmple
 
 
 
 
 
-__aeabi_dcmpge:
-	str lr, [sp, #-8]!
-	bl __aeabi_cdrcmple
-	movls r0, #1
-	movhi r0, #0
-	ldr pc, [sp], #8
-
-
-
-
-
-__aeabi_fcmpge:
-	str lr, [sp, #-8]!
-	bl __aeabi_cfrcmple
-	movls r0, #1
-	movhi r0, #0
-	ldr pc, [sp], #8
-
-
-
-
-
-__aeabi_dcmple:
-	str lr, [sp, #-8]!
-	bl __aeabi_cdcmple
-	movls r0, #1
-	movhi r0, #0
-	ldr pc, [sp], #8
-
-
-
-
-
-__aeabi_fcmple:
-	str lr, [sp, #-8]!
-	bl __aeabi_cfcmple
-	movls r0, #1
-	movhi r0, #0
-	ldr pc, [sp], #8
+	mkCmpLsHiWrapper __aeabi_dcmple, __aeabi_cdcmple
+	mkCmpLsHiWrapper __aeabi_fcmple, __aeabi_cfcmple

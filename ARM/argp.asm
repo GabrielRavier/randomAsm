@@ -1,8 +1,9 @@
+.include "standard.inc"
+
 	.text
 
 __argp_usage:
-	movw r3, #:lower16:stderr
-	movt r3, #:upper16:stderr
+	getAddr r3, stderr
 	movw r2, #0x106
 	ldr r1, [r3]
 	b argp_state_help
@@ -20,10 +21,10 @@ __option_is_short:
 	sub r2, r0, #1
 	cmp r2, #0xFE
 	bls .continue
-	
+
 	mov r0, r3
 	bx lr
-	
+
 .continue:
 	push {r4, lr}
 	bl isprint

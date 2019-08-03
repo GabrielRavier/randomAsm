@@ -1,12 +1,12 @@
+.include "standard.inc"
+
 	.text
 
 _mulx_u64:
 	push {r4, r5, r6, r8, r9, lr}
 
-	mov r4, #0
-	mov r5, #0
+	multizero r4, r5, r9
 	mov r8, #0x40
-	mov r9, #0
 
 	sub sp, #0x30
 
