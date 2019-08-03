@@ -31,11 +31,11 @@ bswap64:
 	eor r3, r2, r2, ror #16
 
 	.irp reg, r1, r3
-	lsr \reg, #8
+		lsr \reg, #8
 	.endr
 
 	.irp reg, r1, r3
-	bic \reg, #0xFF00
+		bic \reg, #0xFF00
 	.endr
 
 	eor r1, r0, ror #8
