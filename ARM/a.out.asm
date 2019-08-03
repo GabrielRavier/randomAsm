@@ -38,13 +38,13 @@ N_BADMAG:
 	ldrh r3, [r0]
 	movw r2, #0x10B
 	sub r0, r3, #0x104
-	
+
 	cmp r3, r2
 	cmpne r3, #0xCC
 	sub r0, #3
 	movne r3, #1
 	moveq r3, #0
-	
+
 	cmp r0, #1
 	movls r0, #0
 	andhi r0, r3, #1
