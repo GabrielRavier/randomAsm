@@ -10,8 +10,7 @@ cimagf:
 
 cimagl:
 cimag:
-	mov r0, r2
-	mov r1, r3
+	multiMov "r0, r2", "r1, r3"
 	bx lr
 
 
@@ -20,8 +19,7 @@ cimag:
 
 conjf:
 	add r2, #0x80000000
-	str r2, [r0, #4]
-	str r1, [r0]
+	multiStr "r2, [r0, #4]", "r1, [r0]"
 	bx lr
 
 
@@ -34,8 +32,7 @@ conj:
 	push {r4, r5}
 	add ip, sp, #4
 	stmib ip, {r2, r3}
-	ldr r3, [sp, #20]
-	ldr r2, [sp, #16]
+	multiLdr "r3, [sp, #20]", "r2, [sp, #16]"
 	add r3, #0x80000000
 	add r5, sp, #8
 	ldmia r5, {r4-r5}
@@ -76,6 +73,7 @@ copysign:
 
 
 cprojf:
+	multiStr "r1, [r0]", "r2, [r0, #4]"
 	str r1, [r0]
 	str r2, [r0, #4]
 	bx lr
@@ -94,9 +92,7 @@ cproj:
 
 	add ip, sp, #4
 	stmib ip, {r2-r3}
-	str r4, [r0, #8]
-	str r5, [r0, #12]
-
+	multiStr "r4, [r0, #8]", "r5, [r0, #12]"
 	add r3, sp, #8
 	ldmia r3, {r2-r3}
 
@@ -111,8 +107,7 @@ cproj:
 
 fmaxf:
 	push {r4, r5, r6, lr}
-	mov r4, r0
-	mov r5, r1
+	multiMov "r4, r0", "r5, r1"
 	bl __aeabi_fcmpge
 
 	cmp r0, #0
@@ -129,18 +124,14 @@ fmaxl:
 fmax:
 	push {r4, r5, r6, r7, r8, lr}
 
-	mov r4, r0
-	mov r5, r1
-	mov r6, r2
-	mov r7, r3
+	multiMov "r4, r0", "r5, r1", "r6, r2", "r7, r3"
 	bl __aeabi_dcmpge
 
 	cmp r0, #0
 	moveq r4, r6
 	moveq r5, r7
 
-	mov r0, r4
-	mov r1, r5
+	multiMov "r0, r4", "r1, r5"
 	pop {r4, r5, r6, r7, r8, pc}
 
 
@@ -149,8 +140,7 @@ fmax:
 
 fminf:
 	push {r4, r5, r6, lr}
-	mov r4, r0
-	mov r5, r1
+	multiMov "r4, r0", "r5, r1"
 	bl __aeabi_fcmple
 
 	cmp r0, #0
@@ -167,18 +157,14 @@ fminl:
 fmin:
 	push {r4, r5, r6, r7, r8, lr}
 
-	mov r4, r0
-	mov r5, r1
-	mov r6, r2
-	mov r7, r3
+	multiMov "r4, r0", "r5, r1", "r6, r2", "r7, r3"
 	bl __aeabi_dcmple
 
 	cmp r0, #0
 	moveq r4, r6
 	moveq r5, r7
 
-	mov r0, r4
-	mov r1, r5
+	multiMov "r0, r4", "r1, r5"
 	pop {r4, r5, r6, r7, r8, pc}
 
 

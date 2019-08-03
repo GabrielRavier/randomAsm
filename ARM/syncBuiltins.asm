@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 sync_fetch_and_add_32:
@@ -49,8 +51,7 @@ sync_bool_compare_and_swap_32:
 .end:
 	dmb ish
 
-	moveq r0, #1
-	movne r0, #0
+	movEqNe r0, #1, #0
 	bx lr
 
 

@@ -42,8 +42,7 @@ N_BADMAG:
 	cmp r3, r2
 	cmpne r3, #0xCC
 	sub r0, #3
-	movne r3, #1
-	moveq r3, #0
+	movEqNe r3, #0, #1
 
 	cmp r0, #1
 	movls r0, #0

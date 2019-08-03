@@ -8,8 +8,7 @@ bcmp:
 
 
 bzero:
-	mov r2, r1
-	mov r1, #0
+	multiMov "r2, r1", "r1, #0"
 	b memset
 
 
@@ -51,8 +50,7 @@ isascii:
 signbit:
 signbitl:
 	push {r4, lr}
-	mov r2, #0
-	mov r3, #0
+	multiZero r2, r3
 	bl __aeabi_dcmplt
 
 	adds r0, #0

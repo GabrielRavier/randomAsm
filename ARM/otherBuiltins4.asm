@@ -2,8 +2,10 @@
 
 abs:
 labs:
-	cmp r0, #0
-	rsblt r0, #0
+	.irp instr, cmp, rsblt
+		\instr r0, #0
+	.endr
+
 	bx lr
 
 
@@ -22,6 +24,5 @@ fabs:
 isdigit:
 	sub r0, #0x30
 	cmp r0, #9
-	movhi r0, #0
-	movls r0, #1
+	movHiLs r0, #0, #1
 	bx lr

@@ -1,8 +1,9 @@
 	.text
 
 __paritysi2:
-	eor r0, lsr #16
-	eor r0, lsr #8
+	.irp lsrAmount #16, #8
+		eor r0, lsr \lsrAmount
+	.endr
 
 	ldr r3, .u6996
 	eor r0, lsr #4

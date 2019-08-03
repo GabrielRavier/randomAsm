@@ -1,10 +1,11 @@
+.include "standard.inc"
+
 	.text
 
 clear_cache:
 #if WinCE
 	push {r4, r5, lr}
-	mov r4, r0
-	mov r5, r1
+	multiMov "r4, r0", "r5, r1"
 
 	bl GetCurrentProcess
 	sub r2, r5, r4

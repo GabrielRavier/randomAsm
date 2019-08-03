@@ -5,11 +5,7 @@ __aeabi_muldi3:
 __muldi3:
 #if 1
 	push {r4, r5, r6, r7, r8, lr}
-	mov r5, r3
-	mov r7, r0
-	mov r6, r1
-	mov r4, r2
-	mov r1, r2
+	multiMov "r5, r3", "r7, r0", "r6, r1", "r4, r2", "r1, r2"
 	mul r5, r7
 	bl __muldsi3
 

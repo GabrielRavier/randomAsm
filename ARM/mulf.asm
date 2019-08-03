@@ -5,8 +5,8 @@ __aeabi_dmul:
 
 	mov ip, #0xFF
 	orr ip, #0x700
-	ands r4, ip, r0, lsr #20
 	andsne r5, ip, r2 lsr #20
+	ands r4, ip, r0, lsr #20
 
 	.irp reg, r4, r5
 		teqne \reg, ip
@@ -376,11 +376,15 @@ __aeabi_fmul:
 .o:
 	and r0, #0x80000000
 
-	orr r0, #0x7F000000
-	orr r0, #0x800000
+	.irp val, #0x7F000000, #0x800000
+		orr r0, \val
+	.endr
+
 	bx lr
 
 .n:
-	orr r0, #0x7F000000
-	orr r0, #0xC00000
+	.irp val, #0x7F000000, #0xC00000
+		orr r0, \val
+	.endr
+
 	bx lr

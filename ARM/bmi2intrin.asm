@@ -5,25 +5,19 @@
 _mulx_u64:
 	push {r4, r5, r6, r8, r9, lr}
 
-	multizero r4, r5, r9
+	multiZero r4, r5, r9
 	mov r8, #0x40
 
 	sub sp, #0x30
 
-	str r2, [sp, #40]
-	str r3, [sp, #44]
-	str r0, [sp, #24]
-	str r1, [sp, #28]
+	multiStr "r2, [sp, #40]", "r3, [sp, #44]", "r0, [sp, #24]", "r1, [sp, #28]"
 
 	add r2, sp, #0x20
 	mov r0, sp
 	add r1, sp, #0x10
 
 	ldr r6, [sp, #72]
-	str r4, [sp, #16]
-	str r5, [sp, #20]
-	str r4, [sp, #32]
-	str r5, [sp, #36]
+	multiStr "r4, [sp, #16]", "r5, [sp, #20]", "r4, [sp, #32]", "r5, [sp, #36]"
 
 	bl uint128_t_operator_multiply
 
@@ -31,10 +25,7 @@ _mulx_u64:
 	mov r1, sp
 	add r0, sp, #0x10
 
-	str r4, [sp, #32]
-	str r5, [sp, #36]
-	str r8, [sp, #40]
-	str r9, [sp, #44]
+	multiStr "r4, [sp, #32]", "r5, [sp, #36]", "r8, [sp, #40]", "r9, [sp, #44]"
 
 	bl uint128_t_operator_shiftRight
 

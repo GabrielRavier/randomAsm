@@ -1,8 +1,7 @@
 	.text
 
 __popcountsi2:
-	ldr r3, .u55555555
-	ldr r2, .u33333333
+	multiLdr "r3, .u55555555", "r2, .u33333333"
 	and r3, r0, lsr #1
 	sub r0, r3
 

@@ -10,15 +10,28 @@ uint128_1:
 
 	.text
 
+.macro instr128 addr, reg1, reg2, reg3, reg4, instr
+	\instr \reg1, [\addr]
+	\instr \reg2, [\addr, #4]
+	\instr \reg3, [\addr, #8]
+	\instr \reg4, [\addr, #12]
+.endm
+
+.macro ldr128 addr, reg1, reg2, reg3, reg4
+	instr128 \addr, \reg1, \reg2, \reg3, \reg4, ldr
+.endm
+
+.macro str128 addr, reg1, reg2, reg3, reg4
+	instr128 \addr, \reg1, \reg2, \reg3, \reg4, str
+.endm
+
 uint128_t_constructor_default:
 	push {r4, r5}
 
-	mov r4, #0
-	mov r5, #0
+	multiZero r4, r5
 
 	stm r0, {r4-r5}
-	str r4, [r0, #8]
-	str r5, [r0, #12]
+	multiStr "r4, [r0, #8]", "r5, [r0, #12]"
 
 	pop {r4, r5}
 	bx lr
@@ -35,8 +48,7 @@ uint128_t_constructor:
 	stm r0, {r4-r5}
 	pop {r4, r5}
 
-	str r2, [r0, #8]
-	str r3, [r0, #12]
+	multiStr "r2, [r0, #8]", "r3, [r0, #12]"
 	bx lr
 
 
@@ -50,15 +62,12 @@ uint128_t_constructor_uint128_t_double_ref:
 	cmp r0, r1
 	add r3, r1, #8
 	ldmia r3, {r2-r3}
-	str r2, [r0, #8]
-	str r3, [r0, #12]
+	multiStr "r2, [r0, #8]", "r3, [r0, #12]"
 	bxeq lr
 
-	mov r2, #0
-	mov r3, #0
+	multiZero r2, r3
 	stm r1, {r2-r3}
-	str r2, [r1, #8]
-	str r3, [r1, #12]
+	multiStr "r2, [r1, #8]", "r3, [r1, #12]"
 	bx lr
 
 
@@ -74,8 +83,7 @@ uint128_t_operator_equal:
 	stm r0, {r4-r5}
 	pop {r4, r5}
 
-	str r2, [r0, #8]
-	str r3, [r0, #12]
+	multiStr "r2, [r0, #8]", "r3, [r0, #12]"
 	bx lr
 
 
@@ -88,17 +96,14 @@ uint128_t_operator_equal_const_uint128_t_double_ref:
 
 	push {r4, r5}
 	ldmia r1, {r2-r3}
-	mov r4, #0
-	mov r5, #0
+	multiZero r4, r5
 	stm r0, {r2-r3}
 
 	add r3, r1, #8
 	ldmia r3, {r2-r3}
-	str r2, [r0, #8]
-	str r3, [r0, #12]
+	multiStr "r2, [r0, #8]", "r3, [r0, #12]"
 	stm r1, {r4-r5}
-	str r4, [r1, #8]
-	str r5, [r1, #12]
+	multiStr "r4, [r1, #8]", "r5, [r1, #12]"
 
 	pop {r4, r5}
 	bx lr
@@ -114,8 +119,7 @@ uint128_t_operator_cast_bool:
 	orr r3, r1
 	orrs r3, r2, r3
 
-	movne r0, #1
-	moveq r0, #0
+	movEqNe r0, #0, #1
 	bx lr
 
 
@@ -158,22 +162,14 @@ uint128_t_operator_cast_uint64_t:
 uint128_t_operator_and:
 	ldr ip, [r1, #12]
 	push {r4, r5, lr}
-	ldr lr, [r2, #8]
-	ldr r5, [r2, #12]
-	ldr r4, [r1, #8]
+	multiLdr "lr, [r2, #8]", "r5, [r2, #12"], "r4, [r1, #8]"
 	and ip, r5
 	and r4, lr
-	ldr r5, [r2]
-	ldr lr, [r1]
-	ldr r2, [r2, #4]
-	ldr r1, [r1, #4]
+	multiLdr "r5, [r2]", "lr, [r1]", "r2, [r2, #4]", "r1, [r1, #4]"
 	and lr, r5
 	and r1, r2
 
-	str r4, [r0, #8]
-	str lr, [r0]
-	str r1, [r0, #4]
-	str ip, [r0, #12]
+	str128 r0, lr, r1, r4, ip
 	pop {r4, r5, pc}
 
 
@@ -181,26 +177,19 @@ uint128_t_operator_and:
 
 
 uint128_t_operator_and_equal:
-	ldr ip, [r1, #4]
-	ldr r2, [r0, #4]
+	multiLdr "ip, [r1, #4]", "r2, [r0, #4]"
 	push {r4, r5, lr}
 	and r2, ip
 	ldr r5, [r1]
 	str r2, [r0, #4]
 
-	ldr r4, [r1, #8]
-	ldr lr, [r1, #12]
-	ldr ip, [r0]
-	ldr r1, [r0, #8]
-	ldr r1, [r0, #12]
+	multiLdr "r4, [r1, #8]", "lr, [r1, #12]", "ip, [r0]", "r1, [r0, #8]", "r1, [r0, #12]"
 
 	and ip, r5
 	and r1, r4
 	and r2, lr
 
-	str ip, [r0]
-	str r1, [r0, #8]
-	str r2, [r0, #12]
+	multiStr "ip, [r0]", "r1, [r0, #8]", "r2, [r0, #12]"
 	pop {r4, r5, pc}
 
 
@@ -210,25 +199,17 @@ uint128_t_operator_and_equal:
 uint128_t_operator_or:
 	ldr ip, [r1, #12]
 	push {r4, r5, lr}
-	ldr lr, [r2, #8]
-	ldr r5, [r2, #12]
-	ldr r4, [r1, #8]
+	multiLdr "lr, [r2, #8]", "r5, [r2, #12]", "r4, [r1, #8]"
 
 	orr ip, r5
 	orr r4, lr
 
-	ldr r5, [r2]
-	ldr lr, [r1]
-	ldr r2, [r2, #4]
-	ldr r1, [r1, #4]
+	multiLdr "r5, [r2]", "lr, [r1]", "r2, [r2, #4]", "r1, [r1, #4]"
 
 	orr lr, r5
 	orr r1, r2
 
-	str r4, [r0, #8]
-	str lr, [r0]
-	str r1, [r0, #4]
-	str ip, [r0, #12]
+	str128 r0, lr, r1, r4, ip
 
 	pop {r4, r5, pc}
 
@@ -237,27 +218,20 @@ uint128_t_operator_or:
 
 
 uint128_t_operator_or_equal:
-	ldr ip, [r1, #4]
-	ldr r2, [r0, #4]
+	multiLdr "ip, [r1, #4]", "r2, [r0, #4]"
 	push {r4, r5, lr}
 	orr r2, ip
 
 	ldr r5, [r1]
 	str r2, [r0, #4]
 
-	ldr r4, [r1, #8]
-	ldr lr, [r1, #12]
-	ldr ip, [r0]
-	ldr r1, [r0, #8]
-	ldr r2, [r0, #12]
+	multiLdr "r4, [r1, #8]", "lr, [r1, #12]", "ip, [r0]", "r1, [r0, #8]", "r2, [r0, #12]"
 
 	orr ip, r5
 	orr r1, r4
 	orr r2, lr
 
-	str ip, [r0]
-	str r1, [r0, #8]
-	str r2, [r0, #12]
+	multiStr "ip, [r0]", "r1, [r0, #8]", "r2, [r0, #12]"
 	pop {r4, r5, pc}
 
 
@@ -267,25 +241,17 @@ uint128_t_operator_or_equal:
 uint128_t_operator_xor:
 	ldr ip, [r1, #12]
 	push {r4, r5, lr}
-	ldr lr, [r2, #8]
-	ldr r5, [r2, #12]
-	ldr r4, [r1, #8]
+	multiLdr "lr, [r2, #8]", "r5, [r2, #12]", "r4, [r1, #8]"
 
 	eor ip, r5
 	eor r4, lr
 
-	ldr r5, [r2]
-	ldr lr, [r1]
-	ldr r2, [r2, #4]
-	ldr r1, [r1, #4]
+	multiLdr "r5, [r2]", "lr, [r1]", "r2, [r2, #4]", "r1, [r1, #4]"
 
 	eor lr, r5
 	eor r1, r2
 
-	str r4, [r0, #8]
-	str lr, [r0]
-	str r1, [r0, #4]
-	str ip, [r0, #12]
+	str128 r0, lr, r1, r4, ip
 	pop {r4, r5, pc}
 
 
@@ -293,26 +259,19 @@ uint128_t_operator_xor:
 
 
 uint128_t_operator_xor_equal:
-	ldr ip, [r1, #4]
-	ldr r2, [r0, #4]
+	multiLdr "ip, [r1, #4]", "r2, [r0, #4]"
 	push {r4, r5, lr}
 
 	eor r2, ip
 	ldr r5, [r1]
 	str r2, [r0, #4]
-	ldr r4, [r1, #8]
-	ldr lr, [r1, #12]
-	ldr ip, [r0]
-	ldr r1, [r0, #8]
-	ldr r2, [r0, #12]
+	multiLdr "r4, [r1, #8]", "lr, [r1, #12]", "ip, [r0]", "r1, [r0, #8]", "r2, [r0, #12]"
 
 	eor ip, r5
 	eor r1, r4
 	eor r2, lr
 
-	str ip, [r0]
-	str r1, [r0, #8]
-	str r2, [r0, #12]
+	multiStr "ip, [r0]", "r1, [r0, #8]", "r2, [r0, #12]"
 	pop {r4, r5, pc}
 
 
@@ -320,10 +279,7 @@ uint128_t_operator_xor_equal:
 
 
 uint128_t_operator_not:
-	ldr r2, [r1, #8]
-	ldr r3, [r1, #12]
-	ldr ip, [r1]
-	ldr r1, [r1, #4]
+	ldr128 r1, ip, r1, r2, r3
 	str lr, [sp, #-4]!
 
 	mvn ip
@@ -331,10 +287,7 @@ uint128_t_operator_not:
 	mvn r1
 	mvn r2, r3
 
-	str lr, [r0, #8]
-	str ip, [r0]
-	str r1, [r0, #4]
-	str r2, [r0, #12]
+	str128 r0, ip, r1, lr, r2
 	ldr pc, [sp], #4
 
 
@@ -342,16 +295,14 @@ uint128_t_operator_not:
 
 
 uint128_t_operator_shiftLeft:
-	ldr r3, [r2, #4]
-	ldr ip, [r2]
+	multiLdr "r3, [r2, #4]", "ip, [r2]"
 	push {r4, r5, r6, r7, r8, lr}
 
 	add r7, r2, #8
 	ldmia r7, {r6-r7}
 
 	orrs r3, ip, r3
-	movne r3, #1
-	moveq r3, #0
+	movEqNe r3, #0, #1
 
 	cmp r7, #0
 	cmpeq r6, #0x7F
@@ -385,9 +336,7 @@ uint128_t_operator_shiftLeft:
 
 	ldr r2, [r1, #8]
 	rsb lr, r6, #0x40
-	ldr r1, [r1, #12]
-	ldr r4, [r3]
-	ldr r5, [r3, #4]
+	multiLdr "r1, [r1, #12]", "r4, [r3]", "r5, [r3, #4]"
 	rsb ip, lr, #0x20
 
 	lsr r0, r2, lr
@@ -424,8 +373,7 @@ uint128_t_operator_shiftLeft:
 
 	mov r3, #0
 	stm r8, {r0-r1}
-	str r2, [r8, #8]
-	str r3, [r8, #12]
+	multiStr "r2, [r8, #8]", "r3, [r8, #12]"
 
 	mov r0, r8
 	pop {r4, r5, r6, r7, r8, pc}
@@ -438,8 +386,7 @@ uint128_t_operator_shiftLeft:
 	cmpeq r4, #0x3E
 	bhi .handle0
 
-	mov r0, #0
-	mov r1, #0
+	multiZero r0, r1
 	ldr r2, [r3, #12]
 	ldr ip, [r3, #8]
 	sub lr, r6, #0x40
@@ -451,10 +398,7 @@ uint128_t_operator_shiftLeft:
 	orr r3, ip, lsr r2
 
 	lsl ip, lr
-	str r0, [r8, #8]
-	str r1, [r8, #12]
-	str r3, [r8, #4]
-	str ip, [r8]
+	str128 r8, ip, r3, r0, r1
 	b .return
 
 .pUint128_0:

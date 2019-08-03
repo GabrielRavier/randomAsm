@@ -1,12 +1,9 @@
+.include "standard.inc"
+
 	.text
 
 __aeabi_cdrcmple:
-	mov ip, r0
-	mov r0, r2
-	mov r2, ip
-	mov ip, r1
-	mov r1, r3
-	mov r3, ip
+	multiMov "ip, r0", "r0, r2", "r2, ip", "ip, r1", "r1, r3", "r3, ip"
 
 __aeabi_cdcmpeq:
 __aeabi_cdcmple:
@@ -23,9 +20,7 @@ __aeabi_cdcmple:
 
 
 __aeabi_cfrcmple:
-	mov ip, r0
-	mov r0, r1
-	mov r1, ip
+	multiMov "ip, r0", "r0, r1", "r1, ip"
 
 __aeabi_cfcmpeq:
 __aeabi_cfcmple:
