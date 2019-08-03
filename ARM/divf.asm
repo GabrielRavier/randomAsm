@@ -181,8 +181,11 @@ __aeabi_fdiv:
 	mov ip, #0xFF
 	ands r2, ip, r0, lsr #23
 	andsne r3, ip, r1, lsr #23
-	teqne r2, ip
-	teqne r3, ip
+
+	.irp reg, r2, r3
+		teqne \reg, ip
+	.endr
+
 	beq .s
 
 .x:

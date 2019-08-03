@@ -7,21 +7,28 @@ __aeabi_dmul:
 	orr ip, #0x700
 	ands r4, ip, r0, lsr #20
 	andsne r5, ip, r2 lsr #20
-	teqne r4, ip
-	teqne r5, ip
+
+	.irp reg, r4, r5
+		teqne \reg, ip
+	.endr
+
 	bleq .ls
 
 	add r4, r5
 
 	eor r6, r0, r2
 
-	bic r0, ip, lsl #21
-	bic r2, ip, lsl #21
+	.irp reg, r0, r2
+		bic \reg, ip, lsl #21
+	.endr
+
 	orrs r5, r1, r0, lsl #12
 	orrsne r5, r3, r2, lsl #12
 
-	orr r0, #0x100000
-	orr r2, #0x100000
+	.irp reg, r0, r2
+		orr \reg, #0x100000
+	.endr
+
 	beq .l1
 
 	umull ip, lr, r1, r3
@@ -206,14 +213,19 @@ l2:
 
 .o:
 	and r0, #0x80000000
-	orr r0, #0x7F000000
-	orr r0, #0xF00000
+
+	.irp val, #0x7F000000, #0xF00000
+		orr r0, \val
+	.endr
+
 	mov r1, #0
 	pop {r4, r5, r6, pc}
 
 .n:
-	orr r0, #0x7F000000
-	orr r0, #0xF80000
+	.irp val, #0x7F000000, #0xF80000
+		orr r0, \val
+	.endr
+
 	pop {r4, r5, r6, pc}
 
 
@@ -224,8 +236,11 @@ __aeabi_fmul:
 	mov ip, #0xFF
 	ands r2, ip, r0, lsr #23
 	andsne r3, ip, r1, lsr #23
-	teqne r2, ip
-	teqne r3, ip
+
+	.irp reg, r2, r3
+		teqne \reg, ip
+	.endr
+
 	beq .s
 
 	add r2, r3
@@ -235,8 +250,10 @@ __aeabi_fmul:
 	beq .l1
 
 	mov r1, #0x8000000
-	orr r0, r3, r0, lsr #5
-	orr r1, r3, r1, lsr #5
+
+	.irp reg, r0, r1
+		orr \reg, r3, \reg, lsr #5
+	.endr
 
 	umull r3, r1, r0, r1
 
@@ -263,7 +280,7 @@ __aeabi_fmul:
 	and ip, #0x80000000
 	moveq r1, lsr #9
 	orr r0, ip, r0, lsr #9
-	orr r1, r1, lsr #9
+	orr r1, lsr #9
 	subs r2, #127
 	rsbsgt r3, r2, #255
 	orrgt r0, r2, lsl #23
@@ -332,8 +349,11 @@ __aeabi_fmul:
 	teq r0, #0
 	teqne r0, #0x80000000
 	moveq r0, r1
-	teqne r1, #0
-	teqne r1, #0x80000000
+
+	.irp val, #0, #0x80000000
+		teqne r1, \val
+	.endr
+
 	beq .n
 
 	teq r2, ip
@@ -355,6 +375,7 @@ __aeabi_fmul:
 
 .o:
 	and r0, #0x80000000
+
 	orr r0, #0x7F000000
 	orr r0, #0x800000
 	bx lr
