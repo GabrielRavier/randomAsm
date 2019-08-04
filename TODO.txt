@@ -74,6 +74,8 @@
 - Nintendo stuff
 - Sega stuff
 - Game decomp stuff
+- Redo macroing everywhere, not just ARM
+- Redo old stuff with more modern versions of CPUs
 
 x86 : -march=icelake-server
 ARM/ARM64 : -march=armv8.4-a
@@ -89,3 +91,4 @@ Info:
 ARM, ARM64, AVR, RISCV-32, RISCV-64, WebAssembly, x86, x64, MIPS, MIPS64, MSP430, PowerPC, PowerPC-64le : godbolt.org->C++
 m6502 : godbolt.org->C
 Epiphany : http://gcc.parallella.org/
+m68k : https://franke.ms/cex
