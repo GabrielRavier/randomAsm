@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.bss
 
 uint128_0:
@@ -387,8 +389,7 @@ uint128_t_operator_shiftLeft:
 	bhi .handle0
 
 	multiZero r0, r1
-	ldr r2, [r3, #12]
-	ldr ip, [r3, #8]
+	multiLdr "r2, [r3, #12]", "ip, [r3, #8]"
 	sub lr, r6, #0x40
 
 	lsl r3, r2, lr
@@ -408,31 +409,33 @@ uint128_t_operator_shiftLeft:
 
 
 
-uint128_t_operator_shiftLeft_equal:
+.macro makeOperatorEqual funcName, funcNameEq
+
+\funcNameEq:
 	push {r4, lr}
 	mov r4, r0
 	sub sp, #0x10
 
-	mov r2, r1
-	mov r0, sp
-	mov r1, r4
-	bl uint128_t_operator_shiftLeft
+	multiMov "r2, r1", "r0, sp", "r1, r4"
+	bl \funcName
 
-	mov r1, sp
-	mov r0, r4
+	multiMov "r1, sp", "r0, r4"
 	bl uint128_t_operator_equal_const_uint128_t_double_ref
 
 	mov r0, r4
 	add sp, #0x10
 	pop {r4, pc}
 
+.endm
+
+	makeOperatorEqual uint128_t_operator_shiftLeft, uint128_t_operator_shiftLeft_equal
+
 
 
 
 
 uint128_t_operator_shiftRight:
-	ldr r3, [r2, #4]
-	ldr ip, [r2]
+	multiLdr "r3, [r2, #4]", "ip, [r2]"
 
 	push {r4, r5, r6, r7, r8, r9, r0, lr]
 
@@ -440,8 +443,7 @@ uint128_t_operator_shiftRight:
 	ldmia r10, {r9-r10}
 
 	orrs r3, ip, r3
-	movne r3, #1
-	moveq r3, #0
+	movEqNe r3, #0, #1
 
 	cmp r10, #0
 	cmpeq r9, #0x7F
@@ -473,10 +475,7 @@ uint128_t_operator_shiftRight:
 	cmpeq r9, #0x3F
 	bhi .doShifts
 
-	ldr r0, [r3, #4]
-	ldr r2, [r1, #8]
-	ldr r4, [r3]
-	ldr r1, [r1, #12]
+	multiLdr "r0, [r3, #4]", "r2, [r1, #8]", "r4, [r3]", "r1, [r1, #12]"
 
 	rsb r3, r9, #0x40
 	rsb r7, r9, #0x20
@@ -502,10 +501,7 @@ uint128_t_operator_shiftRight:
 	orr ip, r0, lsr r5
 	lsr r6, r0, r9
 
-	str r1, [r8, #12]
-	str r2, [r8, #8]
-	str ip, [r8]
-	str r6, [r8, #4]
+	str128 r8, ip, r6, r2, r1
 	b .return
 
 .doConstruct:
@@ -513,13 +509,11 @@ uint128_t_operator_shiftRight:
 	b .return
 
 .handleStuff:
-	mov r0, #0
-	mov r1, #0
+	multiZero r0, r1
 	stm r8, {r0-r1}
 	mov r0, r8
 	ldmia r3, {r2-r3}
-	str r2, [r8, #8]
-	str r3, [r8, #12]
+	multiStr "r2, [r8, #8]", "r3, [r8, #12]"
 	pop {r4, r5, r6, r7, r8, r9, r10, pc}
 
 .doShifts:
@@ -531,8 +525,7 @@ uint128_t_operator_shiftRight:
 	bhi .handle0
 
 	ldm r3, {r2, ip}
-	mov r0, #0
-	mov r1, #0
+	multiZero r0, r1
 	sub lr, r9, #0x40
 
 	lsr r3, r2, lr
@@ -543,8 +536,7 @@ uint128_t_operator_shiftRight:
 
 	lsr ip, lr
 	stm r8, {r0-r1}
-	str r3, [r8, #8]
-	str ip, [r8, #12]
+	multiStr "r3, [r8, #8]", "ip, [r8, #12]"
 	b .return
 
 .pUint128_0:
@@ -554,23 +546,7 @@ uint128_t_operator_shiftRight:
 
 
 
-uint128_t_operator_shiftRight_equal:
-	push {r4, lr}
-	mov r4, r0
-	sub sp, #0x10
-
-	mov r2, r1
-	mov r0, sp
-	mov r1, r4
-	bl uint128_t_operator_shiftRight
-
-	mov r1, sp
-	mov r0, r4
-	bl uint128_t_operator_equal_const_uint128_t_double_ref
-
-	mov r0, r4
-	add sp, #0x10
-	pop {r4, pc}
+	makeOperatorEqual uint128_t_operator_shiftRight, uint128_t_operator_shiftRight_equal
 
 
 
@@ -583,8 +559,7 @@ uint128_t_operator_exclamation_mark:
 	orr r3, r1
 	orrs r3, r2, r3
 
-	moveq r0, #1
-	movne r0, #0
+	movEqNe r0, #1, #0
 	bx lr
 
 
@@ -640,8 +615,7 @@ uint128_t_operator_equal_equal:
 
 	cmp r5, r3
 	cmpeq r4, r2
-	moveq r0, #1
-	movne r0, #0
+	movEqNe r0, #1, #0
 
 .return:
 	pop {r4, r5}
@@ -686,8 +660,7 @@ uint128_t_operator_above:
 	beq .continue
 
 	pop {r4, r5}
-	movhi r0, #1
-	movls r0, #0
+	movHiLs r0, #1, #0
 	bx lr
 
 .continue:
@@ -700,6 +673,7 @@ uint128_t_operator_above:
 	cmpeq r4, r2
 	movhi r0, #1
 	pop {r4, r5}
+
 	movls r0, #0
 	bx lr
 
@@ -738,15 +712,14 @@ uint128_t_operator_below:
 
 
 
-uint128_t_operator_above_equal:
-	push {r4, r5, r6, lr}
-	mov r5, r0
-	mov r6, r1
+.macro makeCompareEqual funcName, funcNameEq
 
-	bl uint128_t_operator_above
-	mov r1, r6
-	mov r4, r0
-	mov r0, r5
+\funcNameEq:
+	push {r4, r5, r6, lr}
+	multiMov "r5, r0", "r6, r1"
+
+	bl \funcName
+	multiMov "r1, r6", "r4, r0", "r0, r5"
 
 	bl uint128_t_operator_equal_equal
 	orr r0, r4, r0
@@ -754,40 +727,23 @@ uint128_t_operator_above_equal:
 	and r0, #0xFF
 	pop {r4, r5, r6, pc}
 
+.endm
 
-
-
-
-uint128_t_operator_below_equal:
-	push {r4, r5, r6, lr}
-	mov r5, r0
-	mov r6, r1
-
-	bl uint128_t_operator_below
-	mov r1, r6
-	mov r4, r0
-	mov r0, r5
-
-	bl uint128_t_operator_equal_equal
-	orr r0, r4, r0
-
-	and r0, #0xFF
-	pop {r4, r5, r6, pc}
+	makeCompareEqual uint128_t_operator_above, uint128_t_operator_above_equal
+	makeCompareEqual uint128_t_operator_below, uint128_t_operator_below_equal
 
 
 
 
 
 uint128_t_operator_plus:
-	ldr r3, [r1]
-	ldr ip, [r2]
+	multiLdr "r3, [r1]", "ip, [r2]"
 
 	push {r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	add r9, r1, #8
 	ldmia r9, {r8-r9}
 
-	ldr r6, [r1, #4]
-	ldr lr, [r2, #4]
+	multiLdr "r6, [r1, #4]", "lr, [r2, #4]"
 
 	adds r10, r3, ip
 	adc fp, r6, lr
@@ -797,14 +753,12 @@ uint128_t_operator_plus:
 	adds r6, r8, r3
 	adcs r7, r9, r3
 
-	movcs r2, #1
-	movcc r2, #0
+	movCcCs r2, #0, #1
 
 	adds r4, r10, r2
 	adc r5, fp, #0
 
-	str r6, [r0, #8]
-	str r7, [r0, #12]
+	multiStr "r6, [r0, #8]", "r7, [r0, #12]"
 	stm r0, {r4-r5}
 	pop {r4, r5, r6, r7, r8, r9, r10, fp, pc}
 
@@ -822,17 +776,13 @@ uint128_t_operator_plus_equal:
 	adds r8, r4, r2
 	adcs r9, r5, r3
 
-	movcs lr, #1
-	movcc lr, "0
+	movCcCs lr, #0, #1
 
-	ldr r2, [r1]
-	ldr r3, [r0]
-	ldr r1, [r1, #4]
+	multiLdr "r2, [r1]", "r3, [r0]", "r1, [r1, #4]"
 	adds r10, r3, r2
 	ldr r3, [r0, #4]
 
-	str r8, [r0, #8]
-	str r9, [r0, #12]
+	multiStr "r8, [r0, #8]", "r9, [r0, #12]"
 
 	adc fp, r3, r1
 	adds r6, r10, lr
@@ -845,8 +795,7 @@ uint128_t_operator_plus_equal:
 
 
 uint128_t_operator_minus:
-	ldr ip, [r1]
-	ldr r3, [r2]
+	multiLdr "ip, [r1]", "r3, [r2]"
 
 	push {r4, r5, r6, r7, r8, r9, fp, lr}
 	add r7, r1, #8
