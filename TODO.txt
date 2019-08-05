@@ -85,10 +85,14 @@ MSP 430 : -mmcu=msp430xv2
 PowerPC : -mcpu=power8
 RISV-32 : -march=rv32imafdc
 RISV-64 : -march=rv64imafdc
+m6502 : --cpu 65c02
+m68k : -mcpu=68060
 
 Info:
 
 ARM, ARM64, AVR, RISCV-32, RISCV-64, WebAssembly, x86, x64, MIPS, MIPS64, MSP430, PowerPC, PowerPC-64le : godbolt.org->C++
 m6502 : godbolt.org->C
 Epiphany : http://gcc.parallella.org/
-m68k : https://franke.ms/cex
+m68k : https://franke.ms/cex or ct-ng
+amdgcn, bpfel, hexagon, lanai, nvptx, nvptx64, r600, systemz, xcore : clang
+alpha, arc, nios2, s390, sh, sparc (el), xtensa : ct-ng
