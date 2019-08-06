@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __fp_cmp:
@@ -115,8 +117,7 @@ __fp_inf:
 	bld r25, 7
 	ori r25, 0x7F
 	ldi r24, 0x80
-	ldi r23, 0
-	ldi r22, 0
+	multiLdi0 r23, r22
 	ret
 
 
@@ -136,9 +137,7 @@ __fp_zero:
 	clt
 
 __fp_szero:
-	clr r27
-	clr r22
-	clr r23
+	multiClr r27, r22, r23
 	movw r24, r22
 	cld r25, 7
 	ret

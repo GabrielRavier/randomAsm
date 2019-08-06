@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __umulhisi3:
@@ -28,24 +30,19 @@ __umulsidi3:
 	clt
 
 __umulsidi3_helper:
-	push r29
-	push r28
-	wmov r30, r24
+	multiPush r29, r28
+	movw r30, r24
 
-	wmov r26, r22
+	movw r26, r22
 	call __umulhisi3
 
-	push r23
-	push r22
-	wmov r28, r18
-	wmov r19, r24
+	multiPush r23, r22
+	movw r28, r18
+	movw r19, r24
 
-	push r27
-	push r26
-	push r19
-	push r18
+	multiPush r27, r26, r19, r18
 
-	wmov r26, r30
+	movw r26, r30
 	call __umulhisi3
 	brtc .noSub
 
@@ -55,25 +52,19 @@ __umulsidi3_helper:
 	sbc r25, r19
 
 .noSub:
-	wmov r18, r28
-	wmov r28, r22
-	wmov r30, r24
+	movw r18, r28
+	movw r28, r22
+	movw r30, r24
 
 	call __muldi3_6
 
-	pop r26
-	pop r27
-	pop r18
-	pop r19
+	multiPop r26, r27, r18, r19
 
 	call __muldi3_6
 
-	wmov r22, r28
-	wmov r24, r30
-	wmov r30, r18
-	pop r18
-	pop r19
+	movw r22, r28
+	movw r24, r30
+	movw r30, r18
 
-	pop r28
-	pop r29
+	multiPop r18, r19, r28, r29
 	ret

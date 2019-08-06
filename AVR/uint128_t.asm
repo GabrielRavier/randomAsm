@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.bss
 
 uint128_0:
@@ -13,21 +15,7 @@ uint128_1:
 uint128_t_constructor_default:
 	movw r30, r24
 	st Z, __zero_reg__
-	std Z+1, __zero_reg__
-	std Z+2, __zero_reg__
-	std Z+3, __zero_reg__
-	std Z+4, __zero_reg__
-	std Z+5, __zero_reg__
-	std Z+6, __zero_reg__
-	std Z+7, __zero_reg__
-	std Z+8, __zero_reg__
-	std Z+9, __zero_reg__
-	std Z+10, __zero_reg__
-	std Z+11, __zero_reg__
-	std Z+12, __zero_reg__
-	std Z+13, __zero_reg__
-	std Z+14, __zero_reg__
-	std Z+15, __zero_reg__
+	multiStdZR Z+1, Z+2, Z+3, Z+4, Z+5, Z+6, Z+7, Z+8, Z+9, Z+10, Z+11, Z+12, Z+13, Z+14, Z+15
 	ret
 
 
@@ -39,29 +27,14 @@ uint128_t_operator_equal:
 	movw r30, r24
 	movw r28, r22
 
-	ld r23, X
-	adiw r26, 1
+	.irp reg, r23, r22, r21, r20, r19, r18, r25
 
-	ld r22, X
-	adiw r26, 1
+		ld \reg, X
+		adiw r26, 1
 
-	ld r21, X
-	adiw r26, 1
-
-	ld r20, X
-	adiw r26, 1
-
-	ld r19, X
-	adiw r26, 1
-
-	ld r18, X
-	adiw r26, 1
-
-	ld r25, X
-	adiw r26, 1
+	.endr
 
 	ld r24, X
-	sbiw r26, 7
 
 	st Z, r23
 	std Z+1, r22
@@ -72,30 +45,12 @@ uint128_t_operator_equal:
 	std Z+6, r25
 	std Z+7, r24
 
-	adiw r26, 8
+	.irp reg, r23, r22, r21, r20, r19, r18, r25, r24
 
-	ld r23, X
-	adiw r26, 1
+		adiw r26, 1
+		ld \reg, X
 
-	ld r22, X
-	adiw r26, 1
-
-	ld r21, X
-	adiw r26, 1
-
-	ld r20, X
-	adiw r26, 1
-
-	ld r19, X
-	adiw r26, 1
-
-	ld r18, X
-	adiw r26, 1
-
-	ld r25, X
-	adiw r26, 1
-
-	ld r24, X
+	.endr
 
 	std Z+8, r23
 	std Z+9, r22
@@ -124,29 +79,12 @@ uint128_t_constructor_uint128_t_double_ref:
 	ldd r25, Z+6
 	ldd r24, Z+7
 
-	st X, r23
-	adiw r26, 1
+	.irp reg, r23, r22, r21, r20, r19, r18, r25, r26
 
-	st X, r22
-	adiw r26, 1
+		st X, \reg
+		adiw r26, 1
 
-	st X, r21
-	adiw r26, 1
-
-	st X, r20
-	adiw r26, 1
-
-	st X, r19
-	adiw r26, 1
-
-	st X, r18
-	adiw r26, 1
-
-	st X, r25
-	adiw r26, 1
-
-	st X, r26
-	sbiw r26, 7
+	.endr
 
 	ldd r23, Z+8
 	ldd r22, Z+9
@@ -157,52 +95,19 @@ uint128_t_constructor_uint128_t_double_ref:
 	ldd r25, Z+14
 	ldd r24, Z+15
 
-	adiw r26, 8
+	.irp reg, r23, r22, r21, r20, r19, r18, r25, r24
 
-	st X, r23
-	adiw r26, 1
+		st X, \reg
+		adiw r26, 1
 
-	st X, r22
-	adiw r26, 1
-
-	st X, r21
-	adiw r26, 1
-
-	st X, r20
-	adiw r26, 1
-
-	st X, r19
-	adiw r26, 1
-
-	st X, r18
-	adiw r26, 1
-
-	st X, r25
-	adiw r26, 1
-
-	st X, r24
-	adiw r26, 1
+	.endr
 
 	cp r30, r26
 	cpc r31, r27
 	breq .return
 
 	st Z, __zero_reg__
-	std Z+1, __zero_reg__
-	std Z+2, __zero_reg__
-	std Z+3, __zero_reg__
-	std Z+4, __zero_reg__
-	std Z+5, __zero_reg__
-	std Z+6, __zero_reg__
-	std Z+7, __zero_reg__
-	std Z+8, __zero_reg__
-	std Z+9, __zero_reg__
-	std Z+10, __zero_reg__
-	std Z+11, __zero_reg__
-	std Z+12, __zero_reg__
-	std Z+13, __zero_reg__
-	std Z+14, __zero_reg__
-	std Z+15, __zero_reg__
+	multiStdZR Z+1, Z+2, Z+3, Z+4, Z+5, Z+6, Z+7, Z+8, Z+9, Z+10, Z+11, Z+12, Z+13, Z+14, Z+15
 
 .return:
 	ret
@@ -229,30 +134,14 @@ uint128_t_operator_equal_const_uint128_t_double_ref:
 	ldd r25, Z+6
 	ldd r24, Z+7
 
-	st X, r23
-	adiw r26, 1
+	.irp reg, r23, r22, r21, r20, r19, r18, r25
 
-	st X, r22
-	adiw r26, 1
+		st X, \reg
+		adiw r26, 1
 
-	st X, r21
-	adiw r26, 1
-
-	st X, r20
-	adiw r26, 1
-
-	st X, r19
-	adiw r26, 1
-
-	st X, r18
-	adiw r26, 1
-
-	st X, r25
-	adiw r26, 1
+	.endr
 
 	st X, r24
-	adiw r26, 1
-	sbiw r26, 7
 
 	ldd r23, Z+8
 	ldd r22, Z+9
@@ -262,48 +151,21 @@ uint128_t_operator_equal_const_uint128_t_double_ref:
 	ldd r18, Z+13
 	ldd r25, Z+14
 	ldd r24, Z+15
-	adiw r26, 8
 
-	st X, r23
-	adiw r26, 1
+	adiw r26, 2
 
-	st X, r22
-	adiw r26, 1
+	.irp reg, r23, r22, r21, r20, r19, r18, r25
 
-	st X, r21
-	adiw r26, 1
+		st X, \reg
+		adiw r26, 1
 
-	st X, r20
-	adiw r26, 1
-
-	st X, r19
-	adiw r26, 1
-
-	st X, r18
-	adiw r26, 1
-
-	st X, r25
-	adiw r26, 1
+	.endr
 
 	st X, r24
 	sbiw r26, 15
 
 	st Z, __zero_reg__
-	std Z+1, __zero_reg__
-	std Z+2, __zero_reg__
-	std Z+3, __zero_reg__
-	std Z+4, __zero_reg__
-	std Z+5, __zero_reg__
-	std Z+6, __zero_reg__
-	std Z+7, __zero_reg__
-	std Z+8, __zero_reg__
-	std Z+9, __zero_reg__
-	std Z+10, __zero_reg__
-	std Z+11, __zero_reg__
-	std Z+12, __zero_reg__
-	std Z+13, __zero_reg__
-	std Z+14, __zero_reg__
-	std Z+15, __zero_reg__
+	multiStdZR Z+1, Z+2, Z+3, Z+4, Z+5, Z+6, Z+7, Z+8, Z+9, Z+10, z+11, Z+12, Z+13, Z+14, Z+15
 
 .return:
 	movw r24, r26
@@ -313,6 +175,14 @@ uint128_t_operator_equal_const_uint128_t_double_ref:
 
 
 
+.macro doBoolIter reg, offset1, offset2
+
+	ldd \reg, Z+\offset1
+	ldd r24, Z+\offset2
+	or \reg, r24
+
+.endm
+
 uint128_t_operator_cast_bool:
 	movw r30, r24
 
@@ -320,25 +190,11 @@ uint128_t_operator_cast_bool:
 	ldd r24, Z+8
 	or r18, r24
 
-	ldd r19, Z+1
-	ldd r24, Z+9
-	or r19, r24
-
-	ldd r20, Z+2
-	ldd r24, Z+10
-	or r20, r24
-
-	ldd r21, Z+3
-	ldd r24, Z+11
-	or r21, r24
-
-	ldd r22, Z+4
-	ldd r24, Z+12
-	or r22, r24
-
-	ldd r23, Z+5
-	ldd r24, Z+13
-	or r23, r24
+	doBoolIter r19, 1, 9
+	doBoolIter r20, 2, 10
+	doBoolIter r21, 3, 11
+	doBoolIter r22, 4, 12
+	doBoolIter r23, 5, 13
 
 	ldd r27, Z+6
 	ldd r24, Z+14
@@ -411,17 +267,31 @@ uint128_t_operator_cast_uint64_t:
 
 
 
-uint128_t_operator_and:
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+.macro doBinOpIterMaker instr, reg1, offset, reg2
+
+	ldd \reg1, Y+\offset
+	adiw r26, 1
+	ld \reg2, X
+	instr \reg1, \reg2
+
+.endm
+
+.macro doBinOpIter instr, reg, offset
+
+	doBinOpIterMaker \instr, \reg, \offset, r24
+
+.endm
+
+.macro doBinOpIter2 instr, reg, offset
+
+	doBinOpIterMaker \instr, \reg, \offset, r17
+
+.endm
+
+.macro binOpBuilder funcName, instr
+
+\funcName:
+	multiPush r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
 	movw r30, r24
 	movw r28, r22
@@ -430,82 +300,33 @@ uint128_t_operator_and:
 	ldd r23, Y+8
 	adiw r26, 8
 	ld r24, X
-	and r23, r24
+	\instr r23, r24
 
-	ldd r22, Y+9
-	adiw r26, 1
-	ld r24, X
-	and r22, r24
+	doBinOpIter \instr, r22, 9
+	doBinOpIter \instr, r21, 10
+	doBinOpIter \instr, r20, 11
+	doBinOpIter \instr, r19, 12
+	doBinOpIter \instr, r18, 13
+	doBinOpIter \instr, r25, 14
+	doBinOpIter \instr, r17, 15
 
-	ldd r21, Y+10
-	adiw r26, 1
-	ld r24, X
-	and r21, r24
-
-	ldd r20, Y+11
-	adiw r26, 1
-	ld r24, X
-	and r20, r24
-
-	ldd r19, Y+12
-	adiw r26, 1
-	ld r24, X
-	and r19, r24
-
-	ldd r18, Y+13
-	adiw r26, 1
-	ld r24, X
-	and r18, r24
-
-	ldd r25, Y+14
-	adiw r26, 1
-	ld r24, X
-	and r25, r24
-
-	ldd r17, Y+15
-	adiw r26, 1
-	ld r24, X
 	sbiw r16, 15
-	and r24, r17
-
 	ld r11, Y
 	ld r17, X
-	and r11, r17
+	\instr r11, r17
 
-	ldd r12, Y+1
-	adiw r26, 1
-	ld r17, X
-	and r12, r17
-
-	ldd r13, Y+2
-	adiw r26, 1
-	ld r17, X
-	and r13, r17
-
-	ldd r14, Y+3
-	adiw r26, 1
-	ld r17, X
-	and r14, r17
-
-	ldd r15, Y+4
-	adiw r26, 1
-	ld r17, X
-	and r15, r17
-
-	ldd r16, Y+5
-	adiw r26, 1
-	ld r17, X
-	and r16, r17
+	doBinOpIter2 \instr, r12, 1
+	doBinOpIter2 \instr, r13, 2
+	doBinOpIter2 \instr, r14, 3
+	doBinOpIter2 \instr, r15, 4
+	doBinOpIter2 \instr, r16, 5
 
 	ldd r10, Y+6
 	adiw r26, 1
 	ld r17, X
-	and r17, r10
+	\instr r17, r10
 
-	ldd r28, Y+7
-	adiw r26, 1
-	ld r26, X
-	and r26, r28
+	doBinOpIterMaker \instr, r28, 7, r26
 
 	st Z, r11
 	std Z+1, r12
@@ -525,44 +346,24 @@ uint128_t_operator_and:
 	std Z+15, r24
 
 	movw r24, r30
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10
 	ret
 
+.endm
 
+.macro makeOperatorEqual funcName, funcNameWithEq
 
+\funcNameWithEq:
+	multiPush r16, r17, r28, r29
 
-
-uint128_t_operator_and_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0x10
 
 	movw r16, r24
 	movw r20, r22
 	movw r22, r24
 	movw r24, r28
 	adiw r24, 1
-	call uint128_t_operator_and
+	call \funcName
 
 	movw r22, r28
 	subi r22, -1
@@ -571,12 +372,8 @@ uint128_t_operator_and_equal:
 	call uint128_t_operator_equal_const_uint128_t_double_ref
 
 	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+
+	doSPEpilog 0x10
 
 	pop r29
 	pop r28
@@ -584,374 +381,21 @@ uint128_t_operator_and_equal:
 	pop r16
 	ret
 
-
-
-
-
-uint128_t_operator_or:
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
-
-	movw r30, r24
-	movw r28, r22
-	movw r26, r20
-
-	ldd r23, Y+8
-	adiw r26, 8
-	ld r24, X
-	or r23, r24
-
-	ldd r22, Y+9
-	adiw r26, 1
-	ld r24, X
-	or r22, r24
-
-	ldd r21, Y+10
-	adiw r26, 1
-	ld r24, X
-	or r21, r24
-
-	ldd r20, Y+11
-	adiw r26, 1
-	ld r24, X
-	or r20, r24
-
-	ldd r19, Y+12
-	adiw r26, 1
-	ld r24, X
-	or r19, r24
-
-	ldd r18, Y+13
-	adiw r26, 1
-	ld r24, X
-	or r18, r24
-
-	ldd r25, Y+14
-	adiw r26, 1
-	ld r24, X
-	or r25, r24
-
-	ldd r16, Y+15
-	adiw r26, 1
-	ld r24, X
-	sbiw r26, 15
-	or r24, r17
-
-	ld r11, Y
-	ld r17, X
-	or r11, r17
-
-	ldd r12, Y+1
-	adiw r26, 1
-	ld r17, X
-	or r12, r17
-
-	ldd r13, Y+2
-	adiw r26, 1
-	ld r17, X
-	or r13, r17
-
-	ldd r14, Y+3
-	adiw r26, 1
-	ld r17, X
-	or r14, r17
-
-	ldd r15, Y+4
-	adiw r26, 1
-	ld r17, X
-	or r15, r17
-
-	ldd r16, Y+5
-	adiw r26, 1
-	ld r17, X
-	or r16, r17
-
-	ldd r10, Y+6
-	adiw r26, 1
-	ld r17, X
-	or r17, r10
-
-	ldd r28, Y+7
-	adiw r26, 1
-	ld r26, X
-	or r26, r28
-
-	st Z, r11
-	std Z+1, r12
-	std Z+2, r13
-	std Z+3, r14
-	std Z+4, r15
-	std Z+5, r16
-	std Z+6, r17
-	std Z+7, r26
-	std Z+8, r23
-	std Z+9, r22
-	std Z+10, r21
-	std Z+11, r20
-	std Z+12, r19
-	std Z+13, r18
-	std Z+14, r25
-	std Z+15, r24
-
-	movw r24, r30
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	ret
-
-
-
-
-
-uint128_t_operator_or_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_or
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
-
-
-
-
-
-uint128_t_operator_xor:
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
-
-	movw r30, r24
-	movw r28, r22
-	movw r26, r20
-
-	ldd r23, Y+8
-	adiw r26, 8
-	ld r24, X
-	eor r23, r24
-
-	ldd r22, Y+9
-	adiw r26, 1
-	ld r24, X
-	eor r22, r24
-
-	ldd r21, Y+10
-	adiw r26, 1
-	ld r24, X
-	eor r21, r24
-
-	ldd r20, Y+11
-	adiw r26, 1
-	ld r24, X
-	eor r20, r24
-
-	ldd r19, Y+12
-	adiw r26, 1
-	ld r24, X
-	eor r19, r24
-
-	ldd r18, Y+13
-	adiw r26, 1
-	ld r24, X
-	eor r18, r24
-
-	ldd r25, Y+14
-	adiw r26, 1
-	ld r24, X
-	eor r25, r24
-
-	ldd r16, Y+15
-	adiw r26, 1
-	ld r24, X
-	sbiw r26, 15
-	eor r24, r17
-
-	ld r11, Y
-	ld r17, X
-	eor r11, r17
-
-	ldd r12, Y+1
-	adiw r26, 1
-	ld r17, X
-	eor r12, r17
-
-	ldd r13, Y+2
-	adiw r26, 1
-	ld r17, X
-	eor r13, r17
-
-	ldd r14, Y+3
-	adiw r26, 1
-	ld r17, X
-	eor r14, r17
-
-	ldd r15, Y+4
-	adiw r26, 1
-	ld r17, X
-	eor r15, r17
-
-	ldd r16, Y+5
-	adiw r26, 1
-	ld r17, X
-	eor r16, r17
-
-	ldd r10, Y+6
-	adiw r26, 1
-	ld r17, X
-	eor r17, r10
-
-	ldd r28, Y+7
-	adiw r26, 1
-	ld r26, X
-	eor r26, r28
-
-	st Z, r11
-	std Z+1, r12
-	std Z+2, r13
-	std Z+3, r14
-	std Z+4, r15
-	std Z+5, r16
-	std Z+6, r17
-	std Z+7, r26
-	std Z+8, r23
-	std Z+9, r22
-	std Z+10, r21
-	std Z+11, r20
-	std Z+12, r19
-	std Z+13, r18
-	std Z+14, r25
-	std Z+15, r24
-
-	movw r24, r30
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	ret
-
-
-
-
-
-uint128_t_operator_xor_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_xor
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+.endm
+
+	binOpBuilder uint128_t_operator_and, and
+	makeOperatorEqual uint128_t_operator_and, uint128_t_operator_and_equal
+	binOpBuilder uint128_t_operator_or, or
+	makeOperatorEqual uint128_t_operator_or, uint128_t_operator_or_equal
+	binOpBuilder uint128_t_operator_xor, eor
+	makeOperatorEqual uint128_t_operator_xor, uint128_t_operator_xor_equal
 
 
 
 
 
 uint128_t_operator_not:
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r13, r14, r15, r16, r17, r28, r29
 
 	movw r30, r24
 	movw r26, r22
@@ -960,65 +404,25 @@ uint128_t_operator_not:
 	ld r23, X
 	com r23
 
-	adiw r26, 1
-	ld r22, X
-	com r22
+	.irp reg, r22, r21, r20, r19, r18, r25, r24
 
-	adiw r26, 1
-	ld r21, X
-	com r21
+		adiw r26, 1
+		ld \reg, X
+		com \reg
 
-	adiw r26, 1
-	ld r20, X
-	com r20
+	.endr
 
-	adiw r26, 1
-	ld r19, X
-	com r19
-
-	adiw r26, 1
-	ld r18, X
-	com r18
-
-	adiw r26, 1
-	ld r25, X
-	com r25
-
-	adiw r26, 1
-	ld r24, X
 	sbiw r26, 15
-	com r24
-
 	ld r13, X
 	com r13
 
-	adiw r26, 1
-	ld r14, X
-	com r14
+	.irp reg, r14, r15, r16, r17, r29, r26
 
-	adiw r26, 1
-	ld r15, X
-	com r15
+		adiw r26, 1
+		ld \reg, X
+		com \reg
 
-	adiw r26, 1
-	ld r16, X
-	com r16
-
-	adiw r26, 1
-	ld r17, X
-	com r17
-
-	adiw r26, 1
-	ld r29, X
-	com r29
-
-	adiw r26, 1
-	ld r28, X
-	com r28
-
-	adiw r26, 1
-	ld r26, X
-	com r26
+	.endr
 
 	st Z, r13
 	std Z+1, r14
@@ -1038,13 +442,7 @@ uint128_t_operator_not:
 	std Z+15, r24
 
 	movw r24, r30
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
+	multiPop r29, r28, r17, r16, r15, r14, r13
 	ret
 
 
@@ -1052,34 +450,9 @@ uint128_t_operator_not:
 
 
 uint128_t_operator_shiftLeft:
-	push r2
-	push r3
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0xE
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0xE
 
 	std Y+14, r25
 	std Y+13, r24
@@ -1206,58 +579,19 @@ uint128_t_operator_shiftLeft:
 	ldd r25, Y+14
 
 .return:
-	adiw r28, 0xE
-	in __tmp_reg__, __SREG__
-	cli
+	doSPEpilog 0xE
 
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	pop r3
-	pop r2
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2
 	ret
 
 .doShl:
-	movw r30, r14
-	ldd r31, Z+8
-	std Y+1, r31
+	.irp offset, 1, 2, 3, 4, 5, 6
 
-	movw r30, r14
-	ldd r31, Z+9
-	std Y+2, r31
+		movw r30, r14
+		ldd r31, Z+(\offset + 7)
+		std Y+\offset, r31
 
-	movw r30, r14
-	ldd r31, Z+10
-	std Y+3, r31
-
-	movw r30, r14
-	ldd r31, Z+11
-	std Y+4, r31
-
-	movw r30, r14
-	ldd r31, Z+12
-	std Y+5, r31
-
-	movw r30, r14
-	ldd r31, Z+13
-	std Y+6, r31
+	.endr
 
 	movw r30, r14
 	ldd r27, Z+14
@@ -1387,82 +721,16 @@ uint128_t_operator_shiftLeft:
 
 
 
-uint128_t_operator_shiftLeft_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_shiftLeft
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+	makeOperatorEqual uint128_t_operator_shiftLeft, uint128_t_operator_shiftLeft_equal
 
 
 
 
 
 uint128_t_operator_shiftRight:
-	push r2
-	push r3
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0xE
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0xE
 
 	std Y+14, r25
 	std Y+13, r24
@@ -1566,14 +834,7 @@ uint128_t_operator_shiftRight:
 	std Z+7, r25
 
 .do0:
-	std Z+8, __zero_reg__
-	std Z+9, __zero_reg__
-	std Z+10, __zero_reg__
-	std Z+11, __zero_reg__
-	std Z+12, __zero_reg__
-	std Z+13, __zero_reg__
-	std Z+14, __zero_reg__
-	std Z+15, __zero_reg__
+	multiStdZR Z+8, Z+9, Z+10, Z+11, Z+12, Z+13, Z+14, Z+15
 
 	movw r24, r30
 	rjmp .return
@@ -1589,58 +850,19 @@ uint128_t_operator_shiftRight:
 	ldd r25, Y+14
 
 .return:
-	adiw r28, 0xE
-	in __tmp_reg__, __SREG__
-	cli
+	doSPEpilog 0xE
 
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	pop r3
-	pop r2
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2
 	ret
 
 .doShl:
-	movw r30, r14
-	ldd r31, Z+8
-	std Y+1, r31
+	.irp offset, 1, 2, 3, 4, 5, 6
 
-	movw r30, r14
-	ldd r31, Z+9
-	std Y+2, r31
+		movw r30, r14
+		ldd r31, Z+(\offset + 7)
+		std Y+\offset, r31
 
-	movw r30, r14
-	ldd r31, Z+10
-	std Y+3, r31
-
-	movw r30, r14
-	ldd r31, Z+11
-	std Y+4, r31
-
-	movw r30, r14
-	ldd r31, Z+12
-	std Y+5, r31
-
-	movw r30, r14
-	ldd r31, Z+13
-	std Y+6, r31
+	.endr
 
 	movw r30, r14
 	ldd r27, Z+14
@@ -1770,48 +992,7 @@ uint128_t_operator_shiftRight:
 
 
 
-uint128_t_operator_shiftRight_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_shiftRight
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+	makeOperatorEqual uint128_t_operator_shiftRight, uint128_t_operator_shiftRight_equal
 
 
 
@@ -1856,8 +1037,7 @@ uint128_t_operator_exclamation_mark:
 
 
 uint128_t_operator_and_and:
-	push r28
-	push r29
+	multiPush r28, r29
 	movw r28, r22
 
 	call uint128_t_operator_cast_bool
@@ -1865,14 +1045,12 @@ uint128_t_operator_and_and:
 	rjmp .continue
 
 	ldi r24, 0
-	pop r29
-	pop r28
+	multiPop r29, r28
 	ret
 
 .continue:
 	movw r24, r28
-	pop r29
-	pop r28
+	multiPop r29, r28
 	jmp uint128_t_operator_cast_bool
 
 
@@ -1880,22 +1058,19 @@ uint128_t_operator_and_and:
 
 
 uint128_t_operator_or_or:
-	push r28
-	push r29
+	multiPush r28, r29
 	movw r28, r22
 
 	call uint128_t_operator_cast_bool
 	tst r24
 	breq .continue
 
-	pop r29
-	pop r28
+	multiPop r29, r28
 	ret
 
 .continue:
 	movw r24, r28
-	pop r29
-	pop r28
+	multiPop r29, r28
 	jmp uint128_t_operator_cast_bool
 
 
@@ -1903,15 +1078,7 @@ uint128_t_operator_or_or:
 
 
 uint128_t_operator_equal_equal:
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
+	multiPush r10, r11, r12, r13, r14, r15, r16, r17, r28
 	movw r30, r24
 	movw r26, r22
 
@@ -1922,29 +1089,12 @@ uint128_t_operator_equal_equal:
 	ldd r22, Z+4
 	ldd r23, Z+5
 
-	ld r10, X
-	adiw r26, 1
+	.irp reg, r10, r11, r12, r13, r14, r15, r16, r17
 
-	ld r11, X
-	adiw r26, 1
+		ld \reg, X
+		adiw r26, 1
 
-	ld r12, X
-	adiw r26, 1
-
-	ld r13, X
-	adiw r26, 1
-
-	ld r14, X
-	adiw r26, 1
-
-	ld r15, X
-	adiw r26, 1
-
-	ld r16, X
-	adiw r26, 1
-
-	ld r17, X
-	sbiw r26, 7
+	.endr
 
 	ldd r24, Z+6
 	ldd r25, Z+7
@@ -1956,15 +1106,7 @@ uint128_t_operator_equal_equal:
 
 .return:
 	mov r24, r28
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
+	multiPop r28, r17, r16, r15, r14, r13, r12, r11, r10
 	ret
 
 .continue:
@@ -1976,28 +1118,13 @@ uint128_t_operator_equal_equal:
 	ldd r22, Z+12
 	ldd r23, Z+13
 
-	adiw r26, 8
-	ld r10, X
+	.irp reg, r10, r11, r12, r13, r14, r15, r16
 
-	adiw r26, 1
-	ld r11, X
+		ld \reg, X
+		adiw r26, 1
 
-	adiw r26, 1
-	ld r12, X
+	.endr
 
-	adiw r26, 1
-	ld r13, X
-
-	adiw r26, 1
-	ld r14, X
-
-	adiw r26, 1
-	ld r15, X
-
-	adiw r26, 1
-	ld r16, X
-
-	adiw r26, 1
 	ld r17, X
 
 	ldd r24, Z+14
@@ -2021,34 +1148,9 @@ uint128_t_operator_not_equal:
 
 
 uint128_t_operator_above:
-	push r2
-	push r3
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 9
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 9
 
 	movw r30, r24
 	movw r26, r22
@@ -2064,33 +1166,13 @@ uint128_t_operator_above:
 
 	std Y+9, r24
 
-	ld r24, X
-	std Y+8, r24
-	adiw r26, 1
+	.irp offset, 8, 1, 2, 3, 4, 5, 6
 
-	ld r24, X
-	std Y+1, r24
-	adiw r26, 1
+		ld r24, X
+		std Y+\offset, r24
+		adiw r26, 1
 
-	ld r24, X
-	std Y+2, r24
-	adiw r26, 1
-
-	ld r24, X
-	std Y+3, r24
-	adiw r26, 1
-
-	ld r24, X
-	std Y+4, r24
-	adiw r26, 1
-
-	ld r24, X
-	std Y+5, r24
-	adiw r26, 1
-
-	ld r24, X
-	std Y+6, r24
-	adiw r26, 1
+	.endr
 
 	ld r2, X
 	sbiw r26, 7
@@ -2133,31 +1215,9 @@ uint128_t_operator_above:
 
 .return:
 	ldd r24, Y+7
-	adiw r28, 9
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPEpilog 9
 
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	pop r3
-	pop r2
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2
 	ret
 
 .continue:
@@ -2174,29 +1234,12 @@ uint128_t_operator_above:
 	adiw r26, 8
 	ld r18, X
 
-	adiw r26, 1
-	ld r10, X
+	.irp reg, r10, r11, r12, r13, r14, r15, r16, r17
 
-	adiw r26, 1
-	ld r11, X
+		adiw r26, 1
+		ld \reg, X
 
-	adiw r26, 1
-	ld r12, X
-
-	adiw r26, 1
-	ld r13, X
-
-	adiw r26, 1
-	ld r14, X
-
-	adiw r26, 1
-	ld r15, X
-
-	adiw r26, 1
-	ld r16, X
-
-	adiw r26, 1
-	ld r17, X
+	.endr
 
 	ldd r24, Z+14
 	ldd r25, Z+15
@@ -2213,10 +1256,7 @@ uint128_t_operator_above:
 
 
 uint128_t_operator_below:
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r16, r17, r28, r29
 	movw r28, r24
 	movw r16, r22
 
@@ -2225,10 +1265,7 @@ uint128_t_operator_below:
 	breq .continue
 
 	ldi r24, 0
-	pop r29
-	pop r28
-	pop r17
-	pop r16
+	multiPop r29, r28, r17, r16
 	ret
 
 .continue:
@@ -2238,65 +1275,34 @@ uint128_t_operator_below:
 	ldi r25, lo8(1)
 	eor r24, r25
 
-	pop r29
-	pop r28
-	pop r17
-	pop r16
+	multiPop r29, r28, r17, r16
 	ret
 
 
 
 
 
-uint128_t_operator_above_equal:
-	call uint128_t_operator_below
+.macro makeComparisonEqual funcName, calledName
+
+\funcName:
+	call \calledName
 	ldi r25, lo8(1)
 	eor r24, r25
 	ret
 
+.endm
 
-
-
-
-uint128_t_operator_below_equal:
-	call uint128_t_operator_above
-	ldi r25, lo8(1)
-	eor r24, r25
-	ret
+	makeComparisonEqual uint128_t_operator_above_equal, uint128_t_operator_below
+	makeComparisonEqual uint128_t_operator_below_equal, uint128_t_operator_above
 
 
 
 
 
 uint128_t_operator_plus:
-	push r2
-	push r3
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0xF
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0xF
 
 	std Y+15, r25
 	std Y+14, r24
@@ -2306,30 +1312,20 @@ uint128_t_operator_plus:
 	adiw r26, 8
 	ld r6, X
 
-	adiw r26, 1
-	ld r7, X
+	.irp reg, r7, r8, r9
 
-	adiw r26, 1
-	ld r8, X
+		adiw r26, 1
+		ld \reg, X
 
-	adiw r26, 1
-	ld r9, X
+	.endr
 
-	adiw r26, 1
-	ld r24, X
-	std Y+1, r24
+	.irp offset, 1, 2, 3, 4
 
-	adiw r26, 1
-	ld r24, X
-	std Y+2, r24
+		adiw r26, 1
+		ld r24, X
+		std Y+\offset, r24
 
-	adiw r26, 1
-	ld r24, X
-	std Y+3, r24
-
-	adiw r26, 1
-	ld r24, X
-	std Y+4, r24
+	.endr
 
 	movw r18, r6
 	movw r20, r8
@@ -2356,27 +1352,13 @@ uint128_t_operator_plus:
 	movw r2, r22
 	movw r4, r24
 
-	ld r18, X
+	.irp reg, r18, r19, r20, r21, r22, r23, r24
 
-	adiw r26, 1
-	ld r19, X
+		ld \reg, X
+		adiw r26, 1
 
-	adiw r26, 1
-	ld r20, X
+	.endr
 
-	adiw r26, 1
-	ld r21, X
-
-	adiw r26, 1
-	ld r22, X
-
-	adiw r26, 1
-	ld r23, X
-
-	adiw r26, 1
-	ld r24, X
-
-	adiw r26, 1
 	ld r25, X
 
 	ld r10, Z
@@ -2431,13 +1413,8 @@ uint128_t_operator_plus:
 
 	ldd r25, Y+13
 	mov r10, r30
-	mov r11, __zero_reg__
-	mov r12, __zero_reg__
-	mov r13, __zero_reg__
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r11, r12, r13, r14, r15
+	multiLdi0 r16, r17
 	call __adddi3
 
 	ldd r30, Y+14
@@ -2452,17 +1429,12 @@ uint128_t_operator_plus:
 	std Z+6, r24
 	std Z+7, r25
 
-	ldd r24, Y+5
-	std Z+8, r24
+	.irp offset, 5, 6, 7, 8
 
-	ldd r24, Y+6
-	std Z+9, r24
+		ldd r24, Y+\offset
+		std Z+(\offset + 3), r24
 
-	ldd r24, Y+7
-	std Z+10, r24
-
-	ldd r24, Y+8
-	std Z+11, r24
+	.endr
 
 	std Z+12, r2
 	std Z+13, r3
@@ -2470,114 +1442,25 @@ uint128_t_operator_plus:
 	std Z+15, r5
 
 	movw r24, r30
-	adiw r28, 0xF
-	in __tmp_reg__, __SREG__
-	cli
+	doSPEpilog 0xF
 
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	pop r3
-	pop r2
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2
 	ret
 
 
 
 
 
-uint128_t_operator_plus_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_plus
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+	makeOperatorEqual uint128_t_operator_plus, uint128_t_operator_plus_equal
 
 
 
 
 
 uint128_t_operator_minus:
-	push r2
-	push r3
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0xF
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0xF
 
 	std Y+15, r25
 	std Y+14, r24
@@ -2587,30 +1470,20 @@ uint128_t_operator_minus:
 	adiw r26, 8
 	ld r6, X
 
-	adiw r26, 1
-	ld r7, X
+	.irp reg, r7, r8, r9
 
-	adiw r26, 1
-	ld r8, X
+		adiw r26, 1
+		ld \reg, X
 
-	adiw r26, 1
-	ld r9, X
+	.endr
 
-	adiw r26, 1
-	ld r24, X
-	std Y+1, r24
+	.irp offset, 1, 2, 3, 4
 
-	adiw r26, 1
-	ld r24, X
-	std Y+2, r24
+		adiw r26, 1
+		ld r24, X
+		std Y+\offset, r24
 
-	adiw r26, 1
-	ld r24, X
-	std Y+3, r24
-
-	adiw r26, 1
-	ld r24, X
-	std Y+4, r24
+	.endr
 
 	movw r18, r6
 	movw r20, r8
@@ -2637,27 +1510,13 @@ uint128_t_operator_minus:
 	movw r2, r22
 	movw r4, r24
 
-	ld r18, X
+	.irp reg, r18, r19, r20, r21, r22, r23, r24
 
-	adiw r26, 1
-	ld r19, X
+		ld \reg, X
+		adiw r26, 1
 
-	adiw r26, 1
-	ld r20, X
+	.endr
 
-	adiw r26, 1
-	ld r21, X
-
-	adiw r26, 1
-	ld r22, X
-
-	adiw r26, 1
-	ld r23, X
-
-	adiw r26, 1
-	ld r24, X
-
-	adiw r26, 1
 	ld r25, X
 
 	ld r10, Z
@@ -2712,13 +1571,8 @@ uint128_t_operator_minus:
 
 	ldd r25, Y+13
 	mov r10, r30
-	mov r11, __zero_reg__
-	mov r12, __zero_reg__
-	mov r13, __zero_reg__
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r11, r12, r13, r14, r15
+	multiLdi0 r16, r17
 	call __adddi3
 
 	ldd r30, Y+14
@@ -2733,17 +1587,12 @@ uint128_t_operator_minus:
 	std Z+6, r24
 	std Z+7, r25
 
-	ldd r24, Y+5
-	std Z+8, r24
+	.irp offset, 5, 6, 7, 8
 
-	ldd r24, Y+6
-	std Z+9, r24
+		ldd r24, Y+\offset
+		std Z+(\offset + 3), r24
 
-	ldd r24, Y+7
-	std Z+10, r24
-
-	ldd r24, Y+8
-	std Z+11, r24
+	.endr
 
 	std Z+12, r2
 	std Z+13, r3
@@ -2751,115 +1600,25 @@ uint128_t_operator_minus:
 	std Z+15, r5
 
 	movw r24, r30
-	adiw r28, 0xF
-	in __tmp_reg__, __SREG__
-	cli
+	doSPEpilog 0xF
 
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	pop r3
-	pop r2
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2
 	ret
 
 
 
 
 
-uint128_t_operator_minus_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_minus
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+	makeOperatorEqual uint128_t_operator_minus, uint128_t_operator_minus_equal
 
 
 
 
 
 uint128_t_operator_multiply:
-	push r2
-	push r3
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	subi r28, 0x56
-	sbc r29, __zero_reg__
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0x56
 
 	movw r2, r24
 	movw r26, r22
@@ -2868,60 +1627,30 @@ uint128_t_operator_multiply:
 	ld r24, X
 	std Y+13, r24
 
-	adiw r26, 1
-	ld r24, X
-	std Y+14, r24
+	.irp offset, 14, 15, 16, 17, 57, 58, 59, 60
 
-	adiw r26, 1
-	ld r24, X
-	std Y+15, r24
+		adiw t26, 1
+		ld r24, X
+		std Y+\offset, r24
 
-	adiw r26, 1
-	ld r24, X
-	std Y+16, r24
+	.endr
 
-	adiw r26, 1
-	ld r24, X
-	std Y+57, r24
+	.irp reg, r4, r5, r6, r7, r22, r23
 
-	adiw r26, 1
-	ld r24, X
-	std Y+58, r24
+		adiw r26, 1
+		ld \reg, X
 
-	adiw r26, 1
-	ld r24, X
-	std Y+59, r24
-
-	adiw r26, 1
-	ld r24, X
-	std Y+60, r24
-
-	adiw r26, 1
-	ld r4, X
-
-	adiw r26, 1
-	ld r5, X
-
-	adiw r26, 1
-	ld r6, X
-
-	adiw r26, 1
-	ld r7, X
-
-	adiw r26, 1
-	ld r22, X
-
-	adiw r26, 1
-	ld r23, X
+	.endr
 
 	movw r18, r4
 	movw r20, r6
 
-	adiw r26, 1
-	ld r24, X
+	.irp reg, r24, r25
 
-	adiw r26, 1
-	ld r25, X
+		adiw r26, 1
+		ld \reg, X
+
+	.endr
 
 	ldi r16, lo8(0x20)
 	call __lshrdi3
@@ -2935,43 +1664,36 @@ uint128_t_operator_multiply:
 	std Y+23, r24
 	std Y+24, r25
 
-	ld r24, Z
-	std Y+25, r24
+	.irp offset, 0, 1, 2, 3
 
-	ldd r24, Z+1
-	std Y+26, r24
+		.if offset == 0
+			ld r24, Z
+		.else
+			ldd r24, Z+\offset
+		.endif
 
-	ldd r24, Z+2
-	std Y+27, r24
+		std Y+(\offset + 25), r24
 
-	ldd r24, Z+3
-	std Y+28, r24
+	.endr
 
-	ldd r24, Z+4
-	std Y+61, r24
+	.irp offset, 4, 5, 6
 
-	ldd r24, Z+5
-	std Y+62, r24
+		ldd r24, Z+\offset
+		std Y+(\offset + 57), r24
 
-	ldd r24, Z+6
-	std Y+63, r24
+	.endr
 
 	ldd r24, Z+7
 	adiw r28, 1
 	std Y+63, r24
 	sbiw r28, 1
 
-	ldd r24, Z+8
-	std Y+1, r24
+	.irp offset, 1, 2, 3, 4
 
-	ldd r24, Z+9
-	std Y+2, r24
+		ldd r24, Z+(\offset + 7)
+		std Y+\offset, r24
 
-	ldd r24, Z+10
-	std Y+3, r24
-
-	ldd r24, Z+11
-	std Y+4, r24
+	.endr
 
 	ldd r22, Z+12
 	ldd r23, Z+13
@@ -2999,19 +1721,13 @@ uint128_t_operator_multiply:
 	ldd r12, Y+3
 	ldd r13, Y+4
 
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r14, r15
+	multiLdi0 r16, r17
 
 	movw r18, r4
 	movw r20, r6
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __muldi3
 
 	std Y+41, r18
@@ -3048,10 +1764,7 @@ uint128_t_operator_multiply:
 	ldd r20, Y+15
 	ldd r21, Y+16
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __muldi3
 
 	std Y+45, r18
@@ -3062,14 +1775,13 @@ uint128_t_operator_multiply:
 	adiw r28, 69-63
 	std Y+63, r22
 
-	adiw r28, 1
-	std Y+63, r23
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	std Y+63, r24
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	std Y+63, r25
+	.endr
+
 	sbiw r28, 72-63
 
 	ldd r10, Y+29
@@ -3084,10 +1796,7 @@ uint128_t_operator_multiply:
 	movw r18, r4
 	movw r20, r6
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __muldi3
 
 	movw r8, r18
@@ -3100,14 +1809,13 @@ uint128_t_operator_multiply:
 	sbiw r28, (85 - 63) - (73 - 63)
 	std Y+63, r22
 
-	adiw r28, 1
-	std Y+63, r23
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	std Y+63, r24
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	std Y+63, r25
+	.endr
+
 	sbiw r28, 76-63
 
 	ldd r18, Y+17
@@ -3128,14 +1836,13 @@ uint128_t_operator_multiply:
 	adiw r28, 77-63
 	std Y+63, r22
 
-	adiw r28, 1
-	std Y+63, r23
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	std Y+63, r24
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	std Y+63, r25
+	.endr
+
 	sbiw r28, 80-63
 
 	ldd r10, Y+25
@@ -3143,19 +1850,13 @@ uint128_t_operator_multiply:
 	ldd r12, Y+27
 	ldd r13, Y+28
 
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r14, r15
+	multiLdi0 r16, r17
 
 	movw r18, r4
 	movw r20, r6
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __muldi3
 
 	std Y+53, r18
@@ -3166,14 +1867,13 @@ uint128_t_operator_multiply:
 	adiw r28, 81-63
 	std Y+63, r22
 
-	adiw r28, 1
-	std Y+63, r23
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	std Y+63, r24
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	std Y+63, r25
+	.endr
+
 	sbiw r28, 84-63
 
 	ldd r18, Y+41
@@ -3201,10 +1901,7 @@ uint128_t_operator_multiply:
 	ldd r21, Y+63
 	sbiw r28, 85-63
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __adddi3
 
 	movw r10, r18
@@ -3217,10 +1914,7 @@ uint128_t_operator_multiply:
 	ldd r20, Y+11
 	ldd r21, Y+12
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __adddi3
 
 	std Y+5, r18
@@ -3231,14 +1925,12 @@ uint128_t_operator_multiply:
 	adiw r28, 65-63
 	std Y+63, r22
 
-	adiw r28, 1
-	std Y+63, r23
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	std Y+63, r24
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	std Y+63, r25
+	.endr
 
 	movw r18, r8
 	adiw r28, (86 - 63) - (68 - 63)
@@ -3250,14 +1942,13 @@ uint128_t_operator_multiply:
 	sbiw r28, (85 - 63) - (73 - 63)
 	ldd r22, Y+63
 
-	adiw r28, 1
-	ldd r23, Y+63
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	ldd r24, Y+63
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	ldd r25, Y+63
+	.endr
+
 	sbiw r28, 76-63
 
 	ldi r16, lo8(0x20)
@@ -3273,10 +1964,7 @@ uint128_t_operator_multiply:
 	ldd r20, Y+55
 	ldd r21, Y+56
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __adddi3
 
 	ldd r10, Y+49
@@ -3284,11 +1972,8 @@ uint128_t_operator_multiply:
 	ldd r12, Y+51
 	ldd r13, Y+52
 
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r14, r15
+	multiLdi0 r16, r17
 	call __adddi3
 
 	movw r8, r18
@@ -3346,10 +2031,7 @@ uint128_t_operator_multiply:
 	ldd r20, Y+47
 	ldd r21, Y+48
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __adddi3
 
 	std Y+9, r18
@@ -3381,11 +2063,8 @@ uint128_t_operator_multiply:
 	movw r10, r4
 	movw r12, r6
 
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r14, r15
+	multiLdi0 r16, r17
 	call __muldi3
 
 	mov r27, r18
@@ -3401,14 +2080,13 @@ uint128_t_operator_multiply:
 	adiw r28, 81-63
 	ldd r22, Y+63
 
-	adiw r28, 1
-	ldd r23, Y+63
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	ldd r24, Y+63
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	ldd r25, Y+63
+	.endr
+
 	sbiw r28, 84-63
 
 	ldi r16, lo8(0x20)
@@ -3424,10 +2102,7 @@ uint128_t_operator_multiply:
 	mov r20, r31
 	mov r21, r30
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __adddi3
 
 	movw r4, r18
@@ -3442,11 +2117,8 @@ uint128_t_operator_multiply:
 	ldd r12, Y+27
 	ldd r13, Y+28
 
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r14, r15
+	multiLdi0 r16, r17
 
 	ldd r18, Y+17
 	ldd r19, Y+18
@@ -3485,14 +2157,13 @@ uint128_t_operator_multiply:
 	adiw r28, 77-63
 	ldd r22, Y+63
 
-	adiw r28, 1
-	ldd r23, Y+63
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	ldd r24, Y+63
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	ldd r25, Y+63
+	.endr
+
 	sbiw r28, 80-63
 
 	ldi r16, lo8(0x20)
@@ -3533,10 +2204,7 @@ uint128_t_operator_multiply:
 	ldd r20, Y+15
 	ldd r21, Y+16
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __muldi3
 
 	movw r10, r18
@@ -3548,11 +2216,8 @@ uint128_t_operator_multiply:
 	ldd r24, Y+18
 	ldd r25, Y+17
 
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r14, r15
+	multiLdi0 r16, r17
 	call __adddi3
 
 	movw r8, r18
@@ -3626,17 +2291,11 @@ uint128_t_operator_multiply:
 	ldd r12, Y+3
 	ldd r13, Y+4
 
-	mov r14, __zero_reg__
-	mov r15, __zero_reg__
-
-	ldi r16, 0
-	ldi r17, 0
+	multiZero r14, r15
+	multiLdi0 r16, r17
 	call __muldi3
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 
 	movw r10, r4
 	movw r12, r6
@@ -3661,14 +2320,13 @@ uint128_t_operator_multiply:
 	adiw r28, 65-63
 	ldd r22, Y+63
 
-	adiw r28, 1
-	ldd r23, Y+63
+	.irp reg, r23, r24, r25
 
-	adiw r28, 1
-	ldd r24, Y+63
+		adiw r28, 1
+		std Y+63, \reg
 
-	adiw r28, 1
-	ldd r25, Y+63
+	.endr
+
 	sbiw r28, 68-63
 
 	ldi r16, lo8(0x20)
@@ -3701,10 +2359,7 @@ uint128_t_operator_multiply:
 	ldd r17, Y+1
 	call __adddi3
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 
 	ldi r16, lo8(0x20)
 	call __ashldi3
@@ -3729,10 +2384,7 @@ uint128_t_operator_multiply:
 	ldd r20, Y+7
 	ldd r21, Y+8
 
-	ldi r22, 0
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r22, r23, r24, r25
 	call __ashldi3
 
 	ldd r31, Y+41
@@ -3758,107 +2410,25 @@ uint128_t_operator_multiply:
 	std Z+15, r25
 
 	movw r24, r2
-	subi r28, -86
-	sbci r29, -1
+	doSPEpilog 0x40
 
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	pop r3
-	pop r2
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2
 	ret
 
 
 
 
 
-uint128_t_operator_multiply_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_multiply
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+	makeOperatorEqual uint128_t_operator_multiply, uint128_t_operator_multiply_equal
 
 
 
 
 
 uint128_t_divmod:
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	subi r28, 0x40
-	sbc r29, __zero_reg__
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0x40
 
 	movw r12, r24
 	movw r14, r20
@@ -3901,25 +2471,10 @@ uint128_t_divmod:
 
 .return:
 	movw r24, r12
-	subi r28, -0x40
-	sbci r29, -1
 
-	in __tmp_reg__, __SREG__
-	cli
+	doSPEpilog 0x40
 
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11
 	ret
 
 .do1:
@@ -4001,14 +2556,7 @@ uint128_t_divmod:
 	adiw r24, 1
 	call uint128_t_operator_shiftLeft_equal
 
-	std Y+33, __zero_reg__
-	std Y+34, __zero_reg__
-	std Y+35, __zero_reg__
-	std Y+36, __zero_reg__
-	std Y+37, __zero_reg__
-	std Y+38, __zero_reg__
-	std Y+39, __zero_reg__
-	std Y+40, __zero_reg__
+	multiStdZR Z+33, Z+34, Z+35, Z+36, Z+37, Z+38, Z+39, Z+40
 
 	mov r18, r11
 	ldi r19, 0
@@ -4018,12 +2566,7 @@ uint128_t_divmod:
 
 	std Y+41, r18
 	std Y+42, r19
-	std Y+43, __zero_reg__
-	std Y+44, __zero_reg__
-	std Y+45, __zero_reg__
-	std Y+46, __zero_reg__
-	std Y+47, __zero_reg__
-	std Y+48, __zero_reg__
+	multiStdZR Y+43, Y+44, Y+45, Y+46, Y+47, Y+48
 
 	movw r20, r28
 	subi r20, -0x21
@@ -4037,22 +2580,9 @@ uint128_t_divmod:
 	ldd r24, Z+57
 	andi r24, lo8(1)
 
-	std Y+33, __zero_reg__
-	std Y+34, __zero_reg__
-	std Y+35, __zero_reg__
-	std Y+36, __zero_reg__
-	std Y+37, __zero_reg__
-	std Y+38, __zero_reg__
-	std Y+39, __zero_reg__
-	std Y+40, __zero_reg__
+	multiStdZR Y+33, Y+34, Y+35, Y+36, Y+37, Y+38, Y+39, Y+40
 	std Y+41, r24
-	std Y+42, __zero_reg__
-	std Y+43, __zero_reg__
-	std Y+44, __zero_reg__
-	std Y+45, __zero_reg__
-	std Y+46, __zero_reg__
-	std Y+47, __zero_reg__
-	std Y+48, __zero_reg__
+	multiStdZR Y+42, Y+43, Y+44, Y+45, Y+46, Y+47, Y+48
 
 	movw r24, r28
 	adiw r24, 0x21
@@ -4110,20 +2640,9 @@ uint128_t_divmod:
 
 
 uint128_t_operator_divide:
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x20
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0x20
 
 	movw r16, r24
 	movw r18, r20
@@ -4139,87 +2658,25 @@ uint128_t_operator_divide:
 	call uint128_t_constructor_uint128_t_double_ref
 
 	movw r24, r16
-	adiw r28, 0x20
+	doSPEpilog 0x20
 
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
+	multiPop r29, r28, r17, r16
 	ret
 
 
 
 
 
-uint128_t_operator_divide_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_divide
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+	makeOperatorEqual uint128_t_operator_divide, uint128_t_operator_divide_equal
 
 
 
 
 
 uint128_t_operator_modulo:
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x20
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0x20
 
 	movw r16, r24
 	movw r18, r20
@@ -4235,148 +2692,66 @@ uint128_t_operator_modulo:
 	call uint128_t_constructor_uint128_t_double_ref
 
 	movw r24, r16
-	adiw r28, 0x20
 
-	in __tmp_reg__, __SREG__
-	cli
+	doSPEpilog 0x20
 
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
+	multiPop r29, r28, r17, r16
 	ret
 
 
 
 
 
-uint128_t_operator_modulo_equal:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	movw r16, r24
-	movw r20, r22
-	movw r22, r24
-	movw r24, r28
-	adiw r24, 1
-	call uint128_t_operator_modulo
-
-	movw r22, r28
-	subi r22, -1
-	sbci r23, -1
-	movw r24, r16
-	call uint128_t_operator_equal_const_uint128_t_double_ref
-
-	movw r24, r16
-	adiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+	makeOperatorEqual uint128_t_operator_modulo, uint128_t_operator_modulo_equal
 
 
 
 
 
-uint128_t_operator_plus_plus:
+.macro makePPMM funcName, calledName
+
+\funcName:
 	ldi r22, lo8(uint128_1)
 	ldi r23, hi8(uint128_1)
-	call uint128_t_operator_plus_equal
+	call \calledName
 
+.endm
 
+.macro makePPIMMI funcName, calledName
 
-
-
-uint128_t_operator_plus_plus_int:
-	push r16
-	push r17
-	push r28
-	push r29
+\funcName:
+	multiPush r16, r17, r28, r29
 
 	movw r28, r24
 	movw r16, r22
 	call uint128_t_constructor
 
 	movw r24, r16
-	call uint128_t_operator_plus_plus
+	call \calledName
 
 	movw r24, r28
-	pop r29
-	pop r28
-	pop r17
-	pop r16
+	multiPop r29, r28, r17, r16
 	ret
 
+.endm
 
-
-
-
-uint128_t_operator_minus_minus:
-	ldi r22, lo8(uint128_1)
-	ldi r23, hi8(uint128_1)
-	call uint128_t_operator_minus_equal
-
-
-
-
-
-uint128_t_operator_minus_minus_int:
-	push r16
-	push r17
-	push r28
-	push r29
-
-	movw r28, r24
-	movw r16, r22
-	call uint128_t_constructor
-
-	movw r24, r16
-	call uint128_t_operator_minus_minus
-
-	movw r24, r28
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	ret
+	makePPMM uint128_t_operator_plus_plus, uint128_t_operator_plus_equal
+	makePPIMMI uint128_t_operator_plus_plus_int, uint128_t_operator_plus_plus
+	makePPMM uint128_t_operator_minus_minus, uint128_t_operator_minus_equal
+	makePPIMMI uint128_t_operator_minus_minus_int, uint128_t_operator_minus_minus
 
 
 
 
 
 uint128_t_operator_single_plus:
-	push r28
-	push r29
+	multiPush r28, r29
 	movw r28, r24
 
 	call uint128_t_constructor
 
 	movw r24, r28
-	pop r29
-	pop r28
+	multiPop r29, r28
 	ret
 
 
@@ -4384,20 +2759,9 @@ uint128_t_operator_single_plus:
 
 
 uint128_t_operator_single_minus:
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x10
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0x10
 
 	movw r16, r24
 	movw r24, r28
@@ -4413,19 +2777,9 @@ uint128_t_operator_single_minus:
 	call uint128_t_operator_plus
 
 	movw r24, r16
-	adiw r28, 0x10
+	doSPEpilog 0x10
 
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
+	multiPop r29, r28, r17, r16
 	ret
 
 
@@ -4448,13 +2802,7 @@ uint128_t_lower:
 
 
 uint128_t_bits:
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r13, r14, r15, r16, r17, r28, r29
 	movw r30, r24
 
 	ld r13, Z
@@ -4506,13 +2854,7 @@ uint128_t_bits:
 	mov r24, r25
 
 .return:
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
+	multiPop r29, r28, r17, r16, r15, r14, r13
 	ret
 
 .ret0:

@@ -1,18 +1,11 @@
+.include "standard.inc"
+
 	.text
 
 __ffsdi2:
-	push r28
-	push r29
+	multiPush r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 8
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 8
 
 	std Y+1, r18
 	std Y+2, r19
@@ -29,8 +22,7 @@ __ffsdi2:
 	ldd r27, Y+4
 
 	sbiw r24, 0
-	cpc r26, __zero_reg__
-	cpc r27, __zero_reg__
+	multiCpcZR r26, r27
 	brne .ne
 
 	ldd r22, Y+5
@@ -39,21 +31,12 @@ __ffsdi2:
 	ldd r25, Y+8
 
 	cp r22, __zero_reg__
-	cpc r23, __zero_reg__
-	cpc r24, __zero_reg__
-	cpc r25, __zero_reg__
+	multiCpcZR r23, r24, r25
 	brne .ne2
 
 .return:
-	adiw r28, 8
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-	pop r29
-	pop r28
+	doSPEpilog 8
+	multiPop r29, r28
 	ret
 
 .ne:
@@ -61,8 +44,7 @@ __ffsdi2:
 	adiw r24, 1
 	movw r22, r24
 	lsl r25
-	sbc r24
-	sbc r25
+	multiSbc r24, r25
 	rjmp .return
 
 .ne2:
@@ -70,8 +52,7 @@ __ffsdi2:
 	call __ctzhi2
 	adiw r24, 0x21
 	movw r22, r24
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r24, r25
 	rjmp .return
 
 

@@ -1,14 +1,18 @@
 	.text
 
 __paritydi2:
-	eor r24, r18
-	eor r24, r19
-	eor r24, r20
-	eor r24, r21
+	.irp reg, r18, r19, r20, r21
+
+		eor r24, \reg
+
+	.endr
 
 __paritysi2:
-	eor r24, r22
-	eor r24, r23
+	.irp reg, r22, r23
+
+		eor r24, \reg
+
+	.endr
 
 __parityhi2:
 	eor r24, r25

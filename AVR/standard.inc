@@ -11,13 +11,25 @@
 
 .macro multiInstruction instruction, args:vararg
 
-	multiInstructionAfterArg \instruction, "", \ærgs
+	multiInstructionAfterArg \instruction, "", \args
+
+.endm
+
+.macro multiZero regs:vararg
+
+	multiInstructionAfterArg mov, ", __zero_reg__", \regs
 
 .endm
 
 .macro multiLdi0 regs:vararg
 
 	multiInstructionAfterArg ldi, ", 0", \regs
+
+.endm
+
+.macro multiSbciMin1 regs:vararg
+
+	multiInstructionAfterArg sbci, ", -1", \regs
 
 .endm
 
@@ -90,6 +102,18 @@
 .macro multiSbc regs:vararg
 
 	multiInstruction sbc, \regs
+
+.endm
+
+.macro multiRol regs:vararg
+
+	multiInstruction rol, \regs
+
+.endm
+
+.macro multiRor regs:vararg
+
+	multiInstruction ror, \regs
 
 .endm
 

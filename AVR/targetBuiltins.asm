@@ -33,8 +33,9 @@ delay_cycles_3:
 
 
 delay_cycles_4:
-	rjmp .
-	rjmp .
+	.rept 2
+		rjmp .
+	.endr
 	ret
 
 

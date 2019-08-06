@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __lshrdi3:
@@ -20,14 +22,7 @@ __lshrdi3:
 
 .doAsr:
 	asr __tmp_reg__
-	ror r25
-	ror r24
-	ror r23
-	ror r22
-	ror r21
-	ror r20
-	ror r19
-	ror r18
+	multiRor r25, r24, r23, r22, r21, r20, r19, r18
 
 .check:
 	dec r16

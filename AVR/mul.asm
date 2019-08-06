@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __muldi3_6:
@@ -20,11 +22,9 @@ __muldi3_6:
 
 __mulsi3:
 	movw r26, r22
-	push r24
-	push r25
+	multiPush r24, r25
 	call __muluhisi3
-	pop r27
-	pop r26
+	multiPop r27, r26
 
 	mul r26, r18
 	add r24, r0
@@ -60,10 +60,7 @@ __muluhisi3:
 
 
 __muldi3:
-	push r29
-	push r28
-	push r17
-	push r16
+	multiPush r29, r28, r17, r16
 
 	mul r25, r10
 	mul r31, r0
@@ -95,12 +92,7 @@ __muldi3:
 	mul r20, r15
 	add r31, r0
 
-	push r23
-	push r22
-	push r11
-	push r10
-	push r21
-	push r20
+	multiPush r23, r22, r11, r10, r21, r20
 
 	movw r26, r10
 	call __umulhisi3
@@ -116,8 +108,7 @@ __muldi3:
 	movw r26, r12
 	call __muldi3_6
 
-	pop r18
-	pop r19
+	multiPop r18, r19
 
 	movw r26, r12
 	call __umulhisi3
@@ -126,12 +117,10 @@ __muldi3:
 	adc r30, r24
 	adc r31, r25
 
-	pop r26
-	pop r27
+	multiPop r26, r27
 	call __muldi3_6
 
-	pop r18
-	pop r19
+	multiPop r18, r19
 
 	call __umulhisi3
 	add r28, r22
@@ -148,8 +137,5 @@ __muldi3:
 	movw r22, r28
 	movw r24, r30
 
-	pop r16
-	pop r17
-	pop r28
-	pop r29
+	multiPop r16, r17, r28, r29
 	ret

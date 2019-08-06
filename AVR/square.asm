@@ -6,7 +6,10 @@ square:
 
 	movw r24, r0
 	mul r18, r19
-	add r25, r0
-	add r25, r0
+
+	.rept 2
+		add r25, r0
+	.endr
+
 	clr r1
 	ret

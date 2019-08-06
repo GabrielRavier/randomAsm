@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __mulsf3:
@@ -101,11 +103,7 @@ __mulsf3_pse:
 	brmi .l11
 
 	lsl r30
-	rol r31
-	rol r27
-	rol r22
-	rol r23
-	rol r24
+	multiRol r31, r27, r22, r23, r24
 
 	subi r25, lo8(1)
 	sbci r21, hi8(1)
@@ -130,11 +128,7 @@ __mulsf3_pse:
 
 .l14:
 	lsr r24
-	ror r23
-	ror r22
-	ror r27
-	ror r31
-	ror r30
+	multiRor r23, r22, r27, r31, r30
 
 	subi r25, -1
 	brne .l14

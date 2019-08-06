@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 sadd_overflow:
@@ -36,12 +38,7 @@ sadd_overflow:
 
 
 saddl_overflow:
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
+	multiPush r12, r13, r14, r15, r16, r17
 
 	ldi r30, 0
 	movw r12, r22
@@ -70,12 +67,7 @@ saddl_overflow:
 	sbiw r26, 3
 
 	mov r24, r30
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
+	multiPop r17, r16, r15, r14, r13, r12
 	ret
 
 .checks:
@@ -94,34 +86,9 @@ saddl_overflow:
 
 
 saddll_overflow:
-	push r2
-	push r3
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0xF
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 0xF
 
 	std Y+1, r18
 	std Y+2, r19
@@ -186,33 +153,9 @@ saddll_overflow:
 	std Z+6, r9
 	std Z+7, r27
 
-	ldd r24, Z+15
-	adiw r24, 0xF
-	in __tmp_reg__, __SREG__
-	cli
+	doSPEpilog 0xF
 
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	pop r3
-	pop r2
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2
 	ret
 
 .rltSigned:
@@ -272,12 +215,7 @@ uadd_overflow:
 
 
 uaddl_overflow:
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
+	multiPush r12, r13, r14, r15, r16, r17
 
 	ldi r30, 0
 	movw r12, r22
@@ -303,12 +241,7 @@ uaddl_overflow:
 	sbiw r26, 3
 
 	mov r24, r30
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
+	multiPop r17, r16, r15, r14, r13, r12
 	ret
 
 .ret1:
@@ -320,34 +253,9 @@ uaddl_overflow:
 
 
 uaddll_overflow:
-	push r2
-	push r3
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 7
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 7
 
 	movw r26, r18
 	mov r7, r20
@@ -396,31 +304,9 @@ uaddll_overflow:
 	std Z+7, r24
 	ldd r24, Z+7
 
-	adiw r28, 7
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPEpilog 7
 
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	pop r3
-	pop r2
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2
 	ret
 
 .rlo:

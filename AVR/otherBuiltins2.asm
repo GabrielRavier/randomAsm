@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 cimagf:
@@ -12,39 +14,26 @@ cimag:
 conjf:
 conjl:
 conj:
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
+	multiPush r8, r9, r10, r11, r12, r13, r14, r15
 
 	movw r8, r18
 	movw r10, r20
 	movw r12, r22
 	movw r14, r24
 
-	bst r15, 7
-	com r15
+	.rept 2
 
-	bld r15, 7
-	com r15
+		bst r15, 7
+		com r15
+
+	.endr
 
 	movw r20, r10
 	movw r18, r8
 	movw r24, r14
 	movw r22, r12
 
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
+	multiPop r15, r14, r13, r12, r11, r10, r9, r8
 	ret
 
 
@@ -65,14 +54,7 @@ copysign:
 cprojf:
 cprojl:
 cproj:
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
+	multiPush r8, r9, r10, r11, r12, r13, r14, r15
 
 	movw r8, r18
 	movw r10, r20
@@ -84,14 +66,7 @@ cproj:
 	movw r24, r14
 	movw r22, r12
 
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
+	multiPop r15, r14, r13, r12, r11, r10, r9, r8
 	ret
 
 
@@ -112,14 +87,7 @@ creal:
 fmaxf:
 fmaxl:
 fmax:
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r12, r13, r14, r15, r16, r17, r28, r29
 
 	movw r12, r18
 	movw r14, r20
@@ -136,14 +104,7 @@ fmax:
 	movw r22, r16
 	mov r24, r29
 	mov r25, r28
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12
 	ret
 
 .finish:
@@ -159,14 +120,7 @@ fmax:
 fminf:
 fminl:
 fmin:
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r12, r13, r14, r15, r16, r17, r28, r29
 
 	movw r12, r18
 	movw r14, r20
@@ -187,14 +141,7 @@ fmin:
 	movw r22, r16
 	mov r24, r29
 	mov r25, r28
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12
 	ret
 
 
@@ -203,11 +150,7 @@ fmin:
 
 imaxabs:
 llabs:
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r15, r16, r17, r28, r29
 
 	mov r17, r18
 	mov r29, r19
@@ -243,9 +186,5 @@ llabs:
 	mov r24, r15
 	mov r25, r16
 
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
+	multiPop r29, r28, r17, r16, r15
 	ret

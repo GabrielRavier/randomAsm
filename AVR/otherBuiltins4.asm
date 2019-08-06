@@ -1,11 +1,12 @@
+.include "standard.inc"
+
 	.text
 
 abs:
 	sbrs r25, 7
 	ret
 
-	neg r25
-	neg r24
+	multiNeg r25, r24
 	sbc r25, __zero_reg__
 	ret
 
@@ -33,8 +34,7 @@ isdigit:
 	cpc r19, __zero_reg__
 	brlo .return
 
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r24, r25
 
 .return:
 	ret
@@ -47,14 +47,10 @@ labs:
 	sbrs r25, 7
 	ret
 
-	com r25
-	com r24
-	com r23
+	multiCom r25, r24, r23
 	neg r22
 
-	sbci r23, lo8(-1)
-	sbci r24, lo8(-1)
-	sbci r25, lo8(-1)
+	multiSbciMin1 r23, r24, r25
 	ret
 
 

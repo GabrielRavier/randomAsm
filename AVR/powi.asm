@@ -1,25 +1,12 @@
+.include "standard.inc"
+
 	.text
 
 powi:
 powif:
 powil:
 __powisf2:
-	push r4
-	push r5
-	push r6
-	push r7
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
 	movw r8, r22
 	movw r10, r24
@@ -28,22 +15,17 @@ __powisf2:
 	movw r12, r18
 	movw r14, r20
 
-	ldi r16, 0
-	ldi r17, 0
+	multiLdi0 r16, r17
 	ldi r29, lo8(-0x80)
 	ldi r28, lo8(0x3F)
 	rjmp .startLoop
 
 .loop:
 	asr r15
-	ror r14
-	ror r13
-	ror r12
+	multiRor r14, r13, r12
 
 	cp r12, __zero_reg__
-	cpc r13, __zero_reg__
-	cpc r14, __zero_reg__
-	cpc r15, __zero_reg__
+	multiCpcZR r13, r14, r15
 	breq .endLoop
 
 	movw r20, r10
@@ -77,9 +59,13 @@ __powisf2:
 
 	ldi r24, -1
 	sub r12, r24
-	sbc r13, r24
-	sbc r14, r24
-	sbc r15, r24
+
+	.irp reg, r13, r14, r15
+
+		sbc \reg, r24
+
+	.endr
+
 	rjmp .loop
 
 .endLoop:
@@ -95,22 +81,7 @@ __powisf2:
 	mov r24, r19
 	mov r25, r18
 
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
-	pop r7
-	pop r6
-	pop r5
-	pop r4
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8, r7, r6, r5, r4
 	ret
 
 .doDiv:
@@ -118,8 +89,7 @@ __powisf2:
 	mov r20, r29
 	mov r21, r28
 
-	ldi r22, 0
-	ldi r23, 0
+	multiLdi0 r22, r23
 	ldi r24, lo8(-0x80)
 	ldi r25, lo8(0x3F)
 	call __divsf3

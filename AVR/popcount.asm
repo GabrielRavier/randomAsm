@@ -19,19 +19,16 @@ __popcounthi2_tail:
 __popcountqi2:
 	mov __tmp_reg__, r24
 	andi r24, 1
+
 	lsr __tmp_reg__
-	lsr __tmp_reg__
-	adc r24, __zero_reg__
-	lsr __tmp_reg__
-	adc r24, __zero_reg__
-	lsr __tmp_reg__
-	adc r24, __zero_reg__
-	lsr __tmp_reg__
-	adc r24, __zero_reg__
-	lsr __tmp_reg__
-	adc r24, __zero_reg__
-	lsr __tmp_reg__
-	adc r24, __zero_reg__
+
+	.rept 6
+
+		lsr __tmp_reg__
+		adc r24, __zero_reg__
+
+	.endr
+
 	ret
 
 

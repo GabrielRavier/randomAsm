@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __ashldi3:
@@ -20,13 +22,7 @@ __ashldi3:
 
 .last8Loop:
 	lsl r18
-	rol r19
-	rol r20
-	rol r21
-	rol r22
-	rol r23
-	rol r24
-	rol r25
+	multiRol r19, r20, r21, r22, r23, r24, r25
 
 .doLast8:
 	dec r16

@@ -1,9 +1,10 @@
+.include "standard.inc"
+
 	.text
 
 bzero:
 	movw r20, r22
-	ldi r22, 0
-	ldi r23, 0
+	multiLdi0 r22, r23
 	jmp memset
 
 
@@ -44,8 +45,7 @@ isascii:
 	or r18, r19
 	breq .return
 
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r24, r25
 
 .return:
 	ret
@@ -57,8 +57,7 @@ isascii:
 signbit:
 signbitf:
 signbitl:
-	ldi r18, 0
-	ldi r19, 0
+	multiLdi0 r18, r19
 	movw r20, r18
 	call __ltsf2
 
