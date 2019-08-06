@@ -1,3 +1,7 @@
+.include "standard.inc"
+
+	.text
+
 __clrsbhi2:
 	sbrc r24, 7
 	rjmp .start
@@ -33,9 +37,7 @@ __clrsbsi2:
 
 .continue:
 	cp r22, __zero_reg__
-	cpc r23, __zero_reg__
-	cpc r24, __zero_reg__
-	cpc r25, __zero_reg__
+	multiCpcZR r23, r24, r25
 	brne .doClz
 
 	ldi r24, lo8(7)
@@ -48,10 +50,7 @@ __clrsbsi2:
 	ret
 
 .doNot:
-	com r22
-	com r23
-	com r24
-	com r25
+	multiCom r22, r23, r24, r25
 	rjmp .continue
 
 
@@ -80,13 +79,10 @@ __clrsbdi2:
 	rjmp .com
 
 .r18190:
-	ldi r18, 0
-	ldi r19, 0
+	multiLdi0 r18, r19
 
 .doClz:
-	ldi r23, 0
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r23, r24, r25
 	call __clzsi2
 
 	add r24, r18

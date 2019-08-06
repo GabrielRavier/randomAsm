@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __ctzhi2:
@@ -19,24 +21,9 @@ __ctzsi2:
 
 
 __ctzdi2:
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 8
-	in __tmp_reg__, __SREG__
-	cli
-
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPProlog 8
 
 	std Y+1, r18
 	std Y+2, r19
@@ -54,23 +41,19 @@ __ctzdi2:
 	ldi r20, lo8(1)
 	ldi r21, 0
 	sbiw r24, 0
-	cpc r26, __zero_reg__
-	cpc r27, __zero_reg__
+	multiCpcZR r26, r27
 	breq .skip0
 
-	ldi r20, 0
-	ldi r21, 0
+	multiLdi0 r20, r21
 
 .skip0:
-	neg r21
-	neg r20
+	multiNeg r21, r20
 	sbc r21, __zero_reg__
 
 	movw r16, r20
 	mov __tmp_reg__, r21
 	lsl r0
-	sbc r18
-	sbc r19
+	multiSbc r18, r19
 
 	ldd r12, Y+5
 	ldd r13, Y+6
@@ -82,10 +65,7 @@ __ctzdi2:
 	and r14, r18
 	and r15, r19
 
-	com r16
-	com r17
-	com r18
-	com r19
+	multiCom r16, r17, r18, r19
 
 	and r24, r16
 	and r25, r17
@@ -106,13 +86,11 @@ __ctzdi2:
 	mov __tmp_reg__, r21
 
 	lsl r0
-	sbc r22
-	sbc r23
+	multiSbc r22, r23
 	mov __tmp_reg__, r25
 
 	lsl r0
-	sbc r26
-	sbc r27
+	multiSbc r26, r27
 
 	movw r16, r20
 	movw r18, r22
@@ -125,19 +103,7 @@ __ctzdi2:
 	movw r24, r18
 	movw r22, r16
 
-	adiw r28, 8
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPEpilog 8
 
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12
 	ret

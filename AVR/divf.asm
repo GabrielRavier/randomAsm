@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __divsf3:
@@ -46,8 +48,7 @@ __divsf3_pse:
 	sub r25, r11
 	sbc r25, r11
 
-	clr r27
-	clr r26
+	multiClr r27, r26
 
 .l2:
 	cp r22, r18

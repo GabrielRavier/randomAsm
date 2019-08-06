@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __cmpdi2:
@@ -20,12 +22,6 @@ __cmpdi2_s8:
 	sbrc r26, 7
 
 	com __tmp_reg__
-	cp a0, r26
-	cpc a1, __tmp_reg__
-	cpc a2, __tmp_reg__
-	cpc a3, __tmp_reg__
-	cpc a4, __tmp_reg__
-	cpc a5, __tmp_reg__
-	cpc a6, __tmp_reg__
-	cpc a7, __tmp_reg__
+	cp r18, r26
+	multiCpcSameReg __tmp_reg__, r19, r20, r21, r22, r23, r24, r25
 	ret

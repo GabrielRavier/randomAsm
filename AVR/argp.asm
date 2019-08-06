@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __argp_usage:
@@ -51,8 +53,7 @@ __option_is_short:
 	ret
 
 .ret0:
-	ldi r18, 0
-	ldi r19, 0
+	multiLdi0 r18, r19
 	movw r24, r18
 	ret
 
@@ -83,8 +84,7 @@ __option_is_end:
 	ret
 
 .ret0:
-	ldi r24, 0
-	ldi r25, 0
+	multiLdi0 r24, r25
 	ret
 
 .continue:

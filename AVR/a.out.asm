@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 N_MAGIC:
@@ -31,14 +33,11 @@ N_FLAGS:
 N_SET_INFO:
 	movw r20, r22
 
-	ldi r22, 0
-	ldi r23, 0
+	multiLdi0 r22, r23
 
 	movw r30, r24
 	st Z, r20
-	std Z+1, r21
-	std Z+2, r22
-	std Z+3, r23
+	multiStd "Z+1, r21", "Z+2, r22", "Z+3, r23"
 	ret
 
 
@@ -49,38 +48,28 @@ N_BADMAG:
 	movw r30, r24
 
 	ld r20, Z
-	ldd r21, Z+1
-	ldd r22, Z+2
-	ldd r23, Z+3
+	multiLdd "r21, Z+1", "r22, Z+2", "r23, Z+3"
 
-	clr r22
-	clr r23
-
-	movw r26, r22
-	movw r24, r20
+	multiClr r22, r23
+	multiMovw "r26, r22", "r24, r20"
 
 	subi r24, 7
 	sbci r25, 1
-	sbc r26, __zero_reg__
-	sbc r27, __zero_reg__
+	multiSbcZR r26, r27
 
 	sbiw r24, 2
-	cpc r26, __zero_reg__
-	cpc r27, __zero_reg__
+	multiCpcZR r26, r27
 	brlo .ret0
 
 	cpi r20, 0xB
 	ldi r31, 1
 	cpc r21, r31
-	cpc r22, __zero_reg__
-	cpc r23, __zero_reg__
+	multiCpcZR r22, r23
 	breq .ret0
 
 	ldi r24, lo8(1)
 	cpi r20, 0xCC
-	cpc r21, __zero_reg__
-	cpc r22, __zero_reg__
-	cpc r23, __zero_reg__
+	multiCpcZR r21, r22, r23
 	breq .ret0
 
 	ret

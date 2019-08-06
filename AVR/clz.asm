@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 __clzhi2:
@@ -53,8 +55,7 @@ __clzdi2:
 	sbrs r24, 5
 	ret
 
-	movw r22, r18
-	movw r24, r20
+	multiMovw "r22, r18", "r24, r20"
 	call __clzsi2
 
 	subi r24, -32

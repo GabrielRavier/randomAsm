@@ -1,37 +1,13 @@
+.include "standard.inc"
+
 	.text
 
 _mulx_u64:
-	push r8
-	push r9
-	push r10
-	push r11
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r28, r29
 
-	in r28, __SP_L__
-	in r29, __SP_H__
-	sbiw r28, 0x30
-	in __tmp_reg__, __SREG__
-	cli
+	doSPProlog 0x30
 
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
-
-	std Y+17, __zero_reg__
-	std Y+18, __zero_reg__
-	std Y+19, __zero_reg__
-	std Y+20, __zero_reg__
-	std Y+21, __zero_reg__
-	std Y+22, __zero_reg__
-	std Y+23, __zero_reg__
-	std Y+24, __zero_reg__
+	multiStdZR Y+17, Y+18, Y+19, Y+20, Y+21, Y+22, Y+23, Y+24
 	std Y+25, r18
 	std Y+26, r19
 	std Y+27, r20
@@ -41,14 +17,7 @@ _mulx_u64:
 	std Y+31, r24
 	std Y+32, r25
 
-	std Y+1, __zero_reg__
-	std Y+2, __zero_reg__
-	std Y+3, __zero_reg__
-	std Y+4, __zero_reg__
-	std Y+5, __zero_reg__
-	std Y+6, __zero_reg__
-	std Y+7, __zero_reg__
-	std Y+8, __zero_reg__
+	multiStdZR Y+1, Y+2, Y+3, Y+4, Y+5, Y+6, Y+7, Y+8
 	std Y+9, r10
 	std Y+10, r11
 	std Y+11, r12
@@ -70,23 +39,10 @@ _mulx_u64:
 	adiw r24, 0x21
 	call uint128_t_operator_multiply
 
-	std Y+1, __zero_reg__
-	std Y+2, __zero_reg__
-	std Y+3, __zero_reg__
-	std Y+4, __zero_reg__
-	std Y+5, __zero_reg__
-	std Y+6, __zero_reg__
-	std Y+7, __zero_reg__
-	std Y+8, __zero_reg__
+	multiStdZR Y+1, Y+2, Y+3, Y+4, Y+5, Y+6, Y+7, Y+8
 	ldi r24, lo8(64)
 	std Y+9, r24
-	std Y+10, __zero_reg__
-	std Y+11, __zero_reg__
-	std Y+12, __zero_reg__
-	std Y+13, __zero_reg__
-	std Y+14, __zero_reg__
-	std Y+15, __zero_reg__
-	std Y+16, __zero_reg__
+	multiStdZR Y+10, Y+11, Y+12, Y+13, Y+14, Y+15, Y+16
 
 	movw r20, r28
 	subi r20, -1
@@ -119,25 +75,9 @@ _mulx_u64:
 	adiw r24, 0x21
 	rcall uint128_t_operator_cast_uint64_t
 
-	adiw r28, 0x30
-	in __tmp_reg__, __SREG__
-	cli
-	out __SP_H__, r29
-	out __SREG__, __tmp_reg__
-	out __SP_L__, r28
+	doSPEpilog 0x30
 
-	pop r29
-	pop r28
-	pop r17
-	pop r16
-	pop r15
-	pop r14
-	pop r13
-	pop r12
-	pop r11
-	pop r10
-	pop r9
-	pop r8
+	multiPop r29, r28, r17, r16, r15, r14, r13, r12, r11, r10, r9, r8
 	ret
 
 
@@ -145,10 +85,7 @@ _mulx_u64:
 
 
 _mulx_u32:
-	push r16
-	push r17
-	push r28
-	push r29
+	multiPush r16, r17, r28, r29
 	movw r28, r16
 
 	call __umulsidi3
@@ -169,8 +106,5 @@ _mulx_u32:
 	mov r24, r31
 	mov r25, r30
 
-	pop r29
-	pop r28
-	pop r17
-	pop r16
+	multiPop r29, r28, r17, r16
 	ret
