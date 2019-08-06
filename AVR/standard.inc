@@ -149,4 +149,10 @@
 
 .endm
 
+.macro ldi016 reg
+
+	multiLdi0 \reg, \reg + 1
+
+.endm
+
 .endif

@@ -33,11 +33,13 @@ N_FLAGS:
 N_SET_INFO:
 	movw r20, r22
 
-	multiLdi0 r22, r23
+	ldi016 r22
 
 	movw r30, r24
 	st Z, r20
-	multiStd "Z+1, r21", "Z+2, r22", "Z+3, r23"
+	std Z+1, r21
+	std Z+2, r22
+	std Z+3, r23
 	ret
 
 
