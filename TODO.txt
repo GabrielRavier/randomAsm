@@ -94,5 +94,5 @@ ARM, ARM64, AVR, RISCV-32, RISCV-64, WebAssembly, x86, x64, MIPS, MIPS64, MSP430
 m6502 : godbolt.org->C
 Epiphany : http://gcc.parallella.org/
 m68k : https://franke.ms/cex or ct-ng
-amdgcn, bpfel, hexagon, lanai, nvptx, nvptx64, r600, systemz, xcore : clang
-alpha, arc, nios2, s390, sh, sparc (el), xtensa : ct-ng
+amdgcn, bpfel, hexagon, lanai, nvptx, nvptx64, r600, sparcel, systemz, xcore : clang
+alpha, arc, nios2, s390, sh, xtensa : ct-ng
