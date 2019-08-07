@@ -7,26 +7,22 @@ sadd_overflow:
 
 	ldi r21, 0
 	movw r18, r24
-	add r18, r22
-	adc r19, r23
+	add16 r18, r22
 
 	sbrc r23, 7
 	rjmp .check
 
-	cp r18, r24
-	cpc r19, r25
+	cmp16 r18, r24
 	brlt .ret1
 
 .return:
-	std Z+1, r19
-	st Z, r18
+	st16 Z, 0, r18
 
 	mov r24, r21
 	ret
 
 .check:
-	cp r24, r18
-	cpc r25, r19
+	cmp16 r24, r18
 	brge .return
 
 .ret1:
@@ -41,28 +37,24 @@ saddl_overflow:
 	multiPush r12, r13, r14, r15, r16, r17
 
 	ldi r30, 0
-	movw r12, r22
-	movw r14, r24
-
-	add r12, r18
-	adc r13, r19
-	adc r14, r20
-	adc r15, r21
+	mov32 r12, r22
+	add32 r12, r18
 
 	sbrc r21, 7
 	rjmp .checks
 
-	cp r12, r22
-	cpc r13, r23
-	cpc r14, r24
-	cpc r15, r25
+	cmp32 r12, r22
 	brlt .ret1
 
 .return:
 	movw r26, r16
-	st X+, r12
-	st X+, r13
-	st X+, r14
+
+	.irp reg, r12, r13, r14
+
+		st X+, \reg
+
+	.endr
+
 	st X, r15
 	sbiw r26, 3
 
@@ -71,10 +63,7 @@ saddl_overflow:
 	ret
 
 .checks:
-	cp r22, r12
-	cpc r23, r13
-	cpc r24, r14
-	cpc r25, r15
+	cmp32 r22, r12
 	brge .return
 
 .ret1:
@@ -90,66 +79,35 @@ saddll_overflow:
 
 	doSPProlog 0xF
 
-	std Y+1, r18
-	std Y+2, r19
-	std Y+3, r20
-	std Y+4, r21
-	std Y+5, r22
-	std Y+6, r23
-	std Y+7, r24
-	std Y+8, r25
+	st64 Y, 1, r18
 	movw r30, r8
 
 	std Y+15, __zero_reg__
 	call __adddi3
 
-	mov r3, r18
-	mov r4, r19
-	mov r5, r20
-	mov r6, r21
-	mov r7, r22
-	mov r8, r23
+	mov32 r3, r18
+	movw r7, r22
 	mov r9, r24
 
 	mov r27, r25
-	mov r18, r10
-	mov r19, r11
-
-	movw r20, r12
-	movw r22, r14
-	movw r24, r16
+	mov64 r18, r10
 
 	ldi r26, 0
 	call __cmpdi2_s8
 	brlt .rltSigned
 
-	mov r18, r3
-	mov r19, r4
-	mov r20, r5
-	mov r21, r6
-	mov r22, r7
-	mov r23, r8
+	mov32 r18, r3
+	movw r22, r7
 	mov r24, r9
 	mov r25, r27
 
-	ldd r10, Y+1
-	ldd r11, Y+2
-	ldd r12, Y+3
-	ldd r13, Y+4
-	ldd r14, Y+5
-	ldd r15, Y+6
-	ldd r16, Y+7
-	ldd r17, Y+8
+	ld64 r10, Y, 1
 	call __cmpdi2
 	brlt .ret1
 
 .return:
-	st Z, r3
-	std Z+1, r4
-	std Z+2, r5
-	std Z+3, r6
-	std Z+4, r7
-	std Z+5, r8
+	st32 Z, 0, r3
+	st32 Z, 5, r7
 	std Z+6, r9
 	std Z+7, r27
 
@@ -159,23 +117,12 @@ saddll_overflow:
 	ret
 
 .rltSigned:
-	mov r18, r3
-	mov r19, r4
-	mov r20, r5
-	mov r21, r6
-	mov r22, r7
-	mov r23, r8
+	mov32 r18, r3
+	movw r22, r7
 	mov r24, r9
 	mov r25, r27
 
-	ldd r10, Y+1
-	ldd r11, Y+2
-	ldd r12, Y+3
-	ldd r13, Y+4
-	ldd r14, Y+5
-	ldd r15, Y+6
-	ldd r16, Y+7
-	ldd r17, Y+8
+	ld64 r10, Y, 1
 	call __cmpdi2
 	breq .return
 	brlt .return
@@ -191,17 +138,13 @@ saddll_overflow:
 
 uadd_overflow:
 	ldi r18, 0
-	add r22, r24
-	adc r23, r25
-
-	cp r22, r24
-	cpc r23, r25
+	add16 r22, r24
+	cmp16 r22, r24
 	brlo .ret1
 
 .return:
 	movw r30, r20
-	std Z+1, r23
-	st Z, r22
+	st16 Z, 0, r22
 
 	mov r24, r18
 	ret
@@ -218,25 +161,20 @@ uaddl_overflow:
 	multiPush r12, r13, r14, r15, r16, r17
 
 	ldi r30, 0
-	movw r12, r22
-	movw r14, r24
-
-	add r12, r18
-	adc r13, r19
-	adc r14, r20
-	adc r15, r21
-
-	cp r12, r22
-	cpc r13, r23
-	cpc r14, r24
-	cpc r15, r25
+	mov32 r12, r22
+	add32 r12, r18
+	cmp32 r12, r22
 	brlo .ret1
 
 .return:
 	movw r26, r16
-	st X+, r12
-	st X+, r13
-	st X+, r14
+
+	.irp reg, r12, r13, r14
+
+		st X+, \reg
+
+	.endr
+
 	st X, r15
 	sbiw r26, 3
 
@@ -270,12 +208,8 @@ uaddll_overflow:
 	call __adddi3
 
 	movw r8, r18
-	std Y+1, r20
-	std Y+2, r21
-	std Y+3, r22
-	std Y+4, r23
-	std Y+5, r24
-	std Y+6, r25
+	st32 Y, 1, r20
+	st16 Y, 5, r24
 
 	movw r10, r26
 	mov r12, r7
@@ -291,18 +225,13 @@ uaddll_overflow:
 	st Z, r8
 	std Z+1, r9
 	ldd r24, Z+1
-	std Z+2, r24
-	ldd r24, Z+2
-	std Z+3, r24
-	ldd r24, Z+3
-	std Z+4, r24
-	ldd r24, Z+4
-	std Z+5, r24
-	ldd r24, Z+5
-	std Z+6, r24
-	ldd r24, Z+6
-	std Z+7, r24
-	ldd r24, Z+7
+
+	.irp offset, 2, 3, 4, 5, 6, 7
+
+		std Z+\offset, r24
+		ldd r24, Z+\offset
+
+	.endr
 
 	doSPEpilog 7
 

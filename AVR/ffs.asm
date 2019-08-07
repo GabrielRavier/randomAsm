@@ -7,28 +7,14 @@ __ffsdi2:
 
 	doSPProlog 8
 
-	std Y+1, r18
-	std Y+2, r19
-	std Y+3, r20
-	std Y+4, r21
-	std Y+5, r22
-	std Y+6, r23
-	std Y+7, r24
-	std Y+8, r25
-
-	ldd r24, Y+1
-	ldd r25, Y+2
-	ldd r26, Y+3
-	ldd r27, Y+4
+	st64 Y, 1, r18
+	ld32 r24, Y, 1
 
 	sbiw r24, 0
 	multiCpcZR r26, r27
 	brne .ne
 
-	ldd r22, Y+5
-	ldd r23, Y+6
-	ldd r24, Y+7
-	ldd r25, Y+8
+	ld32 r22, Y, 5
 
 	cp r22, __zero_reg__
 	multiCpcZR r23, r24, r25
@@ -52,7 +38,7 @@ __ffsdi2:
 	call __ctzhi2
 	adiw r24, 0x21
 	movw r22, r24
-	multiLdi0 r24, r25
+	ldi016 r24
 	rjmp .return
 
 
@@ -64,17 +50,14 @@ __ffssi2:
 	tst r22
 	brne .toLoop
 
-	subi r26, -8
-	or r22, r23
-	brne .toLoop
+	.irp reg, r23, r24, r25
 
-	subi r26, -8
-	or r22, r24
-	brne .toLoop
+		subi r26, -8
+		or r22, \reg
+		brne .toLoop
 
-	subi r26, -8
-	or r22, r25
-	brne .toLoop
+	.endr
+
 	ret
 
 .toLoop:

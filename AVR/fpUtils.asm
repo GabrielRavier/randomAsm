@@ -23,18 +23,18 @@ __fp_cmp:
 	cpc r31, r21
 	brlo .return
 
-	sub r22, r18
-	sbc r23, r19
-	sbc r24, r20
-	sbc r25, r21
+	sub64 r22, r18
 	brne .checkSigns
 
 	eor r0, r26
 	breq .return
 
-	or r18, r19
-	or r18, r20
-	or r18, r21
+	.irp reg, r19, r20, r21
+
+		or r18, \reg
+
+	.endr
+
 	brne .buildRetVal
 	ret
 
@@ -47,8 +47,12 @@ __fp_cmp:
 .buildRetVal:
 	lsr r26
 	ldi r24, -1
-	adc r24, r1
-	adc r24, r1
+
+	.rept 2
+
+		adc r24, r1
+
+	.endr
 
 .return:
 	ret
@@ -59,8 +63,13 @@ __fp_cmp:
 
 __fp_round:
 	mov r0, r25
-	inc r0
-	lsl r0
+
+	.irp instr, inc, lsl
+
+		\instr r0
+
+	.endr
+
 	brne .l1
 
 	tst r24
@@ -76,9 +85,12 @@ __fp_round:
 
 .l2:
 	subi r22, -1
-	sbci r23, -1
-	sbci r24, -1
-	sbci r25, -1
+
+	.irp reg, r23, r24, r25
+
+		sbci \reg, -1
+
+	.endr
 
 .return:
 	ret
@@ -88,11 +100,21 @@ __fp_round:
 
 
 __fp_pscA:
-	clr r0
-	dec r0
+
+	.irp instr, clr, dec
+
+		\instr r0
+
+	.endr
+
 	cp r1, r22
-	cpc r1, r23
-	cpc r1, r24
+
+	.irp reg, r23, r24
+
+		cpc r1, \reg
+
+	.endr
+
 	cpc r0, r25
 	ret
 
@@ -101,11 +123,20 @@ __fp_pscA:
 
 
 __fp_pscB:
-	clr r0
-	dec r0
+
+	.irp instr, clr, dec
+
+		\instr r0
+
+	.endr
+
 	cp r1, r18
-	cpc r1, r19
-	cpc r1, r20
+
+	.irp reg, r19, r20
+
+		cpc r1, \reg
+
+	.endr
 	cpc r0, r21
 	ret
 
@@ -117,7 +148,7 @@ __fp_inf:
 	bld r25, 7
 	ori r25, 0x7F
 	ldi r24, 0x80
-	multiLdi0 r23, r22
+	ldi016 r22
 	ret
 
 
@@ -177,8 +208,13 @@ __fp_splitA:
 
 .l4:
 	cp r1, r18
-	cpc r1, r19
-	cpc r1, r20
+
+	.irp reg, r19, r20
+
+		cpc r1, \reg
+
+	.endr
+
 	rol r21
 	rjmp __fp_split3.l1
 
@@ -189,15 +225,24 @@ __fp_splitA:
 
 .l6:
 	cp r1, r22
-	cpc r1, r23
-	cpc r1, r24
+
+	.irp reg, r23, r24
+
+		cpc r1, \reg
+
+	.endr
+
 	rol r25
 	rjmp .l3
 
 .l7:
 	lsr r24
-	cpc r23, r1
-	cpc r22, r1
+
+	.irp reg, r23, r22
+
+		cpc \reg, r1
+
+	.endr
 
 .l8:
 	sec

@@ -81,6 +81,7 @@
 - AutoHotkey src
 - gcc, clang src
 - golang src
+- Bray/Clown stuff maybe
 
 x86 : -march=icelake-server
 ARM/ARM64 : -march=armv8.4-a
