@@ -39,7 +39,7 @@
 - Some libc stuff
 - Some libc++ stuff
 - Square function
-- Godbolt examples (C, C++, etc.)
+- Godbolt examples (C, C++, etc.) (68k and Epiphany versions too)
 - C books (The C programming language, etc.)
 - C++ books
 - Stuff from N3864
@@ -82,6 +82,7 @@
 - gcc, clang src
 - golang src
 - Bray/Clown stuff maybe
+- Bisqwit stuff
 
 x86 : -march=icelake-server
 ARM/ARM64 : -march=armv8.4-a
