@@ -149,11 +149,17 @@
 
 .endm
 
-
 .macro st32 dest, offset, reg
 
 	st16 \dest, \offset, \reg
 	st16 \dest, (\offset + 2), (\reg + 2)
+
+.endm
+
+.macro st64 dest, offset, reg
+
+	st32 \dest, \offset, \reg
+	st32 \dest, (\offset + 4), (\reg + 4)
 
 .endm
 
@@ -183,3 +189,143 @@
 	movw (\dest + 2), (\src + 2)
 
 .endm
+
+.macro makeInstrMultiWithFlags instr1, instr2, reg1, reg2, offsets:varargs
+
+	\instr1 \dest, \src
+
+	.irp offset, \offsets
+
+		\instr2 (\dest + \offset), (\src + \offset)
+
+	.endr
+
+.endm
+
+.macro makeAdd dest, src, offsets:vararg
+
+	makeInstrMultiWithFlags add, adc, \dest, \src, \offsets
+
+.endm
+
+.macro add16 dest, src
+
+	makeAdd \dest, \src, 1
+
+.endm
+
+.macro add32 dest, src
+
+	makeAdd \dest, \src, 1, 2, 3
+
+.endm
+
+.macro add64 dest, src
+
+	makeAdd \dest, \src, 1, 2, 3, 4, 5, 6, 7
+
+.endm
+
+.macro makeCmp dest, src, offsets:vararg
+
+	makeInstrMultiWithFlags cp, cpc, \dest, \src, \offsets
+
+.endm
+
+.macro cmp16 dest, src
+
+	makeCmp \dest, \src, 1
+
+.endm
+
+.macro cmp32 dest, src
+
+	makeCmp \dest, \src, 1, 2, 3
+
+.endm
+
+.macro cmp64 dest, src
+
+	makeCmp \dest, \src, 1, 2, 3, 4, 5, 6, 7
+
+.endm
+
+.macro makeSub dest, src, offsets:vararg
+
+	makeInstrMultiWithFlags sub, sbc, \dest, \src, \offsets
+
+.endm
+
+.macro sub16 dest, src
+
+	makeSub \dest, \src, 1
+
+.endm
+
+.macro add32 dest, src
+
+	makeSub \dest, \src, 1, 2, 3
+
+.endm
+
+.macro add64 dest, src
+
+	makeSub \dest, \src, 1, 2, 3, 4, 5, 6, 7
+
+.endm
+
+.macro and16 dest, src
+
+	and \dest, \src
+	and (\dest + 1), (\src + 1)
+
+.endm
+
+.macro and32 dest, src
+
+	and16 \dest, \src
+	and16 (\dest + 2), (\src + 2)
+
+.endm
+
+.macro and64 dest, src
+
+	and32 \dest, \src
+	and32 (\dest + 4), (\src + 4)
+
+.endm
+
+.macro or16 dest, src
+
+	or \dest, \src
+	or (\dest + 1), (\src + 1)
+
+.endm
+
+.macro or32 dest, src
+
+	or16 \dest, \src
+	or16 (\dest + 2), (\src + 2)
+
+.endm
+
+.macro or64 dest, src
+
+	or32 \dest, \src
+	or32 (\dest + 4), (\src + 4)
+
+.endm
+
+.macro com16 reg
+
+	multiCom \reg, (\reg + 1)
+
+.endm
+
+.macro com32 reg
+
+	multiCom \reg, (\reg + 1), (\reg + 2), (\reg + 3)
+
+.endm
+
+.endif

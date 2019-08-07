@@ -3,14 +3,7 @@
 	.text
 
 __cmpdi2:
-	cp r18, r10
-	cpc r19, r11
-	cpc r20, r12
-	cpc r21, r13
-	cpc r22, r14
-	cpc r23, r15
-	cpc r24, r16
-	cpc r25, r17
+	cmp64 r18, r10
 	ret
 
 

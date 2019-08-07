@@ -79,14 +79,13 @@ __clrsbdi2:
 	rjmp .com
 
 .r18190:
-	multiLdi0 r18, r19
+	ldi016 r18
 
 .doClz:
 	multiLdi0 r23, r24, r25
 	call __clzsi2
 
-	add r24, r18
-	adc r25, r19
+	add16 r24, r18
 	sbiw r24, 1
 	ret
 

@@ -25,26 +25,16 @@ __ctzdi2:
 
 	doSPProlog 8
 
-	std Y+1, r18
-	std Y+2, r19
-	std Y+3, r20
-	std Y+4, r21
-	std Y+5, r21
-	std Y+6, r22
-	std Y+7, r23
-	std Y+8, r24
+	st64 Y, 1, r18
 
-	ldd r24, Y+1
-	ldd r25, Y+2
-	ldd r26, Y+3
-	ldd r27, Y+4
+	ld32 r24, Y, 1
 	ldi r20, lo8(1)
 	ldi r21, 0
 	sbiw r24, 0
 	multiCpcZR r26, r27
 	breq .skip0
 
-	multiLdi0 r20, r21
+	ldi016 r20
 
 .skip0:
 	multiNeg r21, r20
@@ -55,30 +45,12 @@ __ctzdi2:
 	lsl r0
 	multiSbc r18, r19
 
-	ldd r12, Y+5
-	ldd r13, Y+6
-	ldd r14, Y+7
-	ldd r15, Y+8
-
-	and r12, r16
-	and r13, r17
-	and r14, r18
-	and r15, r19
-
-	multiCom r16, r17, r18, r19
-
-	and r24, r16
-	and r25, r17
-	and r26, r18
-	and r27, r19
-
-	movw r22, r24
-	movw r24, r26
-
-	or r22, r12
-	or r23, r13
-	or r24, r14
-	or r25, r15
+	ld32 r12, Y, 5
+	and32 r12, r16
+	com32 r16
+	and32 r24, r16
+	mov32 r22, r24
+	or32 r22, r12
 	call __ctzsi2
 
 	andi r20, 0x20
@@ -92,16 +64,9 @@ __ctzdi2:
 	lsl r0
 	multiSbc r26, r27
 
-	movw r16, r20
-	movw r18, r22
-
-	add r16, r24
-	adc r17, r25
-	adc r18, r26
-	adc r19, r27
-
-	movw r24, r18
-	movw r22, r16
+	mov32 r16, r20
+	add32 r16, r24
+	mov32 r22, r16
 
 	doSPEpilog 8
 

@@ -8,24 +8,10 @@ _mulx_u64:
 	doSPProlog 0x30
 
 	multiStdZR Y+17, Y+18, Y+19, Y+20, Y+21, Y+22, Y+23, Y+24
-	std Y+25, r18
-	std Y+26, r19
-	std Y+27, r20
-	std Y+28, r21
-	std Y+29, r22
-	std Y+30, r23
-	std Y+31, r24
-	std Y+32, r25
+	st64 Y, 25, r18
 
 	multiStdZR Y+1, Y+2, Y+3, Y+4, Y+5, Y+6, Y+7, Y+8
-	std Y+9, r10
-	std Y+10, r11
-	std Y+11, r12
-	std Y+12, r13
-	std Y+13, r14
-	std Y+14, r15
-	std Y+15, r16
-	std Y+16, r17
+	st64 Y, 9, r10
 
 	movw r20, r28
 	subi r20, -1
@@ -62,14 +48,7 @@ _mulx_u64:
 
 	movw r30, r8
 
-	st Z, r18
-	std Z+1, r19
-	std Z+2, r20
-	std Z+3, r21
-	std Z+4, r22
-	std Z+5, r23
-	std Z+6, r24
-	std Z+7, r25
+	st64 Z, 0, r18
 
 	movw r24, r28
 	adiw r24, 0x21
@@ -96,10 +75,7 @@ _mulx_u32:
 
 	ldi r16, lo8(32)
 	call __lshrdi3
-	st Y, r18
-	std Y+1, r19
-	std Y+2, r20
-	std Y+3, r21
+	st32 Y, 0, r18
 
 	mov r22, r27
 	mov r23, r26

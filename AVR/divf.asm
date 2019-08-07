@@ -45,14 +45,16 @@ __divsf3_pse:
 	tst r11
 	breq .inf
 
-	sub r25, r11
-	sbc r25, r11
+	.irp instr, sub, sbc
+
+		\instr r25, r11
+
+	.endr
 
 	multiClr r27, r26
 
 .l2:
-	cp r22, r18
-	cpc r23, r19
+	cmp16 r22, r18
 	cpc r24, r10
 	brlo .l3
 
@@ -60,9 +62,13 @@ __divsf3_pse:
 	sbci r11, hi8(-1)
 
 	lsl r18
-	rol r19
-	rol r10
-	rol r26
+
+	.irp reg, r19, r10, r26
+
+		rol \reg
+
+	.endr
+
 	breq .l2
 
 .l3:
@@ -86,12 +92,14 @@ __divsf3_pse:
 	rcall .div
 
 	lsl r22
-	rol r23
-	rol r24
-	rol r27
 
-	cp r18, r22
-	cpc r19, r23
+	.irp reg, r23, r24, r27
+
+		rol \reg
+
+	.endr
+
+	cmp16 r18, r22
 	cpc r10, r24
 	cpc r26, r27
 
@@ -148,18 +156,19 @@ __divsf3_pse:
 
 .div1:
 	lsl r22
-	rol r23
-	rol r24
-	rol r27
 
-	cp r22, r18
-	cpc r23, r19
+	.irp reg, r23, r24, r27
+
+		rol \reg
+
+	.endr
+
+	cmp16 r22, r18
 	cpc r24, r10
 	cpc r27, r26
 	brcs .l22
 
-	sub r22, r18
-	sbc r23, r19
+	sub16 r22, r18
 	sbc r24, r10
 	sbc r27, r26
 

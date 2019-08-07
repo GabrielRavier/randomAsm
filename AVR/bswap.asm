@@ -1,9 +1,30 @@
 	.text
 
+.macro swap16 reg1, reg2
+
+	eor \reg2, \reg1
+	eor \reg1, \reg2
+	eor \reg2, \reg1
+
+.endm
+
+.macro swap32 reg1, reg2, reg3, reg4
+
+	swap16 \reg1, \reg4
+	swap16 \reg2, \reg3
+
+.endm
+
+.macro swap64 reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8
+
+	swap16 \reg1, \reg8
+	swap16 \reg2, \reg7
+	swap32 \reg3, \reg4, \reg5, \reg6
+
+.endm
+
 bswap16:
-	eor r25, r24
-	eor r24, r25
-	eor r25, r24
+	swap16 r25, r24
 	ret
 
 
@@ -12,13 +33,7 @@ bswap16:
 
 bswap32:
 __bswapsi2:
-	eor r22, r25
-	eor r25, r22
-	eor r22, r25
-
-	eor r23, r24
-	eor r24, r23
-	eor r23, r24
+	swap32 r22, r23, r24, r25
 	ret
 
 
@@ -27,19 +42,5 @@ __bswapsi2:
 
 bswap64:
 __bswapdi2:
-	eor r18, r25
-	eor r25, r18
-	eor r18, r25
-
-	eor r19, r24
-	eor r24, r19
-	eor r19, r24
-
-	eor r20, r23
-	eor r23, r20
-	eor r20, r23
-
-	eor r21, r22
-	eor r22, r21
-	eor r21, r22
+	swap64 r18, r19, r20, r21, r22, r23, r24, r25
 	ret

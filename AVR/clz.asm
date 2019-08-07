@@ -55,7 +55,7 @@ __clzdi2:
 	sbrs r24, 5
 	ret
 
-	multiMovw "r22, r18", "r24, r20"
+	mov32 r22, r18
 	call __clzsi2
 
 	subi r24, -32
