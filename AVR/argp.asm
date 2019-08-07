@@ -16,8 +16,7 @@ __argp_usage:
 __option_is_short:
 	movw r30, r24
 
-	ldd r20, Z+6
-	ldd r21, Z+7
+	ld16 r20, Z, 6
 
 	movw r18, r20
 	andi r18, 8
@@ -26,8 +25,7 @@ __option_is_short:
 	sbrc r20, 3
 	rjmp .ret0
 
-	ldd r24, Z+2
-	ldd r25, Z+3
+	ld16 r24, Z, 2
 
 	movw r20, r24
 	subi r20, 1
@@ -70,13 +68,11 @@ __option_is_short:
 __option_is_end:
 	movw r30, r24
 
-	ldd r24, Z+2
-	ldd r25, Z+3
+	ld16 r24, Z, 2
 	sbiw r24, 0
 	brne .ret0
 
-	ld r18, Z
-	ldd r19, Z+1
+	ld16 r18, Z, 0
 	or r18, r19
 	breq .continue
 
@@ -84,20 +80,18 @@ __option_is_end:
 	ret
 
 .ret0:
-	multiLdi0 r24, r25
+	ldi016 r24
 	ret
 
 .continue:
-	ldd r18, Z+8
-	ldd r19, Z+9
+	ld16 r18, Z, 8
 	or r18, r19
 	brne .return
 
 	ldi r19, lo8(1)
 	ldi r18, 0
 
-	ldd r24, Z+10
-	ldd r25, Z+11
+	ld16 r24, Z, 10
 	or r24, r25
 	breq .skip
 

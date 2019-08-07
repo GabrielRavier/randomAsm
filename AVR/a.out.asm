@@ -4,8 +4,7 @@
 
 N_MAGIC:
 	movw r30, r24
-	ld r24, Z
-	ldd r25, Z+1
+	ld16 r24, Z, 0
 	ret
 
 
@@ -36,10 +35,7 @@ N_SET_INFO:
 	ldi016 r22
 
 	movw r30, r24
-	st Z, r20
-	std Z+1, r21
-	std Z+2, r22
-	std Z+3, r23
+	st32 Z, 0, r20
 	ret
 
 
@@ -49,11 +45,10 @@ N_SET_INFO:
 N_BADMAG:
 	movw r30, r24
 
-	ld r20, Z
-	multiLdd "r21, Z+1", "r22, Z+2", "r23, Z+3"
+	ld32 r20, Z, 0
 
 	multiClr r22, r23
-	multiMovw "r26, r22", "r24, r20"
+	mov32 r24, r20
 
 	subi r24, 7
 	sbci r25, 1

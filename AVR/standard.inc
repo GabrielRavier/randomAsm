@@ -39,24 +39,6 @@
 
 .endm
 
-.macro multiMovw args:vararg
-
-	multiInstruction movw, \args
-
-.endm
-
-.macro multiStd args:vararg
-
-	multiInstruction std, \args
-
-.endm
-
-.macro multiLdd args:vararg
-
-	multiInstruction ldd, \args
-
-.endm
-
 .macro multiSbcZR regs:vararg
 
 	multiInstructionAfterArg sbc, ", __zero_reg__", \regs
@@ -155,4 +137,49 @@
 
 .endm
 
-.endif
+.macro st16 dest, offset, reg
+
+	.if offset == 0
+		st \dest, \reg
+	.else
+		std \dest + \offset, \reg
+	.endif
+
+	std \dest+(\offset + 1), (\reg + 1)
+
+.endm
+
+
+.macro st32 dest, offset, reg
+
+	st16 \dest, \offset, \reg
+	st16 \dest, (\offset + 2), (\reg + 2)
+
+.endm
+
+.macro ld16 reg, src, offset
+
+	.if offset == 0
+		ld \reg, \src
+	.else
+		ldd \reg, \src + \offset
+	.endif
+
+	ldd (\reg + 1), \src + (\offset + 1)
+
+.endm
+
+
+.macro ld32 reg, src, offset
+
+	ld16 \reg, \src, \offset
+	ld16 (\reg + 2), \dest, (\offset + 2)
+
+.endm
+
+.macro mov32 dest, src
+
+	movw \dest, \src
+	movw (\dest + 2), (\src + 2)
+
+.endm

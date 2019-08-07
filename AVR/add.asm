@@ -21,11 +21,11 @@ __adddi3_s8:
 	com __tmp_reg__
 
 	add r18, r26
-	adc r19, __tmp_reg__
-	adc r20, __tmp_reg__
-	adc r21, __tmp_reg__
-	adc r22, __tmp_reg__
-	adc r23, __tmp_reg__
-	adc r24, __tmp_reg__
-	adc r25, __tmp_reg__
+
+	.irp reg, r19, r20, r21, r22, r23, r24, r25
+
+		adc \reg, __tmp_reg__
+
+	.endr
+
 	ret

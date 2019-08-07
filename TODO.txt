@@ -77,6 +77,10 @@
 - Redo macroing everywhere, not just ARM
 - Redo old stuff with more modern versions of CPUs
 - Golly (Game of Life) stuff
+- 7-Zip src
+- AutoHotkey src
+- gcc, clang src
+- golang src
 
 x86 : -march=icelake-server
 ARM/ARM64 : -march=armv8.4-a
