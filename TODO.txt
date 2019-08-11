@@ -5,14 +5,12 @@
 - Finish clang target dependencies (online and /usr/lib64/clang/8.0.0/include/)
 - Do libgcc
 - Do compiler-rt
-- Do LLVM if I can figure out how to make metadata fuck off (-g0)
-- Do uint128_t
-- Do uint256_t
+- Do LLVM (-g0)
 - Instruction set reproduction (x86, 6502, others)
 - Do clang builtins (manual)
 - Do icc builtins (manual)
 - Do other compiler builtins
-- Libfuse maybe ? Do kernel stuff sometime
+- Libfuse maybe ? Do kernel stuff sometime (/usr/src/kernels)
 - Do sync builtins for larger sizes
 - Do sync builtins for smaller sizes
 - Do sync builtins for all sizes
@@ -84,16 +82,18 @@
 - Bray/Clown stuff maybe
 - Bisqwit stuff
 
-x86 : -march=icelake-server
-ARM/ARM64 : -march=armv8.4-a
+ARM/ARM64 : -march=armv8.4-a+fp16+simd+crypto
 AVR : -mmcu=avr5
-MIPS : -march=mips4
-MSP 430 : -mmcu=msp430xv2
-PowerPC : -mcpu=power8
-RISV-32 : -march=rv32imafdc
-RISV-64 : -march=rv64imafdc
+Epiphany : -mno-soft-cmpsf
 m6502 : --cpu 65c02
 m68k : -mcpu=68060
+MIPS64el/MIPSel : -march=mips4
+MSP 430 : -mmcu=msp430xv2
+PowerPC/PowerPC-64le : -mcpu=power8
+RISV-32 : -march=rv32imafdc
+RISV-64 : -march=rv64imafdc
+WebAssembly :
+x64/x86 : -march=icelake-server
 
 Info:
 
