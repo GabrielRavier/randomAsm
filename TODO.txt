@@ -83,7 +83,7 @@
 - Bisqwit stuff
 
 ARM/ARM64 : -march=armv8.4-a+fp16+simd+crypto
-AVR : -mmcu=avr5
+AVR : -mmcu=avr6
 Epiphany : -mno-soft-cmpsf
 m6502 : --cpu 65c02
 m68k : -mcpu=68060
