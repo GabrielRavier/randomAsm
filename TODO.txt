@@ -85,7 +85,7 @@
 ARM/ARM64 : -march=armv8.4-a+fp16+simd+crypto
 AVR : -mmcu=avr6
 Epiphany : -mno-soft-cmpsf
-m6502 : --cpu 65c02
+m6502 : -O -Oi -Or -Os --cpu 65c02
 m68k : -mcpu=68060
 MIPS64el/MIPSel : -march=mips4
 MSP 430 : -mmcu=msp430xv2
