@@ -1,4 +1,17 @@
 global bzero1
+global bzero2
+global bzero4
+global bzero8
+global bzero16
+global bzero28
+global bzero32
+global bzero64
+global bzero128
+global bzero192
+global bzero200
+global bzero256
+global bzero512
+global bzero524
 
 section .text align=16
 
@@ -61,7 +74,7 @@ bzero28:
 	
 	align 16
 bzero32:
-	vpxor xmm0
+	vpxor ymm0
 	vmovdqu [rdi], ymm0
 	vzeroupper
 	ret
@@ -121,7 +134,7 @@ bzero200:
 	
 	
 	align 16
-bzero192:
+bzero256:
 	vpxord xmm0
 	vmovups [rdi], zmm0
 	vmovups [rdi + 64], zmm0
