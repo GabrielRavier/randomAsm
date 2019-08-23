@@ -1,5 +1,3 @@
-	.text
-
 fabsf:
 	fabs 1
 	blr
