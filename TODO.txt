@@ -105,3 +105,6 @@ Epiphany : http://gcc.parallella.org/
 m68k : https://franke.ms/cex or ct-ng
 amdgcn, bpfel, hexagon, lanai, nvptx, nvptx64, r600, sparcel, sparcv9, systemz, xcore : clang
 alpha, arc, nios2, s390, sh, xtensa : ct-ng
+aarch64, arm, arm64, mipsel, mips64el, ppc32, ppc64le : clang (opt)
+mblaze : clang 3.3
+cellspu : clang 3.2
