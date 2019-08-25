@@ -418,7 +418,7 @@ uint128_t_operator_or_or:
 	ret
 
 .continue:
-	ldp x29, x30? [sp], 32
+	ldp x29, x30, [sp], 32
 	mov x0, x1
 	b uint128_t_operator_cast_bool
 
