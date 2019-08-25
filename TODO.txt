@@ -82,6 +82,8 @@
 - Bray/Clown stuff maybe
 - Bisqwit stuff
 
+Arches options :
+
 ARM/ARM64 : -march=armv8.4-a+fp16+simd+crypto
 AVR : -mmcu=avr6
 Epiphany : -mno-soft-cmpsf
@@ -95,11 +97,11 @@ RISV-64 : -march=rv64imafdc
 WebAssembly :
 x64/x86 : -march=icelake-server
 
-Info:
+Info for arches :
 
 ARM, ARM64, AVR, RISCV-32, RISCV-64, WebAssembly, x86, x64, MIPS, MIPS64, MSP430, PowerPC, PowerPC-64le : godbolt.org->C++
 m6502 : godbolt.org->C
 Epiphany : http://gcc.parallella.org/
 m68k : https://franke.ms/cex or ct-ng
-amdgcn, bpfel, hexagon, lanai, nvptx, nvptx64, r600, sparcel, systemz, xcore : clang
+amdgcn, bpfel, hexagon, lanai, nvptx, nvptx64, r600, sparcel, sparcv9, systemz, xcore : clang
 alpha, arc, nios2, s390, sh, xtensa : ct-ng
