@@ -270,7 +270,7 @@ fmin:
 fminl:
 	fmove.x 4(sp), fp0
 	fcmp.x 16(sp), fp0
-	ffle .noMov
+	fjle .noMov
 
 	fmove.x 16(sp), fp0
 

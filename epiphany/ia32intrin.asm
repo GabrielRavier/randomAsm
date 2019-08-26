@@ -96,7 +96,7 @@ __rorq:
 	eor r17, r2, r17
 	lsr r19, r1, #1
 	lsr r17, r19, r17
-	lsl r1? r2
+	lsl r1, r2
 	lsl r0, r2
 
 	orr r1, r17, r1
