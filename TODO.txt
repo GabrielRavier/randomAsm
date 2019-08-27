@@ -81,9 +81,11 @@
 - golang src
 - Bray/Clown stuff maybe
 - Bisqwit stuff
+- CuckyDev stuff
 
 Arches options :
 
+AMD GCN : -mcpu=gfx1012 -mxnack
 ARM/ARM64 : -march=armv8.4-a+fp16+simd+crypto
 AVR : -mmcu=avr6
 Epiphany : -mno-soft-cmpsf
