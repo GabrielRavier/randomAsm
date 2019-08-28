@@ -1,12 +1,19 @@
+.include "standard.inc"
+
 	.text
 
+.macro doBufferStoreLoad instr
+
+	\instr v32, off, s[0:3], s32 offset:4
+	v_nop
+
+.endm
+
 __argp_usage:
-	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_waitcnt_vscnt null, 0
+	usualProlog
 	s_or_saveexec_b32 s4, -1
 
-	buffer_store_dword v32, off, s[0:3], s32 offset:4
-	v_nop
+	doBufferStoreLoad buffer_store_dword
 
 	s_mov_b32 exec_lo, s4
 	v_writelane_b32 v32, s34, 0
@@ -20,8 +27,12 @@ __argp_usage:
 	s_getpc_b64 s[6:7]
 	s_add_u32 s6, __argp_state_help@gotpcrel32@lo+4
 	s_addc_u32 s7, __argp_state_help@gotpcrel32@hi+4
-	s_load_dwordx2 s[4:5], 0
-	s_load_dwordx2 s[6:7], 0
+
+	.irp regs, s[4:5], s[6:7]
+
+		s_load_dwordx2 \regs, 0
+
+	.endr
 
 	v_mov_b32_e32 v4, 0x106
 	s_sub_u32 s32, 0x100
@@ -32,8 +43,7 @@ __argp_usage:
 	v_readline_b32 s34, v32, 0
 	s_or_saveexec_b32 s4, -1
 
-	buffer_load_dword v32, off, s[0:3], s32 offset:4
-	v_nop
+	doBufferStoreLoad buffer_load_dword
 
 	s_mov_b32 exec_lo, s4
 	s_setpc_b64 s[6:7]
@@ -43,12 +53,10 @@ __argp_usage:
 
 
 __option_is_short:
-	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_waitcnt_vscnt null, 0
+	usualProlog
 	s_or_saveexec_b32 s4, -1
 
-	buffer_store_dword v32, off, s[0:3], s32 offset:4
-	v_nop
+	doBufferStoreLoad buffer_store_dword
 
 	s_mov_b32 exec_lo, s4
 	v_mov_b32_e32 v2, v0
@@ -96,8 +104,7 @@ __option_is_short:
 	v_readline_b32 s34, v32, 3
 	s_or_saveexec_b32 s4, -1
 
-	buffer_load_dword v32, off, s[0:3], s32 off:4
-	v_nop
+	doBufferStoreLoad buffer_load_dword
 
 	s_mov_b32 exec_lo, s4
 	s_waitcnt vmcnt(0)
@@ -109,8 +116,7 @@ __option_is_short:
 
 
 __option_is_end:
-	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_waitcnt_vscnt null, 0
+	usualProlog
 
 	v_add_co_u32_e64 v3, vcc_lo, v0, 8
 	v_mov_b32_e32 v2, 0

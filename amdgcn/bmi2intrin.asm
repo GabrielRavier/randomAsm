@@ -1,8 +1,9 @@
+.include "standard.inc"
+
 	.text
 
 _mulx_u64:
-	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_waitcnt_vscnt null, 0
+	usualProlog
 	v_mov_b32_e32 v6, v2
 	v_mov_b32_e32 v7, v1
 
@@ -32,8 +33,7 @@ _mulx_u64:
 
 
 _mulx_u32:
-	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_waitcnt_vscnt null, 0
+	usualProlog
 
 	v_mul_hi_u32 v4, v1, v0
 	v_mul_lo_u32 v0, v1, v0
