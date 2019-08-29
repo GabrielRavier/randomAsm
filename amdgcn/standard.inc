@@ -14,15 +14,9 @@
 
 .endm
 
-.macro waitLgkmCntAfterStore
-
-	s_waitcnt lgkmcnt(0)
-
-.endm
-
 .macro waitAfterStore
 
-	waitLgkmCntAfterStore
+	s_waitcnt lgkmcnt(0)
 	s_waitcnt_vscnt null, 0
 
 .endm
@@ -120,6 +114,13 @@
 
 	v_mov_b32_e32 \reg, 0
 	v_mov_b32_e32 (\reg + 1), 0
+
+.endm
+
+.macro doubleSMovB320 reg
+
+	s_mov_b32 \reg, 0
+	s_mov_b32 (\reg + 1), 0
 
 .endm
 

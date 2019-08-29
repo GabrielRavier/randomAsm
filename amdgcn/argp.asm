@@ -31,7 +31,7 @@ __argp_usage:
 
 	v_mov_b32_e32 v4, 0x106
 	s_sub_u32 s32, 0x100
-	waitLgkmCntAfterStore
+	s_waitcnt lgkmcnt(0)
 	doubleVMovB32E32 v2, s4
 	global_load_dwordx2 v[2:3], off
 	v_readline_b32 s34, v32, 0
