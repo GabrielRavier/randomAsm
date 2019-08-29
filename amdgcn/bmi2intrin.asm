@@ -8,8 +8,7 @@ _mulx_u64:
 	v_mov_b32_e32 v7, v1
 
 	v_mov_b32_e32 v2, 0
-	s_mov_b32 s5, s34
-	s_mov_b32 s34, s32
+	usualSmov12 s5
 	v_mul_hi_u32 v1, v6, v0
 	s_mov_b32 s34, s5
 	v_mad_u64_u32 v[8:9], s4, v3, v0, v[1:2]
@@ -23,10 +22,8 @@ _mulx_u64:
 	v_mad_u64_u32 v[2:3], s4, v3, v7, v[8:9]
 
 	flat_store_dwordx2 v[4:5], v[2:3]
-
-	s_waitcnt lgkmcnt(0)
-	s_waitcnt_vscnt null, 0
-	s_setpc_b64 s[30:31]
+	waitAfterStore
+	usualEpilog
 
 
 
@@ -37,11 +34,8 @@ _mulx_u32:
 
 	v_mul_hi_u32 v4, v1, v0
 	v_mul_lo_u32 v0, v1, v0
-	s_mov_b32 s4, s34
-	s_mov_b32 s34, s32
-	s_mov_b32 s34, s4
+	usualSmov123
 
 	flat_store_dword v[2:3], v4
-	s_waitcnt lgkmcnt(0)
-	s_waitcnt_vscnt null, 0
-	s_setpc_b64 s[30:31]
+	waitAfterStore
+	usualEpilog
