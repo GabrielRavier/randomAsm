@@ -82,6 +82,8 @@
 - Bray/Clown stuff maybe
 - Bisqwit stuff
 - CuckyDev stuff
+- 2x + 1
+- ax² + bx + c
 
 Arches options :
 
