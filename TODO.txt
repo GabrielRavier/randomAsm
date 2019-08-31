@@ -112,3 +112,4 @@ alpha, arc, nios2, s390, sh, xtensa : ct-ng
 aarch64, arm, arm64, mipsel, mips64el, msp430, ppc32, ppc64le : clang (opt)
 mblaze : clang 3.3
 cellspu : clang 3.2
+mcs51, z80, z180, r2k, r3ka, gbz80, tlcs90, ds390, pic16, pic14, TININative, ds400, hc08, s08, stm8 : sdcc
