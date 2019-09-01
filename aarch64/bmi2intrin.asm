@@ -13,6 +13,6 @@ _mulx_u64:
 _mulx_u32:
 	umull x1, w0, w1
 	mov w0, w1
-	lsr x1, 32
+	lsr x1, 0x20
 	str w1, [x2]
 	ret

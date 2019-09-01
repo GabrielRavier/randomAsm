@@ -1,7 +1,7 @@
 	.text
 
 clear_cache:
-#if 0
+.if 0
 	mrs x4, ctr_el0
 
 	ubfx w2, w4, 16, 4
@@ -44,7 +44,7 @@ clear_cache:
 .afterLoop2:
 	isb sy
 	ret
-#else
+.else
 	adrp x3, .archor
 	ldr w2, [x3, #:lo12:.anchor]
 	cbnz w2, .after
@@ -95,4 +95,4 @@ clear_cache:
 	ret
 
 .anchor:
-#endif
+.endif

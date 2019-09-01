@@ -1,31 +1,29 @@
 	.text
 
-sync_fetch_and_add_64:
-	ldaddal x1, x2, [x0]
+sync_fetch_and_add_32:
+	ldaddal w1, w2, [x0]
+	mov w0, w2
+	ret
 
-	mov x0, x2
+
+
+
+sync_fetch_and_add_32:
+	ldaddal w1, w3, [x0]
+	add w2, w3, w1
+
+	mov w0, w2
 	ret
 
 
 
 
 
-sync_fetch_and_add_64:
-	ldaddal x1, x3, [x0]
-	add x2, x3, x1
+sync_bool_compare_and_swap_32:
+	mov w3, w1
+	casal w3, w2, [x0]
 
-	mov x0, x2
-	ret
-
-
-
-
-
-sync_bool_compare_and_swap_64:
-	mov x3, x1
-	casal x3, x2, [x0]
-
-	cmp x3, x1
+	cmp w3, w1
 	cset w0, eq
 	ret
 
@@ -33,11 +31,11 @@ sync_bool_compare_and_swap_64:
 
 
 
-sync_val_compare_and_swap_64:
-	mov x3, x1
-	casal x3, x2, [x0]
+sync_val_compare_and_swap_32:
+	mov w3, w1
+	casal w3, w2, [x0]
 
-	mov x0, x3
+	mov w0, w3
 	ret
 
 
@@ -52,8 +50,16 @@ sync_synchronize:
 
 
 
-sync_lock_test_and_set_64:
-	swpa x1, x2, [x0]
+sync_lock_test_and_set_32:
+	swpa w1, w2, [x0]
 	
-	mov x0, x2
+	mov w0, w2
+	ret
+
+
+
+
+
+sync_lock_release_32:
+	stlr wzr, [x0]
 	ret

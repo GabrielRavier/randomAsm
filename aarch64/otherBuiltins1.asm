@@ -16,26 +16,24 @@ bzero:
 
 
 
-ffsll:
-ffsl:
-	rbit x1, x0
-	cmp x0, 0
-	clz x1
-
-	csinc x1, xzr, x1, eq
-	mov w0, w1
-	ret
-
-
-
-
-
 ffs:
 	rbit w1, w0
 	cmp w0, 0
 	clz w1
 
 	csinc w0, wzr, w1, eq
+	ret
+
+
+
+
+
+ffsl:
+ffsll:
+	rbit x1, x0
+	cmp x0, 0
+	clz x1
+	csinc x1, xzr, x1, eq
 	ret
 
 

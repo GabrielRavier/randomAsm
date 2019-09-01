@@ -1,180 +1,66 @@
 	.text
 
-_mm256_add_epi8:
+.macro ld256
+
 	ld1 {v4.16b - v5.16b}, [x0]
 	ld1 {v2.16b - v3.16b}, [x1]
 
-	add v0.16b, v4.16b, v2.16b
-	add v1.16b, v5.16b, v3.16b
+.endm
+
+.macro st256AndRet
 
 	st1 {v0.16b - v1.16b}, [x8]
 	ret
 
+.endm
 
+.macro mk16b instr
 
+	\instr v0.16b, v4.16b, v2.16b
+	\instr v1.16b, v5.16b, v3.16b
 
+.endm
 
-_mm256_add_epi16:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
+.macro mk8h instr
 
-	add v0.8h, v4.8h, v2.8h
-	add v1.8h, v5.8h, v3.8h
+	\instr v0.8h, v4.8h, v2.8h
+	\instr v1.8h, v5.8h, v3.8h
 
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
+.endm
 
+.macro mk4s instr
 
+	\instr v0.4s, v4.4s, v2.4s
+	\instr v1.4s, v5.4s, v3.4s
 
+.endm
 
+.macro mk2d instr
 
-_mm256_add_epi32:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
+	\instr v0.2d, v4.2d, v2.2d
+	\instr v1.2d, v5.2d, v3.2d
 
-	add v0.4s, v4.4s, v2.4s
-	add v1.4s, v5.4s, v3.4s
+.endm
 
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
+.macro makeFunc name, mkMacro, instr
 
+\name:
+	ld256
+	\mkMacro \instr
+	st256AndRet
 
+.endm
 
-
-
-_mm256_add_epi64:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	add v0.2d, v4.2d, v2.2d
-	add v1.2d, v5.2d, v3.2d
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-
-_mm256_and_si256:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	and v0.16b, v4.16b, v2.16b
-	and v1.16b, v5.16b, v3.16b
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-_mm256_mullo_epi16:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	mul v0.8h, v4.8h, v2.8h
-	mul v1.8h, v5.8h, v3.8h
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-_mm256_mullo_epi32:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	mul v0.4s, v4.4s, v2.4s
-	mul v1.4s, v5.4s, v3.4s
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-_mm256_or_si256:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	orr v0.16b, v4.16b, v2.16b
-	orr v1.16b, v5.16b, v3.16b
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-_mm256_sub_epi8:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	sub v0.16b, v4.16b, v2.16b
-	sub v1.16b, v5.16b, v3.16b
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-_mm256_add_epi16:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	sub v0.8h, v4.8h, v2.8h
-	sub v1.8h, v5.8h, v3.8h
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-_mm256_add_epi32:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	sub v0.4s, v4.4s, v2.4s
-	sub v1.4s, v5.4s, v3.4s
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-_mm256_add_epi64:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	sub v0.2d, v4.2d, v2.2d
-	sub v1.2d, v5.2d, v3.2d
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
-
-
-
-
-
-_mm256_xor_si256:
-	ld1 {v4.16b - v5.16b}, [x0]
-	ld1 {v2.16b - v3.16b}, [x1]
-
-	eor v0.16b, v4.16b, v2.16b
-	eor v1.16b, v5.16b, v3.16b
-
-	st1 {v0.16b - v1.16b}, [x8]
-	ret
+	makeFunc _mm256_add_epi8, mk16b, add
+	makeFunc _mm256_add_epi16, mk8h, add
+	makeFunc _mm256_add_epi32, mk4s, add
+	makeFunc _mm256_add_epi64, mk2d, add
+	makeFunc _mm256_and_si256, mk16b, and
+	makeFunc _mm256_mullo_epi16, mk8h, mul
+	makeFunc _mm256_mullo_epi32, mk4s, mul
+	makeFunc _mm256_or_si256, mk16b, orr
+	makeFunc _mm256_sub_epi8, mk16b, sub
+	makeFunc _mm256_sub_epi16, mk8h, sub
+	makeFunc _mm256_sub_epi32, mk4s, sub
+	makeFunc _mm256_sub_epi64, mk2d, sub
+	makeFunc _mm256_xor_si256, mk16b, eor

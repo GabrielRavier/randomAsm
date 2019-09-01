@@ -20,6 +20,36 @@ cabs:
 
 
 
+cargf:
+	fmov s2, s1
+	fmov s1, s0
+	fmov s0, s2
+	b atan2f
+
+
+
+
+
+cargl:
+	mov v2.16b, v1.16b
+	mov v1.16b, v0.16b
+	mov v0.16b, v2.16b
+	b atan2l
+
+
+
+
+
+carg:
+	fmov d2, d1
+	fmov d1, d0
+	fmov d0, d2
+	b atan2
+
+
+
+
+
 cimagf:
 	fmov s0, s1
 	ret
@@ -130,6 +160,14 @@ fmaf:
 
 
 
+fma:
+	fmadd d0, d1, d2
+	ret
+
+
+
+
+
 fmaxf:
 	fmaxnm s0, s1
 	ret
@@ -140,14 +178,6 @@ fmaxf:
 
 fmax:
 	fmaxnm d0, d1
-	ret
-
-
-
-
-
-fma:
-	fmadd d0, d1, d2
 	ret
 
 

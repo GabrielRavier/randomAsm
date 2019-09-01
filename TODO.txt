@@ -87,19 +87,19 @@
 
 Arches options :
 
-AMD GCN : -mcpu=gfx1012 -mxnack
-ARM/ARM64 : -march=armv8.4-a+fp16+simd+crypto
-AVR : -mmcu=avr6
-Epiphany : -mno-soft-cmpsf
+aarch64/arm : -march=armv8.4-a+fp16+simd+crypto
+amdgcn : -mcpu=gfx1012 -mxnack
+avr : -mmcu=avr6
+epiphany : -mno-soft-cmpsf
 m6502 : -O -Oi -Or -Os --cpu 65c02
 m68k : -mcpu=68060
-MIPS64el/MIPSel : -march=mips4
-MSP 430 : -mmcu=msp430xv2
-PowerPC/PowerPC-64le : -mcpu=power8
-RISV-32 : -march=rv32imafdc
-RISV-64 : -march=rv64imafdc
-x64/x86 : -march=icelake-server
-WebAssembly :
+mips64el/mipsel : -march=mips4
+msp430 : -mmcu=msp430xv2
+powerpc/powerpc64le : -mcpu=power8
+riscv32 : -march=rv32imafdc
+riscv64 : -march=rv64imafdc
+x64/x86 : -march=tigerlake
+wasm :
 
 Info for arches :
 
@@ -109,7 +109,6 @@ epiphany : http://gcc.parallella.org/
 m68k : https://franke.ms/cex or ct-ng
 amdgcn, bpfel, hexagon, lanai, llvm, nvptx, nvptx64, r600, sparcel, sparcv9, systemz, xcore : clang
 alpha, arc, nios2, s390, sh, xtensa : ct-ng
-aarch64, arm, mipsel, mips64el, msp430, ppc32, ppc64le : clang (opt)
 mblaze : clang 3.3
 cellspu : clang 3.2
 ds390, ds400, gbz80, hc08, mcs51, pic14, pic16, r2k, r3ka, s08, stm8, TININative, tlcs90, z180, z80 : sdcc
@@ -118,6 +117,6 @@ Complete list :
 
 aarch64, alpha, amdgcn, arc, arm, avr, bpfel, cellspu, ds390, ds400, epiphany,
 gbz80, hc08, hexagon, lanai, llvm, m6502, m68k, mblaze, mcs51, mips, mips64el,
-msp430, nios2, nvptx, nvptx64, pic14, pic16, powerpc, powerpc64le, ppc32, ppc64le,
-r2k, r3k, r600, riscv32, riscv64, s08, s390, sh, sparcel, sparcv9, stm8, systemz,
-TININative, tlcs90, x64, x86, xcore, xtensa, wasm, z180, z80
+msp430, nios2, nvptx, nvptx64, pic14, pic16, powerpc, powerpc64le, r2k, r3k, r600,
+riscv32, riscv64, s08, s390, sh, sparcel, sparcv9, stm8, systemz, TININative,
+tlcs90, x64, x86, xcore, xtensa, wasm, z180, z80
