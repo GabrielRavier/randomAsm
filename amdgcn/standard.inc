@@ -152,4 +152,18 @@
 
 .endm
 
+.macro invalidateBuffers
+
+	buffer_gl0_inv
+	buffer_gl1_inv
+
+.endm
+
+.macro waitBeforeAtomic
+
+	s_waitcnt vmcnt(0) lgkmcnt(0)
+	s_waitcnt_vscnt null, 0
+
+.endm
+
 .endif
