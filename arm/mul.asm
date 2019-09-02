@@ -3,7 +3,7 @@
 __aeabi_lmul:
 __aeabi_muldi3:
 __muldi3:
-#if 1
+.if 1
 	push {r4, r5, r6, r7, r8, lr}
 	multiMov "r5, r3", "r7, r0", "r6, r1", "r4, r2", "r1, r2"
 	mul r5, r7
@@ -12,7 +12,7 @@ __muldi3:
 	mla r4, r6, r4, r5
 	add r1, r4, r1
 	pop {r4, r5, r6, r7, r8, pc}
-#elif 0
+.elif 0
 	push {r4, lr}
 	muls r1, r2
 	muls r3, r0
@@ -44,7 +44,7 @@ __muldi3:
 	adds r0, r2
 	adcs r1, r3
 	pop {r4, pc}
-#endif
+.endif
 
 
 

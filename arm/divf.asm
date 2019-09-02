@@ -21,7 +21,8 @@ __aeabi_ddiv:
 	mov r0, lsl #12
 	beq .l1
 
-	multiMov "r2, lsl #12", "r5, #0x10000000"
+	mov r2, lsl #12
+	mov r5, #0x10000000
 	orr r2, r5, r2, lsr #4
 	orr r2, r3, lsr #24
 	mov r3, lsl #8
@@ -44,7 +45,9 @@ __aeabi_ddiv:
 	subs r6, r3
 	sbc r5, r2
 	movs r2, lsr #1
-	multiMov "r3, rrx", "r1, #0x100000", "ip, #0x80000"
+	mov r3, rrx
+	mov r1, #0x100000
+	mov ip, #0x80000
 
 .l13:
 	subs lr, r6, r3
@@ -54,6 +57,7 @@ __aeabi_ddiv:
 	orrcs r1, ip
 
 	.rept 3
+
 		movs r2, lsr #1
 		mov r3, rrx
 		subs lr, r6, r3
@@ -61,6 +65,7 @@ __aeabi_ddiv:
 		subcs r6, r3
 		movcs r5, lr
 		orrcs r1, ip, lsr #1
+
 	.endr
 
 	orrs lr, r5, r6
@@ -68,7 +73,8 @@ __aeabi_ddiv:
 
 	mov r5, lsl #4
 	orr r5, r6, lsr #28
-	multiMov "r6, lsl #4", "r2, lsl #3"
+	mov r6, lsl #4
+	mov r2, lsl #3
 	orr r2, r3, lsr #29
 	mov r3, lsl #3
 	movs ip, lsr #4
@@ -78,7 +84,8 @@ __aeabi_ddiv:
 	bne .l3
 
 	orr r0, r1
-	multiMov "r1, #0", "ip, #0x80000000"
+	mov r1, #0
+	mov ip, #0x80000000
 	b .l13
 
 .l2:
@@ -198,17 +205,13 @@ __aeabi_fdiv:
 	subcs r3, r1
 	orrcs r0, ip
 
-	cmp r3, r1, lsr #1
-	subcs r3, r1, lsr #1
-	orrcs r0, ip, lsr #1
+	.irp num, 1, 2, 3
 
-	cmp r3, r1, lsr #2
-	subcs r3, r1, lsr #2
-	orrcs r0, ip, lsr #2
+		cmp r3, r1, lsr #\num
+		subcs r3, r1, lsr #\num
+		orrcs r0, ip, lsr #\num
 
-	cmp r3, r1, lsr #3
-	subcs r3, r1, lsr #3
-	orrcs r0, ip, lsr #3
+	.endr
 
 	movs r3, lsl #4
 	movsne ip, lsr #4

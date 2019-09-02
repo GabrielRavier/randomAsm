@@ -98,3 +98,12 @@ sync_lock_test_and_set_32:
 
 	mov r0, r3
 	bx lr
+
+
+
+
+
+sync_lock_release_32:
+	mov r3, #0
+	stl r3, [r0]
+	bx lr

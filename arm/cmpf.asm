@@ -6,9 +6,10 @@ __aeabi_eqsf2:
 	mov ip, #1
 	str ip, [sp, #-4]!
 
-	multiMov "r2, r0, lsl #1", "r3, r1, lsl #1"
+	mov r2, r0, lsl #1
+	mov r3, r1, lsl #1
 	mvns ip, r2, asr #24
-	mvnsne p, r3, asr #24
+	mvnsne ip, r3, asr #24
 	beq .lookForNaN
 
 .compare:
@@ -120,23 +121,52 @@ __aeabi_cmpdf2:
 	mkCmpWrapper \funcName, \funcCalled, cc, cs
 .endm
 
-	mkCmpCcCsWrapper __aeabi_dcmplt, __aeabi_cdcmple
-	mkCmpCcCsWrapper __aeabi_fcmplt, __aeabi_cfcmple
-
-
-
-
-
 .macro mkCmpLsHiWrapper funcName, funcCalled
 	mkCmpWrapper \funcName, \funcCalled, ls, hi
 .endm
 
+.macro mkCmpEqNeWrapper funcName, funcCalled
+	mkCmpWrapper \funcName, \funcCalled, eq, ne
+.endm
+
+	mkCmpCcCsWrapper __aeabi_dcmplt, __aeabi_cdcmple
+	mkCmpCcCsWrapper __aeabi_fcmplt, __aeabi_cfcmple
+
 	mkCmpLsHiWrapper __aeabi_dcmpge, __aeabi_cdrcmple
 	mkCmpLsHiWrapper __aeabi_fcmpge, __aeabi_cfrcmple
 
-
-
-
-
 	mkCmpLsHiWrapper __aeabi_dcmple, __aeabi_cdcmple
 	mkCmpLsHiWrapper __aeabi_fcmple, __aeabi_cfcmple
+
+	mkCmpCcCsWrapper __aeabi_dcmpgt, __aeabi_cdrcmple
+
+	mkCmpEqNeWrapper __aeabi_dcmpeq, __aeabi_cdcmple
+
+
+
+
+
+__unorddf2:
+__aeabi_dcmpun:
+	mov ip, r1, lsl #1
+	mvns ip, asr #21
+	bne .ne
+
+	orrs ip, r0, r1, lsl #12
+	bne .unordered
+
+.ne:
+	mov ip, r3, lsl #1
+	mvns ip, asr #21
+	bne .ordered
+
+	orrs ip, r2, r3, lsl #12
+	bne .unordered
+
+.ordered:
+	mov r0, #0
+	bx lr
+
+.unordered:
+	mov r0, #1
+	bx lr

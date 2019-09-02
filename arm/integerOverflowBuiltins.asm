@@ -19,7 +19,8 @@ saddll_overflow:
 
 	adcs r5, r1, r3
 
-	multiMov "r2, r4", "r3, r5"
+	mov r2, r4
+	mov r3, r5
 
 	movVcVs r0, #0, #1
 	strd r2, [ip]
@@ -43,16 +44,14 @@ uaddl_overflow:
 
 
 uaddll_overflow:
-	str fp, [sp, #-4]!
+	push {r4, r5}
+	adds r4, r0, r2
+	ldr ip, [sp, #8]
+	adcs r5, r1, r3
 
-	adds fp, r0, r2
-	adcs ip, r1, r3
-
-	multiMov "r2, fp", "r3, ip"
-
-	ldr r1, [sp, #4]
+	mov r2, r4
+	mov r3, r5
 	movCcCs r0, #0, #1
-
-	stm r1, {r2-r3}
-	ldr fp, [sp], #4
+	strd r2, [ip]
+	pop {r4, r5}
 	bx lr

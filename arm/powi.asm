@@ -5,47 +5,49 @@ powil:
 __powidf2:
 __powixf2:
 	push {r4, r5, r6, r7, r8, r9, r10, lr}
-	multiMov "r5, r2", "r6, r0", "r7, r1", "r4, r2"
-
+	mov r9, #0
+	movt r9, 0x3FF0
+	mov r5, r2
+	mov64 r6, r0
+	mov r4, r2
 	mov r8, #0
-	ldr r0, .dat
 	b .startLoop
 
 .loop:
-	multiMov "r2, r6", "r3, r7", "r0, r6", "r1, r7"
 	bl __aeabi_dmul
-
-	multiMov "r6, r0", "r7, r1"
+	mov64 r6, r0
 
 .startLoop:
+	mov64 r2, r6
+	mov64 r0, r8
+
 	tst r4, #1
-	beq .skipMul
+	beq .noMul
 
-	multiMov "r0, r8", "r1, r9", "r2, r6", "r3, r7"
 	bl __aeabi_dmul
+	mov64 r8, r0
 
-	multiMov "r8, r0", "r9, r1"
+.noMul:
+	add r4, lsr #0x1F
+	mov64 r2, r6
+	mov64 r0, r6
 
-.skipMul:
-	add r4, lsr #31
 	asrs r4, #1
 	bne .loop
 
 	cmp r5, #0
 	bge .return
 
-	multiMov "r2, r8", "r3, r9", "r0, #0"
-	ldr r1, .dat
+	mov64 r2, r8
+	multiZero r0, r1
+	movt r1, #0x3FF0
 	bl __aeabi_ddiv
 
-	multiMov "r8, r0", "r9, r1"
+	mov64 r8, r0
 
 .return:
-	multiMov "r0, r8", "r1, r9"
+	mov64 r0, r8
 	pop {r4, r5, r6, r7, r8, r9, r10, pc}
-
-.dat:
-	.word 0x3FF00000
 
 
 
@@ -54,31 +56,39 @@ __powixf2:
 powif:
 __powisf2:
 	push {r4, r5, r6, r7, r8, lr}
-	multiMov "r7, r1", "r5, r0", "r4, r1", "r6, #0x3F800000"
+	mov r7, r1
+	mov r6, #0x3F800000
+	mov r5, r0
+	mov r4, r1
 	b .startLoop
 
 .loop:
-	multiMov "r1, r5", "r0, r5"
 	bl __aeabi_fmul
 	mov r5, r0
 
 .startLoop:
-	tst r4, #1
-	beq .skipMul
+	mov r1, r5
+	mov r0, r6
 
-	multiMov "r0, r6", "r1, r5"
+	tst r4, #1
+	bne .noMul
+
 	bl __aeabi_fmul
 	mov r6, r0
 
-.skipMul:
-	add r4, lsr #31
+.noMul:
+	add r4, lsr #0x1F
+
+	mov r0, r5
+	mov r1, r5
 	asrs r4, #1
 	bne .loop
 
 	cmp r7, #0
 	bge .return
 
-	multiMov "r1, r6", "r0, #0x3F800000"
+	mov r1, r6
+	mov r0, #0x3F800000
 	bl __aeabi_fdiv
 	mov r6, r0
 

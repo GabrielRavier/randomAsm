@@ -3,9 +3,9 @@
 	.text
 
 clear_cache:
-#if WinCE
+.ifdef WinCE
 	push {r4, r5, lr}
-	multiMov "r4, r0", "r5, r1"
+	mov64 r4, r0
 
 	bl GetCurrentProcess
 	sub r2, r5, r4
@@ -13,7 +13,7 @@ clear_cache:
 	pop {r4, r5, lr}
 
 	b FlushInstructionCache
-#else
+.else
 	ldr r3, .uF0002
 	mov r2, #0
 	svc 0
@@ -22,4 +22,4 @@ clear_cache:
 
 .uF0002:
 	.word 0xF0002
-#endif
+.endif

@@ -1,5 +1,18 @@
 	.text
 
+ffs:
+ffsl:
+	cmp r0, #0
+	rbit r3, r0
+	clz r3
+	mvneq r3, #0
+	add r0, r3, #1
+	bx lr
+
+
+
+
+
 clz:
 clzl:
 	clz r0
@@ -11,11 +24,8 @@ clzl:
 
 ctz:
 ctzl:
-	rsb r3, r0, #0
-	and r0, r3
+	rbit r0
 	clz r0
-
-	rsb r0, #0x1F
 	bx lr
 
 
@@ -56,7 +66,7 @@ clzll:
 	cmp r1, #0
 	clzne r0, r1
 	clzeq r0
-	addeq r0, #32
+	addeq r0, #0x20
 	bx lr
 
 

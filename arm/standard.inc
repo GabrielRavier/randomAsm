@@ -56,4 +56,18 @@
 	movConds \reg, \valVc, \valVs, cc, cs
 .endm
 
+.macro mov64 dest, src
+
+	mov \dest, \src
+	mov (\dest + 1), (\src + 1)
+
+.endm
+
+.macro mov128 dest, src
+
+	mov64 \dest, \src
+	mov64 (\dest + 2), (\src + 2)
+
+.endm
+
 .endif

@@ -13,8 +13,7 @@ labs:
 
 
 fabs:
-	bic r3, r1, #0x80000000
-	mov r1, r3
+	bic r1, #0x80000000
 	bx lr
 
 
