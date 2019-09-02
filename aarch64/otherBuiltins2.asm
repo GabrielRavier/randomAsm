@@ -184,8 +184,50 @@ fmax:
 
 
 
+fmaxl:
+	stp x29, x30, [sp, -0x30]!
+	mov x29, sp
+	str q0, [sp, 0x10]
+	str q1, [sp, 0x20]
+	bl __getf2
+
+	ldr q2, [sp, 0x10]
+	tbz w0, #0x1F, .first
+
+	ldr q2, [sp, 0x20]
+
+.first:
+	mov v0.16b, v2.16b
+	ldp x29, x30, [sp], 0x30
+	ret
+
+
+
+
+
 fminf:
 	fminnm s0, s1
+	ret
+
+
+
+
+
+fminl:
+	stp x29, x30, [sp, -0x30]!
+	mov x29, sp
+	str q0, [sp, 0x10]
+	str q1, [sp, 0x20]
+	bl __letf2
+
+	ldr q2, [sp, 0x10]
+	tbz w0, #0x1F, .first
+
+	ldr q2, [sp, 0x20]
+
+.first:
+	mov v0.16b, v2.16b
+	ldp x29, x30, [sp], 0x30
 	ret
 
 

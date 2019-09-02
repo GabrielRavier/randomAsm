@@ -49,8 +49,8 @@ isascii:
 
 
 
-signbit:
-	fcmpe d0, #0.0
+signbitf:
+	fcmpe s0, #0.0
 	cset w0, mi
 	ret
 
@@ -58,8 +58,21 @@ signbit:
 
 
 
-signbitf:
-	fcmpe s0, #0.0
+signbitl:
+	movi v1.2d, #0
+	stp x29, x30, [sp, -0x10]!
+	mov x29, sp
+	bl __lttf2
+
+	lsr w0, 0x1F
+	ldp x29, x30, [sp], 0x10
+
+
+
+
+
+signbit:
+	fcmpe d0, #0.0
 	cset w0, mi
 	ret
 
