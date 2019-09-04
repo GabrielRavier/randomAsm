@@ -16,8 +16,7 @@ __ffsdi2:
 
 	ld32 r22, Y, 5
 
-	cp r22, __zero_reg__
-	multiCpcZR r23, r24, r25
+	cpi32 r22, 0
 	brne .ne2
 
 .return:
@@ -30,7 +29,7 @@ __ffsdi2:
 	adiw r24, 1
 	movw r22, r24
 	lsl r25
-	multiSbc r24, r25
+	sbc16 r24
 	rjmp .return
 
 .ne2:
@@ -38,7 +37,7 @@ __ffsdi2:
 	call __ctzhi2
 	adiw r24, 0x21
 	movw r22, r24
-	ldi016 r24
+	ldi16 r24, 0
 	rjmp .return
 
 

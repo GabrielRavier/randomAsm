@@ -6,13 +6,7 @@ __blcfill_u32:
 	multiPush r16, r17
 	mov32 r16, r22
 	
-	subi r16, -1
-	
-	.irp reg, r17, r18, r19
-	
-		sbci \reg, -1
-		
-	.endr
+	subi32 r16, -1
 	
 	and32 r22, r16
 	multiPop r17, r16
@@ -26,13 +20,7 @@ __blci_u32:
 	multiPush r16, r17
 	mov32 r16, r22
 	
-	subi r16, -1
-	
-	.irp reg, r17, r18, r19
-	
-		sbci \reg, -1
-		
-	.endr
+	subi32 r16, -1
 	
 	com32 r16
 	or32 r22, r16
@@ -70,17 +58,8 @@ __blcic_u32:
 __blcmsk_u32:
 	multiPush r16, r17
 	mov32 r16, r22
-	
-	subi r16, -1
-	
-	.irp reg, r17, r18, r19
-	
-		sbci \reg, -1
-		
-	.endr
-	
+	subi32 r16, -1
 	eor32 r22, r16
-	
 	multiPop r17, r16
 	ret
 	
@@ -91,15 +70,7 @@ __blcmsk_u32:
 __blcs_u32:
 	multiPush r16, r17
 	mov32 r16, r22
-	
-	subi r16, -1
-	
-	.irp reg, r17, r18, r19
-	
-		sbci \reg, -1
-		
-	.endr
-	
+	subi32 r16, -1
 	or32 r22, r16
 	multiPop r17, r16
 	ret
@@ -111,15 +82,7 @@ __blcs_u32:
 __blsfill_u32:
 	multiPush r16, r17
 	mov32 r16, r22
-	
-	subi r16, -1
-	
-	.irp reg, r17, r18, r19
-	
-		sbc \reg, __zero_reg__
-		
-	.endr
-	
+	subi32 r16, -1
 	or32 r22, r16
 	multiPop r17, r16
 	ret

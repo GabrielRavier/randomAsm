@@ -5,8 +5,7 @@
 __argp_usage:
 	lds r22, __iob+4
 	lds r23, __iob+5
-	ldi r20, lo8(6)
-	ldi r21, hi8(1)
+	ldi16 r20, 0x106
 	jmp __argp_state_help
 
 
@@ -37,8 +36,7 @@ __option_is_short:
 
 	call isprint
 
-	ldi r21, lo8(1)
-	ldi r20, 0
+	ldi16 r20, 0x100
 
 	or r24, r25
 	breq .finish
@@ -51,7 +49,7 @@ __option_is_short:
 	ret
 
 .ret0:
-	multiLdi0 r18, r19
+	ldi16 r18, 0
 	movw r24, r18
 	ret
 
@@ -88,8 +86,7 @@ __option_is_end:
 	or r18, r19
 	brne .return
 
-	ldi r19, lo8(1)
-	ldi r18, 0
+	ldi16 r18, 0x100
 
 	ld16 r24, Z, 10
 	or r24, r25

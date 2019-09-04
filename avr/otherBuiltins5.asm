@@ -1,4 +1,5 @@
+.include "standard.inc"
+
 	.text
 
-trap:
-	call abort
+	makeWrapper trap, abort

@@ -12,10 +12,7 @@ __rold:
 	rjmp .startLoop
 
 .loop:
-	lsl r16
-	rol r17
-	rol r18
-	rol r19
+	lsl32 r16
 
 .startLoop:
 	dec r0
@@ -55,10 +52,7 @@ __rord:
 	rjmp .startLoop
 
 .loop:
-	lsr r16
-	ror r17
-	ror r18
-	ror r19
+	lsr32 r16
 
 .startLoop:
 	dec r0
@@ -108,10 +102,8 @@ __rorq:
 	movw r30, r16
 	andi r30, 0x3F
 	clr r31
-	ldi r16, 0x40
-	ldi r17, 0
-	sub r16, r30
-	sub r17, r31
+	ldi16 r16, 0x40
+	sub16 r16, r30
 	call __rotldi3
 
 	multiPop r17, r16

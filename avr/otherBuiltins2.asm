@@ -16,10 +16,7 @@ conjl:
 conj:
 	multiPush r8, r9, r10, r11, r12, r13, r14, r15
 
-	movw r8, r18
-	movw r10, r20
-	movw r12, r22
-	movw r14, r24
+	mov64 r8, r18
 
 	.rept 2
 
@@ -28,10 +25,7 @@ conj:
 
 	.endr
 
-	movw r20, r10
-	movw r18, r8
-	movw r24, r14
-	movw r22, r12
+	mov64 r8, r18
 
 	multiPop r15, r14, r13, r12, r11, r10, r9, r8
 	ret
@@ -56,15 +50,7 @@ cprojl:
 cproj:
 	multiPush r8, r9, r10, r11, r12, r13, r14, r15
 
-	movw r8, r18
-	movw r10, r20
-	movw r12, r22
-	movw r14, r24
-
-	movw r20, r10
-	movw r18, r8
-	movw r24, r14
-	movw r22, r12
+	mov64 r8, r18
 
 	multiPop r15, r14, r13, r12, r11, r10, r9, r8
 	ret
@@ -76,8 +62,7 @@ cproj:
 crealf:
 creall:
 creal:
-	movw r24, r20
-	movw r22, r18
+	mov32 r22, r18
 	ret
 
 
@@ -89,8 +74,7 @@ fmaxl:
 fmax:
 	multiPush r12, r13, r14, r15, r16, r17, r28, r29
 
-	movw r12, r18
-	movw r14, r20
+	mov32 r12, r18
 	movw r16, r22
 
 	mov r29, r24

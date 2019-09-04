@@ -8,8 +8,7 @@ __fp_cmp:
 	lsl r21
 	sbc r26
 
-	ldi r30, 0x80
-	ldi r31, 0xFE
+	ldi16 r30, 0xFE80
 
 	cp r1, r22
 	cpc r1, r23
@@ -84,13 +83,7 @@ __fp_round:
 	rjmp .return
 
 .l2:
-	subi r22, -1
-
-	.irp reg, r23, r24, r25
-
-		sbci \reg, -1
-
-	.endr
+	subi32 r22, -1
 
 .return:
 	ret
@@ -123,20 +116,12 @@ __fp_pscA:
 
 
 __fp_pscB:
-
-	.irp instr, clr, dec
-
-		\instr r0
-
-	.endr
+	clr r0
+	dec r0
 
 	cp r1, r18
-
-	.irp reg, r19, r20
-
-		cpc r1, \reg
-
-	.endr
+	cpc r1, r19
+	cpc r1, r20
 	cpc r0, r21
 	ret
 
@@ -148,7 +133,7 @@ __fp_inf:
 	bld r25, 7
 	ori r25, 0x7F
 	ldi r24, 0x80
-	ldi016 r22
+	ldi16 r22, 0
 	ret
 
 
@@ -156,8 +141,7 @@ __fp_inf:
 
 
 __fp_nan:
-	ldi r25, 0xFF
-	ldi r24, 0xC0
+	ldi16 r24, 0xFFC0
 	ret
 
 
@@ -168,7 +152,8 @@ __fp_zero:
 	clt
 
 __fp_szero:
-	multiClr r27, r22, r23
+	clr r27
+	clr16 r22
 	movw r24, r22
 	cld r25, 7
 	ret
@@ -181,8 +166,7 @@ __fp_split3:
 	sbrc r21, 7
 	subi r25, 0x80
 
-	lsl r20
-	rol r21
+	lsl16 r20
 	breq .l4
 
 	cpi r21, 0xFF

@@ -23,8 +23,7 @@ __blsi_u32:
 
 __blsmsk_u32:
 	movw r18, r24
-	subi r18, 1
-	sbc r19, __zero_reg__
+	subi16 r18, 1
 	eor16 r24, r18
 	ret
 
@@ -34,8 +33,7 @@ __blsmsk_u32:
 
 __blsr_u32:
 	movw r18, r24
-	subi r18, 1
-	sbc r19, __zero_reg__
+	subi16 r18, 1
 	and16 r24, r18
 	ret
 
@@ -66,8 +64,7 @@ __blsi_u64:
 
 __blsmsk_u64:
 	movw r18, r24
-	subi r18, 1
-	sbc r19, __zero_reg__
+	subi16 r18, 1
 	eor16 r24, r18
 	ret
 
@@ -77,7 +74,6 @@ __blsmsk_u64:
 
 __blsr_u64:
 	movw r18, r24
-	subi r18, 1
-	sbc r19, __zero_reg__
+	subi16 r18, 1
 	and16 r24, r18
 	ret

@@ -20,14 +20,7 @@ __rotldi3:
 	rjmp .loop8
 
 .loop:
-	lsl r18
-	rol r19
-	rol r20
-	rol r21
-	rol r22
-	rol r23
-	rol r24
-	rol r25
+	lsl64 r18
 	adc r18, __zero_reg__
 
 .less8:

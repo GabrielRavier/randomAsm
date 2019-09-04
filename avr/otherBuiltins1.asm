@@ -4,7 +4,7 @@
 
 bzero:
 	movw r20, r22
-	multiLdi0 r22, r23
+	ldi16 r22, 0
 	jmp memset
 
 
@@ -39,13 +39,12 @@ isascii:
 	movw r18, r24
 	andi r18, 0x80
 
-	ldi r24, lo8(1)
-	ldi r25, 0
+	ldi16 r24, 1
 
 	or r18, r19
 	breq .return
 
-	multiLdi0 r24, r25
+	ldi16 r24, 0
 
 .return:
 	ret
@@ -57,7 +56,7 @@ isascii:
 signbit:
 signbitf:
 signbitl:
-	multiLdi0 r18, r19
+	ldi r18, 0
 	movw r20, r18
 	call __ltsf2
 

@@ -28,10 +28,9 @@ __ctzdi2:
 	st64 Y, 1, r18
 
 	ld32 r24, Y, 1
-	ldi r20, lo8(1)
-	ldi r21, 0
+	ldi16 r20, 1
 	sbiw r24, 0
-	multiCpcZR r26, r27
+	cpi16 r26, 0
 	breq .skip0
 
 	ldi016 r20
@@ -43,7 +42,7 @@ __ctzdi2:
 	movw r16, r20
 	mov __tmp_reg__, r21
 	lsl r0
-	multiSbc r18, r19
+	sbc16 r18
 
 	ld32 r12, Y, 5
 	and32 r12, r16
@@ -58,7 +57,7 @@ __ctzdi2:
 	mov __tmp_reg__, r21
 
 	lsl r0
-	multiSbc r22, r23
+	sbc16 r22
 	mov __tmp_reg__, r25
 
 	lsl r0

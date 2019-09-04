@@ -32,7 +32,7 @@ N_FLAGS:
 N_SET_INFO:
 	movw r20, r22
 
-	ldi016 r22
+	ldi16 r22, 0
 
 	movw r30, r24
 	st32 Z, 0, r20
@@ -50,8 +50,7 @@ N_BADMAG:
 	multiClr r22, r23
 	mov32 r24, r20
 
-	subi r24, 7
-	sbci r25, 1
+	subi16 r24, 0x107
 	multiSbcZR r26, r27
 
 	sbiw r24, 2
@@ -64,7 +63,7 @@ N_BADMAG:
 	multiCpcZR r22, r23
 	breq .ret0
 
-	ldi r24, lo8(1)
+	ldi r24, 1
 	cpi r20, 0xCC
 	multiCpcZR r21, r22, r23
 	breq .ret0

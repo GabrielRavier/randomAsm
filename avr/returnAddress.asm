@@ -3,17 +3,12 @@
 currentAddress:
 	push r29
 
-	in r30, __SP_L__
-	in r31, __SP_H__
-	subi r30, lo8(-3)
-	sbci r31, hi8(-3)
+	inSP r30
+	subi16 r30, 0xFDFD
 
-	ld r24, Z
-	ldd r25, Z+1
+	ld16 r24, Z, 0
 
-	eor r25, r24
-	eor r24, r25
-	eor r25, r24
+	bswap16 r24, r25
 
 	pop r29
 	ret

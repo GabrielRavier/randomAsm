@@ -14,8 +14,7 @@ _mulx_u64:
 	st64 Y, 9, r10
 
 	movw r20, r28
-	subi r20, -1
-	sbci r21, -1
+	subi16 r20, -1
 
 	movw r22, r28
 	subi r22, -17
@@ -31,8 +30,7 @@ _mulx_u64:
 	multiStdZR Y+10, Y+11, Y+12, Y+13, Y+14, Y+15, Y+16
 
 	movw r20, r28
-	subi r20, -1
-	sbci r21, -1
+	subi16 r20, -1
 
 	movw r22, r28
 	subi r22, -0x21
@@ -73,7 +71,7 @@ _mulx_u32:
 	mov r31, r20
 	mov r30, r21
 
-	ldi r16, lo8(32)
+	ldi r16, 0x20
 	call __lshrdi3
 	st32 Y, 0, r18
 

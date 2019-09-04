@@ -10,8 +10,7 @@ __clrsbhi2:
 	cpse r24, __zero_reg__
 	rjmp .doClz
 
-	ldi r24, lo8(15)
-	ldi r25, 0
+	ldi16 r24, 0xF
 	ret
 
 .doClz:
@@ -36,12 +35,10 @@ __clrsbsi2:
 	rjmp .doNot
 
 .continue:
-	cp r22, __zero_reg__
-	multiCpcZR r23, r24, r25
+	cpi32 r22, 0
 	brne .doClz
 
-	ldi r24, lo8(7)
-	ldi r25, 0
+	ldi16 r24, 7
 	ret
 
 .doClz:
@@ -50,7 +47,7 @@ __clrsbsi2:
 	ret
 
 .doNot:
-	multiCom r22, r23, r24, r25
+	com32 r22
 	rjmp .continue
 
 
@@ -67,8 +64,7 @@ __clrsbdi2:
 	cpse r22, __zero_reg__
 	rjmp .clzWith8
 
-	ldi r24, lo8(15)
-	ldi r25, 0
+	ldi16 r24, 0xF
 
 .start:
 	cpi r25, lo8(-1)
@@ -79,10 +75,11 @@ __clrsbdi2:
 	rjmp .com
 
 .r18190:
-	ldi016 r18
+	ldi16 r18, 0
 
 .doClz:
-	multiLdi0 r23, r24, r25
+	ldi16 r23, 0
+	ldi r25, 0
 	call __clzsi2
 
 	add16 r24, r18
@@ -90,8 +87,7 @@ __clrsbdi2:
 	ret
 
 .clzWith8:
-	ldi r18, lo8(8)
-	ldi r19, 0
+	ldi16 r18, 8
 	rjmp .doClz
 
 .com2:

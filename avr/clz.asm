@@ -11,11 +11,11 @@ __clzhi2:
 	or r25, r24
 	brne .continue
 
-	ldi r24, 16
+	ldi r24, 0x10
 	ret
 
 .continue:
-	cpi r25, 16
+	cpi r25, 0x10
 	brsh .noSwap
 
 	subi r26, -3
@@ -43,7 +43,8 @@ __clzsi2:
 
 	movw r24, r22
 	call __clzhi2
-	subi r24, -16
+
+	subi r24, -0x10
 	ret
 
 
@@ -58,5 +59,5 @@ __clzdi2:
 	mov32 r22, r18
 	call __clzsi2
 
-	subi r24, -32
+	subi r24, -0x20
 	ret

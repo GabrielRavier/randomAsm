@@ -5,8 +5,7 @@
 __muldi3_6:
 	call __umulhisi3
 
-	add r20, r22
-	adc r21, r23
+	add16 r20, r22
 	adc r28, r24
 	adc r29, r25
 	brcc .return
@@ -27,8 +26,7 @@ __mulsi3:
 	multiPop r27, r26
 
 	mul r26, r18
-	add r24, r0
-	adc r25, r1
+	add16 r24, r0
 
 	mul r26, r11
 	add r25, r0
@@ -50,8 +48,7 @@ __muluhisi3:
 	mul r27, r20
 	add r25, r0
 	mul r26, r20
-	add r24, r0
-	adc r25, r1
+	add16 r24, r0
 	clr __zero_reg__
 	ret
 
@@ -79,12 +76,10 @@ __muldi3:
 	add r31, r0
 
 	mul r16, r18
-	add r30, r0
-	adc r31, r1
+	add16 r30, r0
 
 	mul r20, r14
-	add r30, r0
-	adc r31, r1
+	add16 r30, r0
 
 	mul r21, r14
 	add r31, r0
@@ -102,8 +97,7 @@ __muldi3:
 	movw r26, r14
 	call __umulhisi3
 	movw r28, r22
-	add r30, r24
-	adc r31, r25
+	add16 r30, r24
 
 	movw r26, r12
 	call __muldi3_6
@@ -112,10 +106,7 @@ __muldi3:
 
 	movw r26, r12
 	call __umulhisi3
-	add r28, r22
-	adc r29, r23
-	adc r30, r24
-	adc r31, r25
+	add32 r28, r22
 
 	multiPop r26, r27
 	call __muldi3_6
@@ -123,19 +114,14 @@ __muldi3:
 	multiPop r18, r19
 
 	call __umulhisi3
-	add r28, r22
-	adc r29, r23
-	adc r30, r24
-	adc r31, r25
+	add32 r28, r22
 
 	movw r26, r12
 	call __umulhisi3
-	add r30, r22
-	adc r31, r23
+	add16 r30, r22
 
 	movw r18, r16
-	movw r22, r28
-	movw r24, r30
+	mov32 r22, r28
 
 	multiPop r16, r17, r28, r29
 	ret

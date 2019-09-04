@@ -10,32 +10,33 @@ __mulsf3:
 
 
 
-0:
-	call __fp_pscA
-	brcs 1f
+.check:
+	.irp nameEnd, A, B
 
-	call __fp_pscB
-	brcs 1f
+		call __fp_psc\nameEnd
+		brcs .jmpNaN
+
+	.endm
 
 	and r25, r21
-	breq 1f
+	breq .jmpNaN
 
 	jmp __fp_inf
 
-1:
+.jmpNaN:
 	jmp __fp_nan
 
-2:
+.jmpSZero0:
 	clr r1
 	jmp __fp_szero
 
 __mulsf3x:
 	call __fp_split3
-	brcs 0b
+	brcs .check
 
 __mulsf3_pse:
 	mul r25, r21
-	breq 2b
+	breq .jmpSZero0
 
 	add r25, r21
 	ldi r21, 0
@@ -58,7 +59,7 @@ __mulsf3_pse:
 	mul r22, r20
 	clr r22
 	add r27, r0
-	adc r26 r1
+	adc r26, r1
 	adc r22
 
 	mul r24, r18
@@ -93,38 +94,38 @@ __mulsf3_pse:
 
 	clr r1
 
-	subi r25, lo8(127)
-	sbci r21, hi8(127)
+	subi r25, lo8(0x7F)
+	sbci r21, hi8(0x7F)
 	brmi .l13
-	breq .l15
+	breq .return
 
 .l10:
 	tst r24
 	brmi .l11
 
-	lsl r30
-	multiRol r31, r27, r22, r23, r24
+	lsl16 r30
+	multiRol r27, r22, r23, r24
 
 	subi r25, lo8(1)
 	sbci r21, hi8(1)
 	brne .l10
 
 .l11:
-	cpi r25, 254
+	cpi r25, 0xFE
 	cpc r21, r1
-	brlo .l15
+	brlo .return
 
 	jmp __fp_inf
 
-.l12:
+.jmpSZero:
 	jmp __fp_szero
 
 .l13:
-	cpi r21, hi8(-24)
-	brlt .l12
+	cpi r21, hi8(-0x18)
+	brlt .jmpSZero
 
-	cpi r25, lo8(-24)
-	brlt .l12
+	cpi r25, lo8(-0x18)
+	brlt .jmpSZero
 
 .l14:
 	lsr r24
@@ -133,7 +134,7 @@ __mulsf3_pse:
 	subi r25, -1
 	brne .l14
 
-.l15:
+.return:
 	or r31, r30
 
 	lsl r24

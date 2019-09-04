@@ -5,11 +5,9 @@
 _mm_malloc:
 	multiPush r28, r29, __zero_reg__, __zero_reg__
 
-	in r28, __SP_L__
-	in r29, __SP_H__
+	inSP r28
 
-	cpi r22, 1
-	cpc r23, __zero_reg__
+	cpi16 r22, 1
 	breq .jmpMalloc
 
 	movw r20, r24
@@ -20,7 +18,7 @@ _mm_malloc:
 	or r24, r25
 	breq .retPtr
 
-	multiLdi0 r24, r25
+	ldi16 r24, 0
 	multiPop __tmp_reg__, __tmp_reg__, r29, r28
 	ret
 

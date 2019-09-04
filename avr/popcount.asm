@@ -49,7 +49,6 @@ __popcountsi2:
 __popcountdi2:
 	call __popcountsi2
 	push r24
-	movw r22, r18
-	movw r24, r20
+	mov32 r22, r18
 	call __popcountsi2
 	jmp __popcounthi2_tail

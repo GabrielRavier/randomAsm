@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 delay_cycles_0:
@@ -99,8 +101,7 @@ delay_cycles_512:
 
 
 delay_cycles_2048:
-	ldi r24, lo8(0x1FF)
-	ldi r25, hi8(0x1FF)
+	ldi16 r24, 0x1FF
 
 .loop:
 	sbiw r24, 1
@@ -115,8 +116,7 @@ delay_cycles_2048:
 
 
 delay_cycles_8192:
-	ldi r24, lo8(0x7FF)
-	ldi r25, hi8(0x7FF)
+	ldi16 r24, 0x7FF
 
 .loop:
 	sbiw r24, 1
@@ -131,8 +131,7 @@ delay_cycles_8192:
 
 
 delay_cycles_32768:
-	ldi r24, lo8(0x1FFF)
-	ldi r25, hi8(0x1FFF)
+	ldi16 r24, 0x1FFF
 
 .loop:
 	sbiw r24, 1
@@ -147,8 +146,7 @@ delay_cycles_32768:
 
 
 delay_cycles_131072:
-	ldi r24, lo8(0x7FFF)
-	ldi r25, hi8(0x7FFF)
+	ldi16 r24, 0x7FFF
 
 .loop:
 	sbiw r24, 1
@@ -216,10 +214,7 @@ delay_cycles_4194304:
 
 
 delay_cycles_268435456:
-	ldi r18, lo8(0x2AAAAAA)
-	ldi r19, hi8(0x2AAAAAA)
-	ldi r24, hlo8(0x2AAAAAA)
-	ldi r25, hhi8(0x2AAAAAA)
+	ldi32 r18, 0x2AAAAAA
 
 .loop:
 	subi r18, 1
@@ -236,10 +231,7 @@ delay_cycles_268435456:
 
 
 delay_cycles_268435456:
-	ldi r18, lo8(0x15555554)
-	ldi r19, hi8(0x15555554)
-	ldi r24, hlo8(0x15555554)
-	ldi r25, hhi8(0x15555554)
+	ldi32 r18, 0x15555554
 
 .loop:
 	subi r18, 1
