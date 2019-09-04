@@ -90,6 +90,7 @@ Arches options :
 aarch64/arm : -march=armv8.4-a+fp16+simd+crypto
 amdgcn : -mcpu=gfx1012 -mxnack
 avr : -mmcu=avr6
+bpfel : -mcpu=v3
 epiphany : -mno-soft-cmpsf
 m6502 : -O -Oi -Or -Os --cpu 65c02
 m68k : -mcpu=68060
