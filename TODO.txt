@@ -1,36 +1,23 @@
-- Finish avx2intrin.h
 - Do all of /usr/include
-- Eventually do all of avx2-avx intrin files
 - Finish gcc target dependencies (online and /usr/lib/gcc/x86_64-redhat-linux/9/include/)
 - Finish clang target dependencies (online and /usr/lib64/clang/8.0.0/include/)
+- Finish sync builtins
+- Finish integer overflow builtins
+- Do atomic builtins
 - Do libgcc
 - Do compiler-rt
-- Do LLVM (-g0)
 - Instruction set reproduction (x86, 6502, others)
-- Do clang builtins (manual)
-- Do icc builtins (manual)
-- Do other compiler builtins
 - Libfuse maybe ? Do kernel stuff sometime (/usr/src/kernels)
-- Do sync builtins for larger sizes
-- Do sync builtins for smaller sizes
-- Do sync builtins for all sizes
-- Do other sync builtins
-- Do integer overflow builtins
 - Bit Twiddling Hacks
 - Hardwarebug
 - Small C/C++ libs
 - Find first set
-- bmi2intrin : bzhi, pdep, pext
-- bmiintrin : tzcnt bextr
-- ammintrin : subborrow, addcarry
 - Hacker's delight
 - Some bit-twiddling functions explained
 - How do you set, clear, and toggle a single bit
 - Geeks for geeks
 - Add stuff from C++ projects (asmlib to C++, etc.) and "Generic Samples"
 - Raymond Chen (oldnewthing)
-- Do sub/mul integer overflow builtins
-- Do atomic builtins
 - SafeInt, IntSafe, Windows headers
 - Fuse some thingos with different sizes
 - Windows 2000 stuff
@@ -113,11 +100,12 @@ alpha, arc, nios2, s390, sh, xtensa : ct-ng
 mblaze : clang 3.3
 cellspu : clang 3.2
 ds390, ds400, gbz80, hc08, mcs51, pic14, pic16, r2k, r3ka, s08, stm8, TININative, tlcs90, z180, z80 : sdcc
+bfin, c6x, cr16, cris, ft32, h8300, hppa, ia64, iq2000, lm32, m32c, m32r, microblaze, moxie, nds32le, or1k, rl78, rx, tilegx, visium : other gcc ports
+ia16 : Turbo C++
 
 Complete list :
 
-aarch64, alpha, amdgcn, arc, arm, avr, bpfel, cellspu, ds390, ds400, epiphany,
-gbz80, hc08, hexagon, lanai, llvm, m6502, m68k, mblaze, mcs51, mips, mips64el,
-msp430, nios2, nvptx, nvptx64, pic14, pic16, powerpc, powerpc64le, r2k, r3k, r600,
-riscv32, riscv64, s08, s390, sh, sparcel, sparcv9, stm8, systemz, TININative,
-tlcs90, x64, x86, xcore, xtensa, wasm, z180, z80
+aarch64, alpha, amdgcn, arc, arm, avr, bfin, bpfel, c6x, cellspu, cr16, cris, ds390, ds400, epiphany, ft32, gbz80, h8300, hc08, hexagon, hppa, ia16, ia64, iq2000, lanai,
+llvm, lm32, m32c, m32r, m6502, m68k, mblaze, mcs51, microblaze, mips, mips64el, moxie, msp430, nds32le, nios2, nvptx, nvptx64, or1k, pic14, pic16, powerpc, powerpc64le,
+r2k, r3k, r600, riscv32, riscv64, rl78, rx, s08, s390, sh, sparcel, sparcv9, stm8, systemz, tilegx, TININative, tlcs90, visium, x64, x86, xcore, xtensa, wasm, z180,
+z80
