@@ -256,13 +256,13 @@
 
 .endm
 
-.macro add32 dest, src
+.macro sub32 dest, src
 
 	makeSub \dest, \src, 1, 2, 3
 
 .endm
 
-.macro add64 dest, src
+.macro sub64 dest, src
 
 	makeSub \dest, \src, 1, 2, 3, 4, 5, 6, 7
 

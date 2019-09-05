@@ -9,15 +9,13 @@ __umulhisi3:
 	movw c2, r0
 	mul a0, b1
 
-	add c1, r0
-	adc c2, r1
+	add16 c1, r0
 	clr __zero_reg__
 	adc c3, __zero_reg__
 
 	mul a1, b0
 
-	add c1, r0
-	adc c2, r1
+	add16 c1, r0
 	clr __zero_reg__
 	adc c3, __zero_reg__
 	ret
@@ -46,15 +44,13 @@ __umulsidi3_helper:
 	call __umulhisi3
 	brtc .noSub
 
-	sub r22, r28
-	sbc r23, r29
+	sub16 r22, r28
 	sbc r24, r18
 	sbc r25, r19
 
 .noSub:
 	movw r18, r28
-	movw r28, r22
-	movw r30, r24
+	mov32 r28, r22
 
 	call __muldi3_6
 
@@ -62,8 +58,7 @@ __umulsidi3_helper:
 
 	call __muldi3_6
 
-	movw r22, r28
-	movw r24, r30
+	mov32 r22, r28
 	movw r30, r18
 
 	multiPop r18, r19, r28, r29
