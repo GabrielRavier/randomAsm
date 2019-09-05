@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.text
 
 .macro ld256
@@ -44,10 +46,11 @@
 
 .macro makeFunc name, mkMacro, instr
 
-\name:
+START_FUNC \name
 	ld256
 	\mkMacro \instr
 	st256AndRet
+END_FUNC \name
 
 .endm
 

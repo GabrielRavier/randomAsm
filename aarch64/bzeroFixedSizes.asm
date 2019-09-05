@@ -1,32 +1,38 @@
+.include "standard.inc"
+
 	.text
 	
-bzero1:
+START_FUNC bzero1
 	strb wzr, [x0]
 	ret
+END_FUNC bzero1
 	
 	
 	
 	
 	
-bzero2:
+START_FUNC bzero2
 	strh wzr, [x0]
 	ret
+END_FUNC bzero2
 	
 	
 	
 	
 	
-bzero4:
+START_FUNC bzero4
 	str wzr, [x0]
 	ret
+END_FUNC bzero4
 	
 	
 	
 	
 	
-bzero8:
+START_FUNC bzero8
 	str xzr, [x0]
 	ret
+END_FUNC
 	
 	
 	

@@ -1,25 +1,28 @@
+.include "standard.inc"
+
 	.text
 
-__argp_usage:
+START_FUNC __argp_usage
 	adrp x1, stderr
 	mov w2, 0x106
 	ldr x1, [x1, #:lo12:stderr]
 	b __argp_state_help
+END_FUNC __argp_usage
 
 
 
 
 
-__option_is_short:
+START_FUNC __option_is_short
 	ldr w1, [x0, 24]
-	tbnz x1, 3, .ret0
+	tbnz x1, 3, .LSret0
 
 	ldr w0, [x0, 8]
 	and w2, w1, 8
 
 	sub w1, w0, #1
 	cmp w1, 0xFE
-	bhi .retW2
+	bhi .LSretW2
 
 	stp x29, x30, [sp, -16]!
 	mov x29, sp
@@ -32,37 +35,39 @@ __option_is_short:
 	ldp x29, x30, [sp], 16
 	ret
 
-.ret0:
+.LSret0:
 	mov w2, 0
 
-.retW2:
+.LSretW2:
 	mov w0, w2
 	ret
+END_FUNC __option_is_short
 
 
 
 
 
-__option_is_end:
+START_FUNC __option_is_end
 	ldr w1, [x0, 8]
-	cbnz w1, .ret0
+	cbnz w1, .LEret0
 
 	ldr x2, [x0]
-	cbz x2, .continue
+	cbz x2, .LEcontinue
 
-.retW1:
+.LEretW1:
 	mov w0, w1
 	ret
 
-.ret0:
+.LEret0:
 	mov w0, 0
 	ret
 
-.continue:
+.LEcontinue:
 	ldr x2, [x0, 32]
-	cbnz x2, .retW1
+	cbnz x2, .LEretW1
 
 	ldr w0, [x0, 40]
 	cmp w0, 0
 	cset w1, eq
-	b .retW1
+	b .LEretW1
+END_FUNC __option_is_end

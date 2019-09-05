@@ -1,5 +1,8 @@
+.include "standard.inc"
+
 	.text
 
-square:
+START_FUNC square
 	mul w0
 	ret
+END_FUNC square

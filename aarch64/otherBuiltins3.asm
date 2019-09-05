@@ -1,22 +1,26 @@
+.include "standard.inc"
+
 	.text
 
-ceilf:
+START_FUNC ceilf
 	frintp s0
 	ret
+END_FUNC ceilf
 
 
 
 
 
-fabsf:
+START_FUNC fabsf
 	fabs s0
 	ret
+END_FUNC fabsf
 
 
 
 
 
-fabsl:
+START_FUNC fabsl
 	fmov x0, d0
 	fmov x1, v0.d[1]
 	mov x3, x0
@@ -26,19 +30,22 @@ fabsl:
 	and x1, x2, 0x7FFFFFFFFFFFFFFF
 	fmov v0.d[1], x1
 	ret
+END_FUNC fabsl
 
 
 
 
 
-floorf:
+START_FUNC floorf
 	frintm s0
 	ret
+END_FUNC floorf
 
 
 
 
 
-sqrtf:
+START_FUNC sqrtf
 	fsqrt s0
 	ret
+END_FUNC sqrtf

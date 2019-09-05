@@ -1,6 +1,8 @@
+.include "standard.inc"
+
 	.text
 
-_mm_malloc:
+START_FUNC _mm_malloc
 	cmp x1, 1
 	beq .jmpMalloc
 
@@ -22,10 +24,12 @@ _mm_malloc:
 	ldp x29, x30, [sp], 0x20
 	csel x0, xzr, eq
 	ret
+END_FUNC _mm_malloc
 
 
 
 
 
-_mm_free:
+START_FUNC _mm_free
 	b free
+END_FUNC _mm_free

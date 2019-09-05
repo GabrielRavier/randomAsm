@@ -1,4 +1,7 @@
+.include "standard.inc"
+
 	.text
 
-trap:
+START_FUNC trap
 	brk #1000
+END_FUNC trap

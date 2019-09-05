@@ -1,121 +1,156 @@
+.include "standard.inc"
+
 	.text
 
-_mm_set_sd:
+START_FUNC _mm_set_sd
 	mov v0.8b
 	ret
+END_FUNC _mm_set_sd
 
 
 
 
 
-_mm_set1_pd:
-_mm_set_pd1:
+START_FUNC _mm_set1_pd
+START_FUNC _mm_set_pd1
 	dup v0.2d, v0.d[0]
 	ret
+END_FUNC _mm_set1_pd
+END_FUNC _mm_set_pd1
 
 
 
 
 
-_mm_set_pd:
+START_FUNC _mm_set_pd
 	dup v1.2d, v1.d[0]
 	ins v1.d[1], v0.d[0]
 	mov v0.16b, v1.16b
 	ret
+END_FUNC _mm_set_pd
 
 
 
 
 
-_mm_setr_pd:
+START_FUNC _mm_setr_pd
 	dup v0.2d, v0.d[0]
 	ins v0.d[1], v1.d[0]
 	ret
+END_FUNC _mm_setr_pd
 
 
 
 
 
-_mm_undefined_pd:
-_mm_setzero_pd:
+START_FUNC _mm_undefined_pd
+START_FUNC _mm_setzero_pd
 	movi v0.2d, 0
 	ret
+END_FUNC _mm_undefined_pd
+END_FUNC _mm_setzero_pd
 
 
 
 
 
-_mm_move_sd:
+START_FUNC _mm_move_sd
 	adrp x0, .moveSdDat
 	ldr q2, [x0, #:lo12:.moveSdDat]
 	tbl v0.16b, {v0.16b - v1.16b}, v2.16b
 	ret
+END_FUNC _mm_move_sd
 
 
 
 
 
-_mm_load_pd:
-_mm_loadu_pd:
-_mm_load_si128:
-_mm_loadu_si128:
+START_FUNC _mm_load_pd
+START_FUNC _mm_loadu_pd
+START_FUNC _mm_load_si128
+START_FUNC _mm_loadu_si128
 	ldr q0, [x0]
 	ret
+END_FUNC _mm_load_pd
+END_FUNC _mm_loadu_pd
+END_FUNC _mm_load_si128
+END_FUNC _mm_loadu_si128
 
 
 
 
 
-_mm_load1_pd:
-_mm_load_pd1:
+START_FUNC _mm_load1_pd
+START_FUNC _mm_load_pd1
 	ld1r {v0.2d}, [x0]
 	ret
+END_FUNC _mm_load1_pd
+END_FUNC _mm_load_pd1
 
 
 
 
 
-_mm_load_sd:
-_mm_loadl_epi64:
-_mm_loadu_si64:
+START_FUNC _mm_load_sd
+START_FUNC _mm_loadl_epi64
+START_FUNC _mm_loadu_si64
 	ldr d0, [x0]
 	ret
+END_FUNC _mm_load_sd
+END_FUNC _mm_loadl_epi64
+END_FUNC _mm_loadu_si64
 
 
 
 
 
-_mm_store_pd:
-_mm_storeu_pd:
-_mm_store_si128:
-_mm_storeu_si128:
+START_FUNC _mm_store_pd
+START_FUNC _mm_storeu_pd
+START_FUNC _mm_store_si128
+START_FUNC _mm_storeu_si128
 	str q0, [x0]
 	ret
+END_FUNC _mm_store_pd
+END_FUNC _mm_storeu_pd
+END_FUNC _mm_store_si128
+END_FUNC _mm_storeu_si128
 
 
 
 
 
-_mm_store_sd:
-_mm_storel_pd:
-_mm_storel_epi64:
-_mm_storeu_si64:
+START_FUNC _mm_store_sd
+START_FUNC _mm_storel_pd
+START_FUNC _mm_storel_epi64
+START_FUNC _mm_storeu_si64
 	str d0, [x0]
 	ret
+END_FUNC _mm_store_sd
+END_FUNC _mm_storel_pd
+END_FUNC _mm_storel_epi64
+END_FUNC _mm_storeu_si64
 
 
 
 
 
-_mm_cvtsd_f64:
-_mm_movepi64_pi64:
-_mm_castpd_ps:
-_mm_castpd_si128:
-_mm_castps_pd:
-_mm_castps_si128:
-_mm_castsi128_ps:
-_mm_castsi128_pd:
+START_FUNC _mm_cvtsd_f64
+START_FUNC _mm_movepi64_pi64
+START_FUNC _mm_castpd_ps
+START_FUNC _mm_castpd_si128
+START_FUNC _mm_castps_pd
+START_FUNC _mm_castps_si128
+START_FUNC _mm_castsi128_ps
+START_FUNC _mm_castsi128_pd
 	ret
+END_FUNC _mm_cvtsd_f64
+END_FUNC _mm_movepi64_pi64
+END_FUNC _mm_castpd_ps
+END_FUNC _mm_castpd_si128
+END_FUNC _mm_castps_pd
+END_FUNC _mm_castps_si128
+END_FUNC _mm_castsi128_ps
+END_FUNC _mm_castsi128_pd
 
 
 

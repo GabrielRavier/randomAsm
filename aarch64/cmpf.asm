@@ -1,10 +1,12 @@
+.include "standard.inc"
+
 	.text
 
-__letf2:
-__cmptf2:
-__eqtf2:
-__lttf2:
-__netf2:
+START_FUNC __letf2
+START_FUNC __cmptf2
+START_FUNC __eqtf2
+START_FUNC __lttf2
+START_FUNC __netf2
 	fmov x1, v0.d[1]
 	fmov x0, d0
 	fmov x6, d1
@@ -19,26 +21,26 @@ __netf2:
 	mov x0, 0x7FFF000000000000
 	cmp x4, x0
 	mov w4, 1
-	bhi .hi
-	beq .doCbnz2
+	bhi .Lhi
+	beq .LdoCbnz2
 
 	mov w4, 0
 
-.hi:
+.Lhi:
 	and x7, x3, 0x7FFFFFFFFFFFFFFF
 
 	mov x6, 0x7FFF000000000000
 	mov w0, 1
 	cmp x7, x6
-	bhi .continue
-	beq .doCbnz
+	bhi .Lcontinue
+	beq .LdoCbnz
 
 	mov w0, 0
 
-.continue:
+.Lcontinue:
 	orr w4, w0
 	mov w0, 1
-	tbnz x4, 0, .return
+	tbnz x4, 0, .Lreturn
 
 	orr x6, x2, x3
 	orr x4, x1, x5
@@ -46,16 +48,16 @@ __netf2:
 
 	mov w0, 0
 	orr x4, x6
-	cbz x4, .return
+	cbz x4, .Lreturn
 
 	tst x2, x3
-	bmi .checkGt
+	bmi .LcheckGt
 
 	cmp x3, x2
-	bgt .retMin1
-	beq .checkLess
+	bgt .LretMin1
+	beq .LcheckLess
 
-.finish:
+.Lfinish:
 	eor x0, x1, x5
 	eor x1, x2, x3
 	orr x1, x0, x1
@@ -63,44 +65,49 @@ __netf2:
 	cmp x1, 0
 	cset w0, ne
 
-.return:
+.Lreturn:
 	ret
 
-.doCbnz:
-	cbnz x5, .continue
+.LdoCbnz:
+	cbnz x5, .Lcontinue
 
 	mov w0, 0
-	b .continue
+	b .Lcontinue
 
-.doCbnz2:
-	cbnz x1, .hi
+.LdoCbnz2:
+	cbnz x1, .Lhi
 
 	mov w4, 0
-	b .hi
+	b .Lhi
 
-.checkGt:
+.LcheckGt:
 	cmp x2, x3
-	bgt .retMin1
-	bne .finish
+	bgt .LretMin1
+	bne .Lfinish
 
 	cmp x1, x5
-	bls .finish
+	bls .Lfinish
 
-.retMin1:
+.LretMin1:
 	mov w0, -1
 	ret
 
-.checkLess:
+.LcheckLess:
 	cmp x5, x1
-	bls .finish
-	b .retMin1
+	bls .Lfinish
+	b .LretMin1
+END_FUNC __letf2
+END_FUNC __cmptf2
+END_FUNC __eqtf2
+END_FUNC __lttf2
+END_FUNC __netf2
 
 
 
 
 
-__getf2:
-__gttf2:
+START_FUNC __getf2
+START_FUNC __gttf2
 	fmov x1, v0.d[1]
 	fmov x0, d0
 	fmov x6, d1
@@ -115,26 +122,26 @@ __gttf2:
 	mov x0, 0x7FFF000000000000
 	cmp x4, x0
 	mov w4, 1
-	bhi .hi
-	beq .doCbnz2
+	bhi .LGhi
+	beq .LGdoCbnz2
 
 	mov w4, 0
 
-.hi:
+.LGhi:
 	and x7, x3, 0x7FFFFFFFFFFFFFFF
 
 	mov x6, 0x7FFF000000000000
 	mov w0, 1
 	cmp x7, x6
-	bhi .continue
-	beq .doCbnz
+	bhi .LGcontinue
+	beq .LGdoCbnz
 
 	mov w0, 0
 
-.continue:
+.LGcontinue:
 	orr w4, w0
 	mov w0, -1
-	tbnz x4, 0, .return
+	tbnz x4, 0, .LGreturn
 
 	orr x6, x2, x3
 	orr x4, x1, x5
@@ -142,50 +149,52 @@ __gttf2:
 
 	mov w0, 0
 	orr x4, x6
-	cbz x4, .return
+	cbz x4, .LGreturn
 
 	tst x2, x3
-	bmi .checkGt
+	bmi .LGcheckGt
 
 	cmp x3, x2
-	bgt .lessUnordered
-	beq .checkLess
+	bgt .LGlessUnordered
+	beq .LGcheckLess
 
-.finish:
+.LGfinish:
 	eor x0, x1, x5
 	eor x1, x2, x3
 	orr x1, x0, x1
 	cmp x1, 0
 	cset w0, ne
 
-.return:
+.LGreturn:
 	ret
 
-.doCbnz:
-	cbnz x5, .continue
+.LGdoCbnz:
+	cbnz x5, .LGcontinue
 
 	mov w0, 0
-	b .continue
+	b .LGcontinue
 
-.doCbnz2:
-	cbnz x1, .hi
+.LGdoCbnz2:
+	cbnz x1, .LGhi
 
 	mov w4, 0
-	b .hi
+	b .LGhi
 
-.checkGt:
+.LGcheckGt:
 	cmp x2, x3
-	bgt .lessUnordered
-	bne .finish
+	bgt .LGlessUnordered
+	bne .LGfinish
 
 	cmp x1, x5
-	bls .finish
+	bls .LGfinish
 
-.lessUnordered:
+.LGlessUnordered:
 	mov w0, -1
 	ret
 
-.checkLess:
+.LGcheckLess:
 	cmp x5, x1
-	bls .finish
-	b .lessUnordered
+	bls .LGfinish
+	b .LGlessUnordered
+END_FUNC __getf2
+END_FUNC __gttf2

@@ -1,3 +1,5 @@
+.include "standard.inc"
+
 	.bss
 
 uint128_0:
@@ -10,44 +12,48 @@ uint128_1:
 
 	.text
 
-uint128_t_constructor_default:
+START_FUNC uint128_t_constructor_default
 	stp xzr, [x0]
 	ret
+END_FUNC uint128_t_constructor_default
 
 
 
 
 
-uint128_t_constructor:
-uint128_t_operator_equal:
+START_FUNC uint128_t_constructor
+START_FUNC uint128_t_operator_equal
 	ldr q0, [x1]
 	str q0, [x0]
 	ret
+END_FUNC uint128_t_constructor
+END_FUNC uint12_t_operator_equal
 
 
 
 
 
-uint128_t_constructor_uint128_t_double_ref:
+START_FUNC uint128_t_constructor_uint128_t_double_ref
 	ldr x2, [x1]
 	str x2, [x0]
 	cmp x0, x1
 	ldr x2, [x1, 8]
 	str x2, [x0, 8]
-	beq .noClear
+	beq .LDREFnoClear
 
 	stp xzr, [x1]
 
-.noClear:
+.LDREFnoClear:
 	ret
+END_FUNC uint128_t_constructor_uint128_t_double_ref
 
 
 
 
 
-uint128_t_operator_equal_const_uint128_t_double_ref:
+START_FUNC uint128_t_operator_equal_const_uint128_t_double_ref
 	cmp x0, x1
-	beq .return
+	beq .LEDREFreturn
 
 	ldr x2, [x1]
 	str x2, [x0]
@@ -55,137 +61,150 @@ uint128_t_operator_equal_const_uint128_t_double_ref:
 	str x2, [x0, 8]
 	stp xzr, [x1]
 
-.return:
+.LEDREFreturn:
 	ret
+END_FUNC uint128_t_operator_equal_const_uint128_t_double_ref
 
 
 
 
 
-uint128_t_operator_cast_bool:
+START_FUNC uint128_t_operator_cast_bool
 	ldp x1, x0, [x0]
 	orr x1, x0
 	cmp x1, 0
 	cset w0, ne
 	ret
+END_FUNC uint128_t_operator_cast_bool
 
 
 
 
 
-uint128_t_operator_cast_uint8_t:
+START_FUNC uint128_t_operator_cast_uint8_t
 	ldrb w0, [x0, #8]
 	bx lr
+END_FUNC uint128_t_operator_cast_uint8_t
 
 
 
 
 
-uint128_t_operator_cast_uint16_t:
+START_FUNC uint128_t_operator_cast_uint16_t
 	ldrh w0, [x0, #8]
 	bx lr
+END_FUNC uint128_t_operator_cast_uint8_t
 
 
 
 
 
-uint128_t_operator_cast_uint32_t:
+START_FUNC uint128_t_operator_cast_uint32_t
 	ldr w0, [x0, #8]
 	bx lr
+END_FUNC uint128_t_operator_cast_uint32_t
 
 
 
 
 
-uint128_t_operator_cast_uint64_t:
+START_FUNC uint128_t_operator_cast_uint64_t
 	ldr x0, [x0, 8]
 	ret
+END_FUNC uint128_t_operator_cast_uint64_t
 
 
 
 
 
-uint128_t_operator_and:
+START_FUNC uint128_t_operator_and
 	ldr q0, [x0]
 	mov x0, x8
 	ldr q1, [x1]
 	and v0.16b, v1.16b
 	str q0, [x8]
 	ret
+END_FUNC uint128_t_operator_and
 
 
 
 
 
-uint128_t_operator_and_equal:
+START_FUNC uint128_t_operator_and_equal
 	ldr q1, [x1]
 	ldr q0, [x0]
 	and v0.16b, v1.16b
 	str q0, [x0]
 	ret
+END_FUNC uint128_t_operator_and_equal
 
 
 
 
 
-uint128_t_operator_or:
+START_FUNC uint128_t_operator_or
 	ldr q0, [x0]
 	mov x0, x8
 	ldr q1, [x1]
 	orr v0.16b, v1.16b
 	str q0, [x0]
 	ret
+END_FUNC uint128_t_operator_or
 
 
 
 
 
-uint128_t_operator_or_equal:
+START_FUNC uint128_t_operator_or_equal
 	ldr q1, [x1]
 	ldr q0, [x0]
 	orr v0.16b, v1.16b
 	str q0, [x0]
 	ret
+END_FUNC uint128_t_operator_or_equal
 
 
 
 
 
-uint128_t_operator_xor:
+START_FUNC uint128_t_operator_xor
 	ldr q0, [x0]
 	mov x0, x8
 	ldr q1, [x1]
 	eor v0.16b, v1.16b
 	str q0, [x0]
 	ret
+END_FUNC uint128_t_operator_xor
 
 
 
 
 
-uint128_t_operator_xor_equal:
+START_FUNC uint128_t_operator_xor_equal
 	ldr q1, [x1]
 	ldr q0, [x0]
 	eor v0.16b, v1.16b
 	str q0, [x0]
 	ret
+END_FUNC uint128_t_operator_xor_equal
 
 
 
 
 
-uint128_t_operator_not:
+START_FUNC uint128_t_operator_not
 	ldr q0, [x0]
 	mov x0, x8
 	not v0.16b
 	str q0, [x8]
 	ret
+END_FUNC uint128_t_operator_not
 
 
 
 
 
-uint128_t_operator_shiftLeft:
+START_FUNC uint128_t_operator_shiftLeft
 	stp x29, x30, [sp, -32]!
 	mov x29, sp
 	ldp x3, x2, [x1]
@@ -194,27 +213,27 @@ uint128_t_operator_shiftLeft:
 
 	cmp x2, 0x7F
 	ccmp x3, 0, 0, ls
-	beq .continue
+	beq .LSLcontinue
 
-.do0:
+.LSLdo0:
 	adrp x1, uint128_0
 	mov x0, x19
 	add x1, :lo12:uint128_0
 	bl uint128_t_constructor
 
-.return:
+.LSLreturn:
 	mov x0, x19
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 32
 	ret
 
-.continue:
+.LSLcontinue:
 	cmp x2, 0x40
-	beq .do02
-	cbz x2, .doConstruct
+	beq .LSLdo02
+	cbz x2, .LSLdoConstruct
 
 	cmp x2, 0x3F
-	bhi .check64
+	bhi .LSLcheck64
 
 	ldp x1, x0, [x0]
 	neg w3, w2
@@ -224,15 +243,15 @@ uint128_t_operator_shiftLeft:
 	lsl x2, x0, x2
 
 	stp x1, x2, [x8]
-	b .return
+	b .LSLreturn
 
-.doConstruct:
+.LSLdoConstruct:
 	mov x1, x0
 	mov x0, x8
 	bl uint128_t_constructor
-	b .return
+	b .LSLreturn
 
-.do02:
+.LSLdo02:
 	ldr x0, [x0, 8]
 	stp x0, xzr, [x8]
 
@@ -241,22 +260,23 @@ uint128_t_operator_shiftLeft:
 	ldp x29, x30, [sp], 32
 	ret
 
-.check64:
+.LSLcheck64:
 	sub x1, x2, #0x41
 	cmp x1, #0x3E
-	bhi .do0
+	bhi .LSLdo0
 
 	ldr x0, [x0, 8]
 	sub w2, #0x40
 	lsl x2, x0, x2
 	stp x2, wzr, [x8]
-	b .return
+	b .LSLreturn
+END_FUNC uint128_t_operator_shiftLeft
 
 
 
 
 
-uint128_t_operator_shiftLeft_equal:
+START_FUNC uint128_t_operator_shiftLeft_equal
 	stp x29, x30, [sp, -48]!
 	add x8, sp, 32
 	mov x29, sp
@@ -272,12 +292,13 @@ uint128_t_operator_shiftLeft_equal:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_shiftLeft_equal 
 
 
 
 
 
-uint128_t_operator_shiftRight:
+START_FUNC uint128_t_operator_shiftRight
 	stp x29, x30, [sp, -32]!
 	mov x29, sp
 	ldp x3, x2, [x1]
@@ -286,28 +307,28 @@ uint128_t_operator_shiftRight:
 
 	cmp x2, 0x7F
 	ccmp x3, 0, 0, ls
-	beq .continue
+	beq .LSRcontinue
 
-.ret0:
+.LSRret0:
 	adrp x1, uint128_0
 	mov x0, x19
 	add x1, :lo12:uint128_0
 	bl uint128_t_constructor
 
-.return:
+.LSRreturn:
 	mov x0, x19
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 32
 	ret
 
-.continue:
+.LSRcontinue:
 	cmp x2, 0x40
-	beq .got64
-	cbz x2, .doConstruct
+	beq .LSRgot64
+	cbz x2, .LSRdoConstruct
 
 
 	cmp x2, 0x3F
-	bhi .doShifts
+	bhi .LSRdoShifts
 
 	ldp x3, x0, [x0]
 	neg w1, w2
@@ -315,15 +336,15 @@ uint128_t_operator_shiftRight:
 	lsr x3, x2
 	lsr x2, x0, x2
 	add x1, x2
-	b .return
+	b .LSRreturn
 
-.doConstruct:
+.LSRdoConstruct:
 	mov x1, x0
 	mov x0, x8
 	bl uint128_t_constructor
-	b .return
+	b .LSRreturn
 
-.got64:
+.LSRgot64:
 	str xzr, [x9]
 	ldr x0, [x0]
 	str x0, [x8, 8]
@@ -333,22 +354,23 @@ uint128_t_operator_shiftRight:
 	ldp x29, x30, [sp], 32
 	ret
 
-.doShift:
+.LSRdoShift:
 	sub x1, x2, #0x41
 	cmp x1, 0x3E
-	bhi .ret0
+	bhi .LSRret0
 
 	ldr x0, [x0]
 	sub w2, #0x40
 	lsr x2, x0, x2
 	stp xzr, x2, [x8]
-	b .return
+	b .LSRreturn
+END_FUNC uint128_t_operator_shiftRight 
 
 
 
 
 
-uint128_t_operator_shiftRight_equal:
+START_FUNC uint128_t_operator_shiftRight_equal
 	stp x29, x30, [sp, -48]!
 	add x8, sp, 32
 	mov x29, sp
@@ -364,24 +386,26 @@ uint128_t_operator_shiftRight_equal:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_shiftRight_equal 
 
 
 
 
 
-uint128_t_operator_exclamation_mark:
+START_FUNC uint128_t_operator_exclamation_mark
 	ldp x1, x0, [x0]
 	orr x1, x0
 
 	cmp x1, 1
 	cset w0, eq
 	ret
+END_FUNC uint128_t_operator_exclamation_mark 
 
 
 
 
 
-uint128_t_operator_and_and:
+START_FUNC uint128_t_operator_and_and
 	stp x29, x30, [sp, -32]!
 	mov x29, sp
 	str x1, [sp, 24]
@@ -389,22 +413,23 @@ uint128_t_operator_and_and:
 	bl uint128_t_operator_cast_bool
 	tst w0, 0xFF
 	ldr x1, [sp, 24]
-	bne .continue
+	bne .LAAcontinue
 
 	mov w0, 0
 	ldp x29, x30, [sp], 32
 	ret
 
-.continue:
+.LAAcontinue:
 	ldp x29, x30, [sp], 32
 	mov x0, x1
 	b uint128_t_operator_cast_bool
+END_FUNC uint128_t_operator_and_and 
 
 
 
 
 
-uint128_t_operator_or_or:
+START_FUNC uint128_t_operator_or_or
 	stp x29, x30, [sp, -32]!
 	mov x29, sp
 	str x1, [sp, 24]
@@ -412,41 +437,43 @@ uint128_t_operator_or_or:
 	bl uint128_t_operator_cast_bool
 	tst w0, 0xFF
 	ldr x1, [sp, 24]
-	beq .continue
+	beq .LOOcontinue
 
 	ldp x29, x30, [sp], 32
 	ret
 
-.continue:
+.LOOcontinue:
 	ldp x29, x30, [sp], 32
 	mov x0, x1
 	b uint128_t_operator_cast_bool
+END_FUNC uint128_t_operator_or_or 
 
 
 
 
 
-uint128_t_operator_equal_equal:
+START_FUNC uint128_t_operator_equal_equal
 	ldr x3, [x0]
 	ldr x2, [x1]
 	cmp x3, x2
-	beq .continue
+	beq .LEEcontinue
 
 	mov w0, 0
 	ret
 
-.continue:
+.LEEcontinue:
 	ldr x2, [x0, 8]
 	ldr x0, [x1, 8]
 	cmp x2, x0
 	cset w0, eq
 	ret
+END_FUNC uint128_t_operator_equal_equal 
 
 
 
 
 
-uint128_t_operator_not_equal:
+START_FUNC uint128_t_operator_not_equal
 	ldr x4, x2, [x0]
 	ldr x3, x0, [x1]
 
@@ -454,52 +481,56 @@ uint128_t_operator_not_equal:
 	ccmp x2, x0, 0, eq
 	cset w0, ne
 	ret
+END_FUNC uint128_t_operator_not_equal 
 
 
 
 
 
-uint128_t_operator_above:
+START_FUNC uint128_t_operator_above
 	ldr x3, [x0]
 	ldr x2, [x1]
 	cmp x3, x2
-	beq .continue
+	beq .LABcontinue
 
 	cset w0, hi
 	ret
 
-.continue:
+.LABcontinue:
 	ldr x2, [x0, 8]
 	ldr x0, [x1, 8]
 	cmp x2, x0
 	cset w0, hi
 	ret
+END_FUNC uint128_t_operator_above 
 
 
 
 
 
-uint128_t_operator_below:
+START_FUNC uint128_t_operator_below
 	ldr x3, [x0]
 	ldr x2, [x1]
 	cmp x3, x2
-	beq .continue
+	beq .LBEcontinue
 
 	cset w0, cc
 	ret
 
-.continue:
+.LBEcontinue:
 	ldr x2, [x0, 8]
 	ldr x0, [x1, 8]
 	cmp x2, x0
 	cset w0, cc
 	ret
+END_FUNC uint128_t_operator_below
 
 
 
 
 
-uint128_t_operator_above_equal:
+
+START_FUNC uint128_t_operator_above_equal
 	stp x29, x30, [sp, -48]!
 	mov x29, sp
 	stp x19, x20, [sp, 16]
@@ -523,12 +554,13 @@ uint128_t_operator_above_equal:
 	ldr x21, [sp, 32]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_above_equal
 
 
 
 
 
-uint128_t_operator_below_equal:
+START_FUNC uint128_t_operator_below_equal
 	stp x29, x30, [sp, -48]!
 	mov x29, sp
 	stp x19, x20, [sp, 16]
@@ -552,12 +584,13 @@ uint128_t_operator_below_equal:
 	ldr x21, [sp, 32]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_below_equal
 
 
 
 
 
-uint128_t_operator_plus:
+START_FUNC uint128_t_operator_plus
 	mov x2, x0
 	mov x0, x8
 
@@ -573,12 +606,13 @@ uint128_t_operator_plus:
 
 	stp x2, x3, [x8]
 	ret
+END_FUNC uint128_t_operator_plus
 
 
 
 
 
-uint128_t_operator_plus_equal:
+START_FUNC uint128_t_operator_plus_equal:
 	ldp x5, x3, [x1]
 	ldp x1, x4, [x0]
 
@@ -590,12 +624,13 @@ uint128_t_operator_plus_equal:
 
 	stp x1, x3, [x0]
 	ret
+END_FUNC uint128_t_operator_plus_equal
 
 
 
 
 
-uint128_t_operator_minus:
+START_FUNC uint128_t_operator_minus
 	mov x4, x0
 	mov x0, x8
 	ldp x5, x3, [x1]
@@ -609,12 +644,13 @@ uint128_t_operator_minus:
 	sub x1, x4
 	stp x1, x2, [x8]
 	ret
+END_FUNC uint128_t_operator_minus
 
 
 
 
 
-uint128_t_operator_minus_equal:
+START_FUNC uint128_t_operator_minus_equal
 	stp x29, x30, [sp, -48]!
 	add x8, sp, 32
 	mov x29, sp
@@ -630,12 +666,13 @@ uint128_t_operator_minus_equal:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_minus_equal
 
 
 
 
 
-uint128_t_operator_multiply:
+START_FUNC uint128_t_operator_multiply
 	mov x3, x0
 	mov x0, x8
 
@@ -696,12 +733,13 @@ uint128_t_operator_multiply:
 
 	stp x1, x3, [x8]
 	ret
+END_FUNC uint128_t_operator_multiply
 
 
 
 
 
-uint128_t_operator_multiply_equal:
+START_FUNC uint128_t_operator_multiply_equal
 	stp x29, x30, [sp, -48]!
 	add x8, sp, 32
 	mov x29, sp
@@ -717,12 +755,13 @@ uint128_t_operator_multiply_equal:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_multiply_equal
 
 
 
 
 
-uint128_t_divmod:
+START_FUNC uint128_t_divmod
 	stp x29, x30, [sp, -144]!
 	mov x0, x2
 	mov x29, sp
@@ -743,18 +782,18 @@ uint128_t_divmod:
 	bl uint128_t_operator_equal_equal
 	mov x1, x21
 	tst w0, 0xFF
-	bne .ret0
+	bne .LDMret0
 
 	mov x1, x20
 	mov x0, x21
 	bl uint128_t_operator_equal_equal
 
 	tst w0, 0xFF
-	beq .check0
+	beq .LDMcheck0
 
 	mov x1, x19
 
-.ret0:
+.LDMret0:
 	mov x0, x22
 	bl uint128_t_constructor
 
@@ -763,7 +802,7 @@ uint128_t_divmod:
 	add x1, :lo12:uint128_0
 	bl uint128_t_constructor
 
-.return:
+.LDMreturn:
 	mov x0, x22
 	ldp x19, x20, [sp, 16]
 	ldp x21, x22, [sp, 32]
@@ -771,7 +810,7 @@ uint128_t_divmod:
 	ldp x29, x30, [sp], 144
 	ret
 
-.check0:
+.LDMcheck0:
 	adrp x24, uint128_0
 	add x24, :lo12:uint128_0
 	mov x1, x24
@@ -779,15 +818,15 @@ uint128_t_divmod:
 	bl uint128_t_operator_equal_equal
 
 	tst w0, 0xFF
-	beq .l5
+	beq .LDMl5
 
-.checkBelow:
+.LDMcheckBelow:
 	mov x1, x24
 	mov x0, x21
 	bl uint128_t_operator_below
 
 	tst w0, 0xFF
-	bne .checkBelow
+	bne .LDMcheckBelow
 
 	mov x1, x24
 	add x0, sp, 112
@@ -805,21 +844,21 @@ uint128_t_divmod:
 	sub w24, w0, #1
 	sub w0, #2
 	sub w26, w0, w24, uxtb
-	b .doShifts
+	b .LDMdoShifts
 
-.checkAboveEqual:
+.LDMcheckAboveEqual:
 	mov x1, x20
 	mov x0, x25
 	bl uint128_t_operator_above_equal
 
 	tst w0, 0xFF
-	bne .doMinusEqual
+	bne .LDMdoMinusEqual
 
-.checkForMoves:
+.LDMcheckForMoves:
 	cmp w24, w26
-	beq .doMoves
+	beq .LDMdoMoves
 
-.doShifts:
+.LDMdoShifts:
 	mov x1, x19
 	add x0, sp, 112
 	bl uint128_t_operator_shiftLeft_equal
@@ -844,7 +883,7 @@ uint128_t_divmod:
 	bl uint128_t_operator_cast_bool
 
 	tst w0, 0xFF
-	beq .checkAboveEqual
+	beq .LDMcheckAboveEqual
 
 	mov x0, x25
 	bl uint128_t_operator_plus_plus
@@ -854,18 +893,18 @@ uint128_t_divmod:
 	bl uint128_t_operator_above_equal
 
 	tst w0, 0xFF
-	beq .checkForMoves
+	beq .LDMcheckForMoves
 
-.doMinusEqual:
+.LDMdoMinusEqual:
 	mov x1, x20
 	mov x0, x25
 	bl uint128_t_operator_minus_equal
 
 	add x0, sp, 112
 	bl uint128_t_operator_plus_plus
-	b .checkForMoves
+	b .LDMcheckForMoves
 
-.doMoves:
+.LDMdoMoves:
 	add x1, sp, 112
 	mov x0, x22
 	bl uint128_t_constructor_uint128_t_double_ref
@@ -875,13 +914,13 @@ uint128_t_divmod:
 	bl uint128_t_constructor_uint128_t_double_ref
 
 	ldp x25, x26, [sp, 64]
-	b .return
+	b .LDMreturn
 
 
 
 
 
-uint128_t_operator_divide:
+START_FUNC uint128_t_operator_divide
 	stp x29, x30, [sp, -64]!
 	mov x2, x1
 	mov x1, x0
@@ -901,12 +940,13 @@ uint128_t_operator_divide:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 64
 	ret
+END_FUNC uint128_t_operator_divide
 
 
 
 
 
-uint128_t_operator_divide_equal:
+START_FUNC uint128_t_operator_divide_equal
 	stp x29, x30, [sp, -48]!
 	add x8, sp, 32
 	mov x29, sp
@@ -922,12 +962,13 @@ uint128_t_operator_divide_equal:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_divide_equal
 
 
 
 
 
-uint128_t_operator_modulo:
+START_FUNC uint128_t_operator_modulo
 	stp x29, x30, [sp, -64]!
 	mov x2, x1
 	mov x1, x0
@@ -947,12 +988,13 @@ uint128_t_operator_modulo:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 64
 	ret
+END_FUNC uint128_t_operator_modulo
 
 
 
 
 
-uint128_t_operator_modulo_equal:
+START_FUNC uint128_t_operator_modulo_equal
 	stp x29, x30, [sp, -48]!
 	add x8, sp, 32
 	mov x29, sp
@@ -968,21 +1010,23 @@ uint128_t_operator_modulo_equal:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_modulo_equal
 
 
 
 
 
-uint128_t_operator_plus_plus:
+START_FUNC uint128_t_operator_plus_plus
 	adrp x1, uint128_1
 	add x1, :l012:uint128_1
 	b uint128_t_operator_plus_equal
+END_FUNC uint128_t_operator_plus_plus
 
 
 
 
 
-uint128_t_operator_plus_plus_int:
+START_FUNC uint128_t_operator_plus_plus_int
 	stp x29, x30, [sp, -48]!
 	mov x1, x0
 	mov x29, sp
@@ -1001,21 +1045,23 @@ uint128_t_operator_plus_plus_int:
 	mov x0, x8
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_plus_plus_int
 
 
 
 
 
-uint128_t_operator_minus_minus:
+START_FUNC uint128_t_operator_minus_minus
 	adrp x1, uint128_1
 	add x1, :lo12:uint128_1
 	b uint128_t_operator_minus_equal
+END_FUNC uint128_t_operator_minus_minus
 
 
 
 
 
-uint128_t_operator_minus_minus_int:
+START_FUNC uint128_t_operator_minus_minus_int
 	stp x29, x30, [sp, -48]!
 	mov x1, x0
 	mov x29, sp
@@ -1034,12 +1080,13 @@ uint128_t_operator_minus_minus_int:
 	mov x0, x8
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_minus_minus_int
 
 
 
 
 
-uint128_t_operator_single_plus:
+START_FUNC uint128_t_operator_single_plus
 	stp x29, x30, [sp, -32]!
 	mov x1, x0
 	mov x0, x8
@@ -1052,12 +1099,13 @@ uint128_t_operator_single_plus:
 	ldp x29, x30, [sp], 32
 	mov x0, x8
 	ret
+END_FUNC uint128_t_operator_single_plus
 
 
 
 
 
-uint128_t_operator_single_minus:
+START_FUNC uint128_t_operator_single_minus
 	stp x29, x30, [sp, -48]!
 	mov x29, sp
 	str x19, [sp, 16]
@@ -1076,29 +1124,32 @@ uint128_t_operator_single_minus:
 	ldr x19, [sp, 16]
 	ldp x29, x30, [sp], 48
 	ret
+END_FUNC uint128_t_operator_single_minus
 
 
 
 
 
-uint128_t_upper:
+START_FUNC uint128_t_upper
 	ret
+END_FUNC uint128_t_upper
 
 
 
 
 
-uint128_t_lower:
+START_FUNC uint128_t_lower
 	add x0, #8
 	ret
+END_FUNC uint128_t_lower
 
 
 
 
 
-uint128_t_bits:
+START_FUNC uint128_t_bits
 	ldr x1, [x0]
-	cbnz x1, .x10
+	cbnz x1, .LBx10
 
 	ldr x1, [x0, 8]
 	mov w0, 0x40
@@ -1110,9 +1161,10 @@ uint128_t_bits:
 	csel w0, wzr, ne
 	ret
 
-.x10:
+.LBx10:
 	clz x1
 	mov w0, -0x80
 	sub w0, w1
 	and w0, 0xFF
 	ret
+END_FUNC uint128_t_bits
