@@ -1,6 +1,20 @@
 .ifndef STANDARD_INC
 .set STANDARD_INC 1
 
+.macro START_FUNC name
+
+	.globl \name
+	.p2align 2
+	.type \name, @function
+
+.endm
+
+.macro END_FUNC name
+
+	.size \name, . - \name
+
+.endm
+
 .macro usualProlog
 
 	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)

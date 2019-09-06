@@ -2,7 +2,7 @@
 
 	.text
 
-sadd_overflow:
+START_FUNC sadd_overflow
 	usualProlog
 	v_cmp_lt_i32_e32 vcc_lo, -1, v1
 	v_add_nc_u32_e32 v4, v0, v1
@@ -20,13 +20,14 @@ sadd_overflow:
 	v_cndmask_b32_e64 v0, 0, 1, s4
 	waitAfterStore
 	usualEpilog
+END_FUNC sadd_overflow
 
 
 
 
 
-saddl_overflow:
-saddll_overflow:
+START_FUNC saddl_overflow
+START_FUNC saddll_overflow
 	usualProlog
 	v_add_co_u32_e64 v6, vcc_lo, v0, v2
 	usualSmov12 s5
@@ -45,12 +46,14 @@ saddll_overflow:
 	v_cndmask_b32_e64 v0, 0, 1, s4
 	waitAfterStore
 	usualEpilog
+END_FUNC saddl_overflow
+END_FUNC saddll_overflow
 
 
 
 
 
-uadd_overflow:
+START_FUNC uadd_overflow
 	usualProlog
 	v_add_co_u32_e64 v1, s4, v0, v1
 	usualSmov12 s5
@@ -59,13 +62,14 @@ uadd_overflow:
 	usualSmov3 s5
 	waitAfterStore
 	usualEpilog
+END_FUNC uadd_overflow
 
 
 
 
 
-uaddl_overflow:
-uaddll_overflow:
+START_FUNC uaddl_overflow
+START_FUNC uaddll_overflow
 	usualProlog
 	v_add_co_u32_e64 v2, vcc_lo, v0, v2
 	usualSmov12
@@ -76,3 +80,5 @@ uaddll_overflow:
 	v_cndmask_b32_e64 v0, 0, 1, vcc_lo
 	waitAfterStore
 	usualEpilog
+END_FUNC uaddl_overflow
+END_FUNC uaddll_overflow

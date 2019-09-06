@@ -2,7 +2,7 @@
 
 	.text
 
-bzero1:
+START_FUNC bzero1
 	usualProlog
 	usualSmov1
 	v_mov_b32_e32 v2, 0
@@ -10,12 +10,13 @@ bzero1:
 	flat_store_byte v[0:1], v2
 	waitAfterStore
 	usualEpilog
+END_FUNC bzero1
 
 
 
 
 
-bzero2:
+START_FUNC bzero2
 	usualProlog
 	doubleVMovB32E32 v6, v0
 	usualSmov1
@@ -28,3 +29,4 @@ bzero2:
 	flat_store_byte v[2:3], v4
 	waitAfterStore
 	usualEpilog
+END_FUNC bzero2

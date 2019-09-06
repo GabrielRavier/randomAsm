@@ -9,7 +9,7 @@
 
 .endm
 
-__argp_usage:
+START_FUNC __argp_usage
 	usualProlog
 	s_or_saveexec_b32 s4, -1
 
@@ -41,12 +41,13 @@ __argp_usage:
 
 	s_mov_b32 exec_lo, s4
 	s_setpc_b64 s[6:7]
+END_FUNC __argp_usage
 
 
 
 
 
-__option_is_short:
+START_FUNC __option_is_short
 	usualProlog
 	s_or_saveexec_b32 s4, -1
 
@@ -75,7 +76,7 @@ __option_is_short:
 	v_cmp_gt_u32_e32 vcc_lo, 0xFF, v0
 	v_mov_b32_e32 v0, 0
 	s_and_b32 exec_lo, vcc_lo
-	s_cbranch_execz .z
+	s_cbranch_execz .LSz
 
 	loadSymbolAddress s4, isprint
 	v_writelane_b32 v32, s30, 1
@@ -88,7 +89,7 @@ __option_is_short:
 	v_readline_b32 s31, v32, 2
 	v_cndmask_b32_e64 v0, 0, 1, vcc_lo
 
-.z:
+.LSz:
 	s_or_b32 exec_lo, s35
 	v_readline_b32 s35, v32, 0
 	s_sub_u32 s32, 0x200
@@ -100,12 +101,13 @@ __option_is_short:
 	s_mov_b32 exec_lo, s4
 	waitAfterStore
 	usualEpilog
+END_FUNC __option_is_short
 
 
 
 
 
-__option_is_end:
+START_FUNC __option_is_end
 	usualProlog
 
 	v_add_co_u32_e64 v3, vcc_lo, v0, 8
@@ -116,14 +118,14 @@ __option_is_end:
 	waitAfterLoad
 	v_cmp_eq_u32_e32 vcc_lo, 0, v3
 	s_and_saveexec_b32 s4, vcc_lo
-	s_cbranch_execz .z
+	s_cbranch_execz .LEz
 
 	flat_load_dwordx2 v[2:3], v[0:1]
 	waitAfterLoad
 	v_cmp_eq_u64_e32 vcc_lo, 0, v[2:3]
 	v_mov_b32_e32 v2, 0
 	s_and_b32 exec_lo, vcc_lo
-	s_cbranch_execz .z
+	s_cbranch_execz .LEz
 
 	v_add_co_u32_e64 v2, vcc_lo, v0, 0x20
 	v_add_co_ci_u32_e32 v3, vcc_lo, 0, v1, vcc_lo
@@ -132,7 +134,7 @@ __option_is_end:
 	v_cmp_eq_u64_e32 vcc_lo, 0, v[2:3]
 	v_mov_b32_e32 v2, 0
 	s_and_b32 exec_lo, vcc_lo
-	s_cbranch_execz .z
+	s_cbranch_execz .LEz
 
 	v_add_co_u32_e64 v0, vcc_lo, v0, 0x28
 	v_add_co_ci_u32_e32 v1, vcc_lo, 0, v1, vcc_lo
@@ -141,8 +143,9 @@ __option_is_end:
 	v_cmp_eq_u32_e32 vcc_lo, 0, v0
 	v_cndmask_b32_e64 v2, 0, 1, vcc_lo
 
-.z:
+.LEz:
 	s_or_b32 exec_lo, s4
 	v_mov_b32_e32 v0, v2
 	usualSmov3 s5
 	usualEpilog
+END_FUNC __option_is_end

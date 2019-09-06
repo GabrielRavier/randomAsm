@@ -4,7 +4,7 @@
 
 .macro make256Op name, instr
 
-\name:
+START_FUNC \name
 	usualProlog
 	usualSmov1
 
@@ -16,12 +16,13 @@
 
 	usualSmov23
 	usualEpilog
+END_FUNC \name
 
 .endm
 
 .macro make256Op64 name, instr1, instr2
 
-\name:
+START_FUNC \name
 	usualProlog
 	\instr1 v0, vcc_lo, v8, v0
 	usualSmov12
@@ -38,6 +39,7 @@
 	.endr
 
 	usualEpilog
+END_FUNC \name
 
 .endm
 

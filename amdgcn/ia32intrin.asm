@@ -2,7 +2,7 @@
 
 	.text
 
-__rold:
+START_FUNC __rold
 	usualProlog
 	v_mov_b32_e32 v2, 0
 	usualSmov12
@@ -10,24 +10,26 @@ __rold:
 	usualSmov3
 	v_alignbit_b32 v0, v1
 	usualEpilog
+END_FUNC __rold
 
 
 
 
 
-__rord:
+START_FUNC __rord
 	usualProlog
 	v_and_b32_e32 v1, 0xFF, v1
 	usualSmov12
 	v_alignbit_b32 v0, v1
 	usualSmov3
 	usualEpilog
+END_FUNC __rord
 
 
 
 
 
-__rolq:
+START_FUNC __rolq
 	usualProlog
 	v_sub_nc_u16_e64 v4, 0, v2
 	v_mov_b32_e32 v3, 0x3F
@@ -41,12 +43,13 @@ __rolq:
 	v_or_b32_e32 v0, v2, v0
 	v_or_b32_e32 v1, v3, v1
 	usualEpilog
+END_FUNC __rolq
 
 
 
 
 
-__rorq:
+START_FUNC __rorq
 	usualProlog
 	v_sub_nc_u16_e64 v4, 0, v2
 	v_mov_b32_e32 v3, 0x3F
@@ -60,3 +63,4 @@ __rorq:
 	v_or_b32_e32 v0, v2, v0
 	v_or_b32_e32 v1, v3, v1
 	usualEpilog
+END_FUNC __rorq

@@ -2,7 +2,7 @@
 
 	.text
 
-_mm_malloc:
+START_FUNC _mm_malloc
 	usualProlog
 	s_or_saveexec_b32 s4, -1
 
@@ -33,7 +33,7 @@ _mm_malloc:
 	s_mov_b32 s4, 0
 	s_and_saveexec_b32 s5, vcc_lo
 	s_xor_b32 s5, exec_lo, s5
-	s_cbranch_execz .z
+	s_cbranch_execz .Lz
 
 	v_cmp_lt_i64_e32 vcc_lo, 3, v[2:3]
 	doubleSMovB32 s6
@@ -62,7 +62,7 @@ _mm_malloc:
 	s_and_b32 s4, exec_lo
 	s_and_b32 s6, exec_lo
 
-.z:
+.Lz:
 	s_or_saveexec_b32 s5
 	s_mov_b32 s35, 0
 	s_xor_b32 exec_lo, s5
@@ -82,7 +82,7 @@ _mm_malloc:
 	s_or_b32 exec_lo, s5
 	s_and_saveexec_b32 s5, s4
 	s_xor_b32 s36, exec_lo, s5
-	s_cbranch_execz .z2
+	s_cbranch_execz .Lz2
 
 	loadSymbolAddress s4, posix_memalign
 	doubleVMovB32E32 v2, v4
@@ -100,10 +100,10 @@ _mm_malloc:
 	s_waitcnt vmcnt(0)
 	v_cndmask_b32_e32 v2, 0, v2, vcc_lo
 
-.z2:
+.Lz2:
 	s_or_b32 exec_lo, s36
 	s_and_saveexec_b32 s36, s35
-	s_cbranch_execz .z3
+	s_cbranch_execz .Lz3
 
 	loadSymbolAddress s4, malloc
 	v_mov_b32_e32 v0, v33
@@ -112,7 +112,7 @@ _mm_malloc:
 	s_swappc_b64 s[30:31], s[4:5]
 	doubleVMovB32E32 v2, v0
 
-.z3:
+.Lz3:
 	s_or_b32 exec_lo, s36
 
 	v_readlane_b32 s4, v34, 2
@@ -133,12 +133,13 @@ _mm_malloc:
 	s_waitcnt vmcnt(0)
 	s_waitcnt_vscnt null, 0
 	s_setpc_b64 s[4:5]
+END_FUNC _mm_malloc
 
 
 
 
 
-_mm_free:
+START_FUNC _mm_free
 	usualProlog
 	s_or_saveexec_b32 s4, -1
 
@@ -161,3 +162,4 @@ _mm_free:
 	s_mov_b32 exec_lo, s6
 	s_waitcnt lgkmcnt(0)
 	s_setpc_b64 s[4:5]
+END_FUNC _mm_free

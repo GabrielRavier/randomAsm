@@ -4,7 +4,7 @@
 
 .macro makeCmp name, instr
 
-\name:
+START_FUNC \name
 	usualProlog
 	doubleVMovB32E32 v10, v0
 	doubleVMovB32E32 v8, v2
@@ -20,12 +20,13 @@
 	v_cndmask_b32_e64 v2, 0, -1, vcc_lo
 	v_mov_b32_e32 v3, v2
 	usualEpilog
+END_FUNC \name
 
 .endm
 
 .macro make0To3Instr name, instr
 
-\name:
+START_FUNC \name
 	usualProlog
 
 	.irp reg, v0, v1, v2, v3
@@ -36,7 +37,7 @@
 
 	usualSmov123
 	usualEpilog
-
+END_FUNC \name
 
 .endm
 

@@ -2,7 +2,7 @@
 
 	.text
 
-bswap16:
+START_FUNC bswap16
 	usualProlog
 	v_alignbit_b32 v1, v0, v0, 8
 	v_alignbit_b32 v0, 0x18
@@ -11,12 +11,13 @@ bswap16:
 	usualSmov3
 	v_lshrrev_b32_e32 v0, 0x10, v0
 	usualEpilog
+END_FUNC bswap16
 
 
 
 
 
-bswap32:
+START_FUNC bswap32
 	usualProlog
 	v_alignbit_b32 v1, v0, v0, 8
 	v_alignbit_b32 v0, 0x18
@@ -24,12 +25,13 @@ bswap32:
 	v_bfi_b32 v0, 0xFF00FF, v0, v1
 	usualSmov3
 	usualEpilog
+END_FUNC bswap32
 
 
 
 
 
-bswap64:
+START_FUNC bswap64
 	usualProlog
 	v_lshrrev_b64 v[2:3], 0x18, v[0:1]
 	v_lshrrev_b64 v[4:5], 8, v[0:1]
@@ -53,3 +55,4 @@ bswap64:
 	v_or_b32_e32 v0, v2, v1
 	v_or_b32_e32 v1, v4, v3
 	usualEpilog
+END_FUNC bswap64

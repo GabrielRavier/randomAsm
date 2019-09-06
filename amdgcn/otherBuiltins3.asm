@@ -2,71 +2,77 @@
 
 	.text
 
-ceilf:
+START_FUNC ceilf
 	usualProlog
 	usualSmov1
 	v_ceil_f32_e32 v0
 	usualSmov23
 	usualEpilog
+END_FUNC ceilf
 
 
 
 
 
-ceill:
+START_FUNC ceill
 	usualProlog
 	v_ceil_f64_e32 v[0:1]
 	usualSmov123
 	usualEpilog
+END_FUNC ceill
 
 
 
 
 
-fabsf:
+START_FUNC fabsf
 	usualProlog
 	usualSmov1
 	v_and_b32_e32 v0, 0x7FFFFFFF, v0
 	usualSmov23
 	usualEpilog
+END_FUNC fabsf
 
 
 
 
 
-fabsl:
+START_FUNC fabsl
 	usualProlog
 	usualSmov1
 	v_and_b32_e32 v1, 0x7FFFFFFF, v1
 	usualSmov23
 	usualEpilog
+END_FUNC fabsl
 
 
 
 
 
-floorf:
+START_FUNC floorf
 	usualProlog
 	usualSmov1
 	v_floor_f32_e32 v0
 	usualSmov23
 	usualEpilog
+END_FUNC floorf
 
 
 
 
 
-floorl:
+START_FUNC floorl
 	usualProlog
 	v_floor_f64_e32 v[0:1]
 	usualSmov123
 	usualEpilog
+END_FUNC floorl
 
 
 
 
 
-fmodf:
+START_FUNC fmodf
 	usualProlog
 	v_rcp_f32_e32 v2, v1
 	usualSmov123
@@ -74,12 +80,13 @@ fmodf:
 	v_trunc_f32_e32 v2
 	v_fmac_f32_e64 v0, -v2, v1
 	usualEpilog
+END_FUNC fmodf
 
 
 
 
 
-fmodl:
+START_FUNC fmodl
 	usualProlog
 	v_rcp_f64_e32 v[6:7], v[2:3]
 	usualSmov123
@@ -88,23 +95,26 @@ fmodl:
 	v_mul_f64 v[2:3], v[4:5], v[2:3]
 	v_add_f64 v[0:1], -v[2:3]
 	usualEpilog
+END_FUNC fmodl
 
 
 
 
 
-sqrtf:
+START_FUNC sqrtf
 	usualProlog
 	v_sqrt_f32_e32 v0
 	usualSmov123
 	usualEpilog
+END_FUNC sqrtf
 
 
 
 
 
-sqrtl:
+START_FUNC sqrtl
 	usualProlog
 	v_sqrt_f64_e32 v[0:1]
 	usualSmov123
 	usualEpilog
+END_FUNC sqrtl

@@ -2,23 +2,22 @@
 
 	.text
 
-sync_fetch_and_add_32:
+START_FUNC sync_fetch_and_add_32
 	usualProlog
 	waitBeforeAtomic
 	flat_atomic_add v0, v[0:1], v2 glc
 	waitAfterLoad
 	invalidateBuffers
-	buffer_gl0_inv
-	buffer_gl1_inv
 	usualSmov123
 	s_waitcnt lgkmcnt(0)
 	usualEpilog
+END_FUNC sync_fetch_and_add_32
 
 
 
 
 
-sync_fetch_and_add_32:
+START_FUNC sync_fetch_and_add_32
 	usualProlog
 	waitBeforeAtomic
 	flat_atomic_add v0, v[0:1], v2 glc
@@ -28,12 +27,13 @@ sync_fetch_and_add_32:
 	s_waitcnt lgkmcnt(0)
 	v_add_nc_u32_e32 v0, v2
 	usualEpilog
+END_FUNC sync_fetch_and_add_32
 
 
 
 
 
-sync_bool_compare_and_swap_32:
+START_FUNC sync_bool_compare_and_swap_32
 	usualProlog
 	v_mov_b32_e32 v6, v3
 	v_mov_b32_e32 v7, v2
@@ -47,12 +47,13 @@ sync_bool_compare_and_swap_32:
 	v_cmp_eq_u32_e32 vcc_lo, v0, v7
 	v_cndmask_b32_e64 v0, 0, 1, vcc_lo
 	usualEpilog
+END_FUNC sync_bool_compare_and_swap_32
 
 
 
 
 
-sync_bool_compare_and_swap_32:
+START_FUNC sync_bool_compare_and_swap_32
 	usualProlog
 	v_mov_b32_e32 v6, v3
 	v_mov_b32_e32 v7, v2
@@ -64,24 +65,26 @@ sync_bool_compare_and_swap_32:
 	usualSmov3
 	s_waitcnt lgkmcnt(0)
 	usualEpilog
+END_FUNC sync_bool_compare_and_swap_32
 
 
 
 
 
-sync_synchronize:
+START_FUNC sync_synchronize
 	usualProlog
 	usualSmov12
 	waitBeforeAtomic
 	invalidateBuffers
 	usualSmov3
 	usualEpilog
+END_FUNC sync_synchronize
 
 
 
 
 
-sync_lock_test_and_set_32:
+START_FUNC sync_lock_test_and_set_32
 	usualProlog
 	waitBeforeAtomic
 	flat_atomic_swap v0, v[0:1], v2 glc
@@ -90,12 +93,13 @@ sync_lock_test_and_set_32:
 	usualSmov123
 	s_waitcnt lgkmcnt(0)
 	usualEpilog
+END_FUNC sync_lock_test_and_set_32
 
 
 
 
 
-sync_lock_release_32:
+START_FUNC sync_lock_release_32
 	usualProlog
 	usualSmov1
 	v_mov_b32_e32 v2, 0
@@ -104,3 +108,4 @@ sync_lock_release_32:
 	flat_store_dword v[0:1], v2
 	waitAfterStore
 	usualEpilog
+END_FUNC sync_lock_release_32

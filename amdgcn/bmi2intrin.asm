@@ -2,7 +2,7 @@
 
 	.text
 
-_mulx_u64:
+START_FUNC _mulx_u64
 	usualProlog
 	v_mov_b32_e32 v6, v2
 	v_mov_b32_e32 v7, v1
@@ -24,12 +24,13 @@ _mulx_u64:
 	flat_store_dwordx2 v[4:5], v[2:3]
 	waitAfterStore
 	usualEpilog
+END_FUNC _mulx_u64
 
 
 
 
 
-_mulx_u32:
+START_FUNC _mulx_u32
 	usualProlog
 
 	v_mul_hi_u32 v4, v1, v0
@@ -39,3 +40,4 @@ _mulx_u32:
 	flat_store_dword v[2:3], v4
 	waitAfterStore
 	usualEpilog
+END_FUNC _mulx_u32

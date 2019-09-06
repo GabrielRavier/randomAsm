@@ -2,18 +2,19 @@
 
 	.text
 
-isfinite:
+START_FUNC isfinite
 	usualProlog
 	v_cmp_class_f64_e64 s4, v[0:1], 0x1F8
 	usualSmov123 s5
 	v_cndmask_b32_e64 v0, 0, 1, s4
 	usualEpilog
+END_FUNC isfinite
 
 
 
 
 
-isnormal:
+START_FUNC isnormal
 	usualProlog
 	s_mov_b32 s5, 0x7FF00000
 	s_mov_b32 s4, 0
@@ -27,12 +28,13 @@ isnormal:
 	s_and_b32 s4, s5
 	v_cndmask_b32_e64 v0, 0, 1, s4
 	usualEpilog
+END_FUNC isnormal
 
 
 
 
 
-isinf_sign:
+START_FUNC isinf_sign
 	usualProlog
 	v_cmp_gt_i64_e32 vcc_lo, 0, v[0:1]
 	usualSmov123
@@ -40,25 +42,26 @@ isinf_sign:
 	v_cmp_class_f64_e64 vcc_lo, v[0:1], 0x204
 	v_cndmask_b32_e64 v0, 0, v2, vcc_lo
 	usualEpilog
+END_FUNC isinf_sign
 
 
 
 
 
 
-fpclassify:
+START_FUNC fpclassify
 	usualProlog
 	v_cmp_neq_f64_e32 vcc_lo, 0, v[0:1]
 	v_mov_b32_e32 v2, 2
 	usualSmov12 s8
 	s_and_saveexec_b32 s4, vcc_lo
-	s_cbranch_execz .return
+	s_cbranch_execz .Lreturn
 
 	v_cmp_o_f64_e32 vcc_lo, v[0:1], v[0:1]
 	v_mov_b32_e32 v2, 0
 	s_and_saveexec_b32 s5, vcc_lo
 	s_xor_b32 s5, exec_lo, s5
-	s_cbranch_execz .return
+	s_cbranch_execz .Lreturn
 
 	s_mov_b32 s7, 0x7FF00000
 	s_mov_b32 s6, 0
@@ -75,8 +78,9 @@ fpclassify:
 
 	s_or_b32 exec_lo, s5
 
-.return:
+.Lreturn:
 	s_or_b32 exec_lo, s4
 	v_mov_b32_e32 v0, v2
 	usualSmov3 s8
 	usualEpilog
+END_FUNC fpclassify

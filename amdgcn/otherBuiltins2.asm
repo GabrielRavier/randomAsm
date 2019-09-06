@@ -2,165 +2,188 @@
 
 	.text
 
-cabsl:
-cabs:
+START_FUNC cabsl
+START_FUNC cabs
 	usualProlog
 	v_mul_f64 v[0:1]
 	usualSmov123
 	v_fma_f64 v[0:1], v[2:3], v[2:3], v[0:1]
 	v_sqrt_f64_e32 v[0:1]
 	usualEpilog
+END_FUNC cabsl
+END_FUNC cabs
 
 
 
 
 
-cimagf:
+START_FUNC cimagf
 	usualProlog
 	usualSmov1
 	v_mov_b32_e32 v0, v1
 	usualSmov23
 	usualEpilog
+END_FUNC cimagf
 
 
 
 
 
-cimagl:
-cimag:
+START_FUNC cimagl
+START_FUNC cimag
 	usualProlog
 	usualSmov1
 	doubleVMovB32E32 v0, v2
 	usualSmov23
 	usualEpilog
+END_FUNC cimagl
+END_FUNC cimag
 
 
 
 
 
-conjf:
+START_FUNC conjf
 	usualProlog
 	usualSmov1
 	v_xor_b32_e32 v1, 0x80000000, v1
 	usualSmov23
 	usualEpilog
+END_FUNC conjf
 
 
 
 
 
-conjl:
-conj:
+START_FUNC conjl
+START_FUNC conj
 	usualProlog
 	usualSmov1
 	v_xor_b32_e32 v3, 0x80000000, v3
 	usualSmov23
 	usualEpilog
+END_FUNC conjl
+END_FUNC conj
 
 
 
 
 
-copysignf:
+START_FUNC copysignf
 	usualProlog
 	usualSmov1
 	v_bfi_b32 v0, 0x7FFFFFFF, v0, v1
 	usualSmov23
 	usualEpilog
+END_FUNC copysignf
 
 
 
 
 
-copysignl:
-copysign:
+START_FUNC copysignl
+START_FUNC copysign
 	usualProlog
 	usualSmov1
 	v_bfi_b32 v1, 0x7FFFFFFF, v1, v3
 	usualSmov23
 	usualEpilog
+END_FUNC copysignl
+END_FUNC copysign
 
 
 
 
 
-crealf:
-creall:
-creal:
+START_FUNC crealf
+START_FUNC creall
+START_FUNC creal
 	emptyMethod
+END_FUNC crealf
+END_FUNC creall
+END_FUNC creal
 
 
 
 
 
-fmaf:
+START_FUNC fmaf
 	usualProlog
 	usualSmov1
 	v_fma_f32 v0, v1, v2
 	usualSmov23
 	usualEpilog
+END_FUNC fmaf
 
 
 
 
 
-fmal:
-fma:
+START_FUNC fmal
+START_FUNC fma
 	usualProlog
 	usualSmov1
 	v_fma_f64 v[0:1], v[2:3], v[4:5]
 	usualSmov123
 	usualEpilog
+END_FUNC fmal
+END_FUNC fma
 
 
 
 
 
-fmaxf:
+START_FUNC fmaxf
 	usualProlog
 	usualSmov1
 	v_max_f32_e32 v0, v1
 	usualSmov23
 	usualEpilog
+END_FUNC fmaxf
 
 
 
 
 
-fmaxl:
-fmax:
+START_FUNC fmaxl
+START_FUNC fmax
 	usualProlog
 	v_max_f64 v[0:1], v[2:3]
 	usualSmov123
 	usualEpilog
+END_FUNC fmaxl
+END_FUNC fmax
 
 
 
 
 
-fminf:
+START_FUNC fminf
 	usualProlog
 	usualSmov1
 	v_min_f32_e32 v0, v1
 	usualSmov23
 	usualEpilog
+END_FUNC fminf
 
 
 
 
 
-fminl:
-fmin:
+START_FUNC fminl
+START_FUNC fmin
 	usualProlog
 	v_min_f64 v[0:1], v[2:3]
 	usualSmov123
 	usualEpilog
+END_FUNC fminl
+END_FUNC fmin
 
 
 
 
 
-llabs:
+START_FUNC llabs
 	usualProlog
 	v_ashrrev_i32_e32 v2, 0x1F, v1
 	usualSmov12
@@ -170,37 +193,44 @@ llabs:
 	v_xor_b32_e32 v0, v2
 	v_xor_b32_e32 v1, v2
 	usualEpilog
+END_FUNC llabs
 
 
 
 
 
-nearbyintf:
-rintf:
+START_FUNC nearbyintf
+START_FUNC rintf
 	usualProlog
 	usualSmov1
 	v_rndne_f32_e32 v0
 	usualSmov23
 	usualEpilog
+END_FUNC nearbyintf
+END_FUNC rintf
 
 
 
 
 
-nearbyintl:
-nearbyint:
-rintl:
-rint:
+START_FUNC nearbyintl
+START_FUNC nearbyint
+START_FUNC rintl
+START_FUNC rint
 	usualProlog
 	v_rndne_f64_e32 v[0:1]
 	usualSmov123
 	usualEpilog
+END_FUNC nearbyintl
+END_FUNC nearbyint
+END_FUNC rintl
+END_FUNC rint
 
 
 
 
 
-roundf:
+START_FUNC roundf
 	usualProlog
 	v_trunc_f32_e32 v1, v0
 	usualSmov12
@@ -211,13 +241,14 @@ roundf:
 	v_cndmask_b32_e32 v0, 0, v0, vcc_lo
 	v_add_f32_e32 v0, v1, v0
 	usualEpilog
+END_FUNC roundf
 
 
 
 
 
-roundl:
-round:
+START_FUNC roundl
+START_FUNC round
 	usualProlog
 	v_bfe_u32 v2, v1, 0x14, 0xB
 	s_mov_b32 s5, 0xFFFFF
@@ -250,25 +281,30 @@ round:
 	v_cndmask_b32_e32 v0, v2, v0, vcc_lo
 	v_cndmask_b32_e32 v1, v3, v1, vcc_lo
 	usualEpilog
+END_FUNC roundl
+END_FUNC round
 
 
 
 
 
-truncf:
+START_FUNC truncf
 	usualProlog
 	usualSmov1
 	v_trunc_f32_e32 v0
 	usualSmov23
 	usualEpilog
+END_FUNC truncf
 
 
 
 
 
-truncl:
-trunc:
+START_FUNC truncl
+START_FUNC trunc
 	usualProlog
 	v_trunc_f64_e32 v[0:1]
 	usualSmov123
 	usualEpilog
+END_FUNC truncl
+END_FUNC trunc
