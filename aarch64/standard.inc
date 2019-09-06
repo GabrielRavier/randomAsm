@@ -3,11 +3,17 @@
 
 .macro START_FUNC name
 
+	.align 2
+	.p2align 3,,7
+	.global \name
+	.type \name, %function
 \name:
 
 .endm
 
 .macro END_FUNC name
+
+	.size \name, . - \name
 
 .endm
 
