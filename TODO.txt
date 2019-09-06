@@ -75,10 +75,8 @@
 Arches options :
 
 aarch64/arm : -march=armv8.4-a+fp16+simd+crypto
-amdgcn : -mcpu=gfx1012 -mxnack
 avr : -mmcu=avr6
 bpfel : -mcpu=v3
-cellspu :
 epiphany : -mno-soft-cmpsf
 m6502 : -O -Oi -Or -Os --cpu 65c02
 m68k : -mcpu=68060
@@ -100,13 +98,13 @@ amdgcn, bpfel, hexagon, lanai, llvm, nvptx, nvptx64, r600, sparcel, sparcv9, sys
 alpha, arc, nios2, s390, sh, xtensa : ct-ng
 mblaze : clang 3.3
 cellspu : clang 3.2
-ds390, ds400, gbz80, hc08, mcs51, pic14, pic16, r2k, r3ka, s08, stm8, TININative, tlcs90, z180, z80 : sdcc
+ds400, gbz80, hc08, mcs51, pic14, pic16, r2k, r3ka, s08, stm8, TININative, tlcs90, z180, z80 : sdcc
 bfin, c6x, cr16, cris, ft32, h8300, hppa, ia64, iq2000, lm32, m32c, m32r, microblaze, moxie, nds32le, or1k, rl78, rx, tilegx, visium : other gcc ports
 ia16 : Turbo C++
 
 Complete list :
 
-aarch64, alpha, amdgcn, arc, arm, avr, bfin, bpfel, c6x, cellspu, cr16, cris, ds390, ds400, epiphany, ft32, gbz80, h8300, hc08, hexagon, hppa, ia16, ia64, iq2000, lanai,
+aarch64, alpha, amdgcn, arc, arm, avr, bfin, bpfel, c6x, cellspu, cr16, cris, ds400, epiphany, ft32, gbz80, h8300, hc08, hexagon, hppa, ia16, ia64, iq2000, lanai,
 llvm, lm32, m32c, m32r, m6502, m68k, mblaze, mcs51, microblaze, mips, mips64el, moxie, msp430, nds32le, nios2, nvptx, nvptx64, or1k, pic14, pic16, powerpc, powerpc64le,
 r2k, r3k, r600, riscv32, riscv64, rl78, rx, s08, s390, sh, sparcel, sparcv9, stm8, systemz, tilegx, TININative, tlcs90, visium, x64, x86, xcore, xtensa, wasm, z180,
 z80
