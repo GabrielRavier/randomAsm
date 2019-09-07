@@ -1,6 +1,21 @@
 .ifndef STANDARD_INC
 .set STANDARD_INC 1
 
+.macro START_FUNC name
+
+	.align 2
+	.global \name
+	.type \name, @function
+\name:
+
+.endm
+
+.macro END_FUNC name
+
+	.size \name, . - \name
+
+.endm
+
 .macro getAddr reg, symbol
 	movw \reg, #:lower16:\symbol
 	movt \reg, #:upper16:\symbol

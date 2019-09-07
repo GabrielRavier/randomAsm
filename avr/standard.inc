@@ -1,6 +1,20 @@
 .ifndef STANDARD_INC
 .set STANDARD_INC 1
 
+.macro START_FUNC name
+
+	.global \name
+	.type \name, @function
+\name:
+
+.endm
+
+.macro END_FUNC name
+
+	.size \name, . - \name
+
+.endm
+
 .macro multiInstructionAfterArg instruction, afterArg, args:vararg
 
 	.irp arg, \args
