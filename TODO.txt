@@ -83,8 +83,8 @@ mips64el : -march=mips4
 msp430 : -mmcu=msp430xv2
 powerpc64le : -mcpu=power8
 riscv64 : -march=rv64imafdc
-x64 : -march=tigerlake
 wasm :
+x64 : -march=tigerlake
 
 Info for arches :
 
