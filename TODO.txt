@@ -76,16 +76,14 @@ Arches options :
 
 aarch64/arm : -march=armv8.4-a+fp16+simd+crypto
 avr : -mmcu=avr6
-bpfel : -mcpu=v3
 epiphany : -mno-soft-cmpsf
 m6502 : -O -Oi -Or -Os --cpu 65c02
 m68k : -mcpu=68060
-mips64el/mipsel : -march=mips4
+mips64el : -march=mips4
 msp430 : -mmcu=msp430xv2
-powerpc/powerpc64le : -mcpu=power8
-riscv32 : -march=rv32imafdc
+powerpc64le : -mcpu=power8
 riscv64 : -march=rv64imafdc
-x64/x86 : -march=tigerlake
+x64 : -march=tigerlake
 wasm :
 
 Info for arches :
