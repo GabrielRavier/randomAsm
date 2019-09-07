@@ -1,5 +1,26 @@
 global _mm_undefined_ps
 global _mm_setzero_ps
+global _mm_add_ps
+global _mm_sub_ps
+global _mm_mul_ps
+global _mm_div_ps
+global _mm_set_ss
+global _mm_set1_ps
+global _mm_set_ps1
+global _mm_load_ss
+global _mm_load1_ps
+global _mm_load_ps1
+global _mm_load_ps
+global _mm_loadu_ps
+global _mm_loadr_ps
+global _mm_set_ps
+global _mm_setr_ps
+global _mm_store_ss
+global _mm_cvtss_f32
+global _mm_store_ps
+global _mm_storeu_ps
+global _mm_move_ss
+
 
 section .text align=16
 
