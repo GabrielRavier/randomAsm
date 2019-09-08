@@ -59,6 +59,7 @@ END_FUNC \name
 	makeFunc _mm256_add_epi32, mk4s, add
 	makeFunc _mm256_add_epi64, mk2d, add
 	makeFunc _mm256_and_si256, mk16b, and
+	makeFunc _mm256_andnot_si256, mk16b, bic
 	makeFunc _mm256_mullo_epi16, mk8h, mul
 	makeFunc _mm256_mullo_epi32, mk4s, mul
 	makeFunc _mm256_or_si256, mk16b, orr
