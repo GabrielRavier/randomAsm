@@ -99,6 +99,7 @@ cellspu : clang 3.2
 ds400, gbz80, hc08, mcs51, pic14, pic16, r2k, r3ka, s08, stm8, TININative, tlcs90, z180, z80 : sdcc
 bfin, c6x, cr16, cris, ft32, h8300, hppa, ia64, iq2000, lm32, m32c, m32r, microblaze, moxie, nds32le, or1k, rl78, rx, tilegx, visium : other gcc ports
 ia16 : Turbo C++
+kalray MMPA : godbolt.org->C
 
 Complete list :
 
