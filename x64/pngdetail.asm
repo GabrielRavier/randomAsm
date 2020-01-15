@@ -2,12 +2,18 @@ global RGBtoHSL
 global RGBtoHCT
 global HueToLetter
 global lightnessToLetter
+global applyDither
 global RGBtoLetter
 global getICCUint16
 global getICCUint32
 global getICCInt32
 global getICC15Fixed16
 global getICC16Fixed16
+
+section .rodata align=16
+
+    align 16
+    applyDitherPattern dd 0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5
 
 section .text align=16
 
@@ -246,3 +252,37 @@ lightnessToLetter:
 
 
 
+    align 16
+applyDither:
+    and edx, 3
+    and ecx, 3
+    lea eax, [rdx + rcx * 4]
+
+    mov eax, dword [rax * 4 + applyDitherPattern]
+    mov ecx, eax
+    shl ecx, 4
+    add ecx, eax
+    add ecx, -0x80
+    imul ecx, esi
+
+    lea eax, [rcx + 0xFF]
+    test ecx, ecx
+    cmovns eax, ecx
+
+    sar eax, 8
+    add eax, edi
+    test r8b, r8b
+    je .continue
+
+    movzx eax, al
+    ret
+
+.continue:
+    cmp eax, 0x100
+    mov ecx, 0xFF
+    cmovl ecx, eax
+
+    mov eax, ecx
+    sar eax, 0x1F
+    andn eax, ecx
+    ret
