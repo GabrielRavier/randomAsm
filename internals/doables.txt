@@ -1,0 +1,7 @@
+use START_FUNC and END_FUNC for arm, avr, epiphany, m68k, mips64el, msp430, powerpc64le, riscv64, wasm, x64
+
+Compiler main:
+
+Operators for builtins types : add, addf, and, cmp, cmpf, dec, div, divf, inc, min, minf, mod, mul, mulf, not, or, shl, shr, sub, subf, xor
+argz
+byteswap
