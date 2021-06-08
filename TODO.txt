@@ -1,3 +1,6 @@
+- New arches abs
+- New arches builtins
+- New arches old stuff
 - Do all of /usr/include
 - Finish gcc target dependencies (online and /usr/lib/gcc/x86_64-redhat-linux/9/include/)
 - Finish clang target dependencies (online and /usr/lib64/clang/8.0.0/include/)
@@ -71,39 +74,3 @@
 - CuckyDev stuff
 - 2x + 1
 - ax² + bx + c
-
-Arches options :
-
-aarch64/arm : -march=armv8.6-a+fp+simd+crypto+crc+lse+fp16+rcpc+rdma+dotprod+sha2+sha3+sm4+fp16fml+sve+profile+rng+memtag+sb+ssbs+predres+sve2+sve2-sm4+sve2-aes+sve2-sha3+sve2-bitperm+tme+i8mm+f32mm+f64mm+bf16+flagm+pauth
-avr : -mmcu=avr6
-epiphany : -mno-soft-cmpsf
-m6502 : -O -Oi -Or -Os --cpu 65c02
-m68k : -mcpu=68060
-mips64el : -march=mips4
-msp430 : -mmcu=msp430xv2
-powerpc64le : -mcpu=power8
-riscv64 : -march=rv64imafdc
-wasm :
-x64 : -march=tigerlake
-
-Info for arches :
-
-aarch64, arm, avr, mips, mips64el, msp430, powerpc, powerpc64le, riscv32, riscv64, x64, x86, wasm : godbolt.org->C++
-m6502 : godbolt.org->C
-epiphany : http://gcc.parallella.org/
-m68k : https://franke.ms/cex or ct-ng
-amdgcn, bpfel, hexagon, lanai, llvm, nvptx, nvptx64, r600, sparcel, sparcv9, systemz, xcore : clang
-alpha, arc, nios2, s390, sh, xtensa : ct-ng
-mblaze : clang 3.3
-cellspu : clang 3.2
-ds400, gbz80, hc08, mcs51, pic14, pic16, r2k, r3ka, s08, stm8, TININative, tlcs90, z180, z80 : sdcc
-bfin, c6x, cr16, cris, ft32, h8300, hppa, ia64, iq2000, lm32, m32c, m32r, microblaze, moxie, nds32le, or1k, rl78, rx, tilegx, visium : other gcc ports
-ia16 : Turbo C++
-kalray MMPA : godbolt.org->C
-
-Complete list :
-
-aarch64, alpha, amdgcn, arc, arm, avr, bfin, bpfel, c6x, cellspu, cr16, cris, ds400, epiphany, ft32, gbz80, h8300, hc08, hexagon, hppa, ia16, ia64, iq2000, lanai,
-llvm, lm32, m32c, m32r, m6502, m68k, mblaze, mcs51, microblaze, mips, mips64el, moxie, msp430, nds32le, nios2, nvptx, nvptx64, or1k, pic14, pic16, powerpc, powerpc64le,
-r2k, r3k, r600, riscv32, riscv64, rl78, rx, s08, s390, sh, sparcel, sparcv9, stm8, systemz, tilegx, TININative, tlcs90, visium, x64, x86, xcore, xtensa, wasm, z180,
-z80
