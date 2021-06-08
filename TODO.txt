@@ -74,7 +74,7 @@
 
 Arches options :
 
-aarch64/arm : -march=armv8.4-a+fp16+simd+crypto
+aarch64/arm : -march=armv8.6-a+fp+simd+crypto+crc+lse+fp16+rcpc+rdma+dotprod+sha2+sha3+sm4+fp16fml+sve+profile+rng+memtag+sb+ssbs+predres+sve2+sve2-sm4+sve2-aes+sve2-sha3+sve2-bitperm+tme+i8mm+f32mm+f64mm+bf16+flagm+pauth
 avr : -mmcu=avr6
 epiphany : -mno-soft-cmpsf
 m6502 : -O -Oi -Or -Os --cpu 65c02
