@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-#define f(x, t) t min ## x(t a) { return -a; }
+#define f(x, t) t neg ## x(t a) { return -a; }
 
 f(8, uint8_t)
 f(8s, int8_t)

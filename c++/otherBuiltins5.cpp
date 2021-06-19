@@ -62,6 +62,28 @@ typedef va_list vlst;
 #define mkThreeCFltC2(x) f2(x ## f, cf, cf) f2(x ## l, cld, cld) f2(x, cd, cd)
 #define mkThreeCFltC3(x) f3(x ## f, cf, cf, cf) f3(x ## l, cld, cld, cld) f3(x, cd, cd, cd)
 
+#ifdef __HAVE_BUILTIN_SPECULATION_SAFE_VALUE
+
+f3(speculation_safe_value, i, i, i)
+
+#endif
+
+#define mkComplex(name, t, ct) ct name(t a, t b){return __builtin_complex(a, b);}
+mkComplex(complex_flt, f, cf)
+mkComplex(complex_dbl, d, cd)
+mkComplex(complex_ldbl, ld, cld)
+mkComplex(complex_float128, __float128, _Complex __float128)
+mkComplex(complex_fp16, __fp16, _Complex __fp16)
+
+#ifndef __clang__
+
+v clear_padding_ip(ip a)
+{
+	__builtin_clear_padding(a);
+}
+
+#endif
+
 mkV(trap)
 mkV(unreachable)
 

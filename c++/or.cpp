@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-#define f(x, t) t mod ## x(t a, t b) { return a | b; }
+#define f(x, t) t or ## x(t a, t b) { return a | b; }
 
 f(8, uint8_t)
 f(8s, int8_t)

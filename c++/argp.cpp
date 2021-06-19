@@ -114,6 +114,7 @@ extern FILE *stderr;		/* Standard error output stream.  */
 #define OPTION_DOC		0x8
 
 
+#undef __THROW
 #define __THROW
 
 #define	__exctype(name)	extern int name (int) __THROW
@@ -134,6 +135,7 @@ __exctype (isspace);
 __exctype (isupper);
 __exctype (isxdigit);
 
+#undef __NTH
 #define __NTH(x) x
 
 void

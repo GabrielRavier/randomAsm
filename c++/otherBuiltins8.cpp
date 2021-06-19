@@ -67,8 +67,14 @@ typedef va_list vlst;
 #define mkThreeCFltC3(x) f3(x ## f, cf, cf, cf) f3(x ## l, cld, cld, cld) f3(x, cd, cd, cd)
 
 mkID(isfinite)
+i isfinitel(ld a) { return __builtin_isfinite(a); }
+i isfinitef(f a) { return __builtin_isfinite(a); }
 mkID(isnormal)
+i isnormall(ld a) { return __builtin_isnormal(a); }
+i isnormalf(f a) { return __builtin_isnormal(a); }
 mkID(isinf_sign)
+i isinf_signl(ld a) { return __builtin_isinf_sign(a); }
+i isinf_signf(f a) { return __builtin_isinf_sign(a); }
 
 enum
   {
@@ -90,6 +96,16 @@ enum
   };
 
 int fpclassify(double x)
+{
+	return b(fpclassify)(FP_NAN, FP_INFINITE, FP_NORMAL, FP_SUBNORMAL, FP_ZERO, x);
+}
+
+int fpclassifyl(long double x)
+{
+	return b(fpclassify)(FP_NAN, FP_INFINITE, FP_NORMAL, FP_SUBNORMAL, FP_ZERO, x);
+}
+
+int fpclassifyf(float x)
 {
 	return b(fpclassify)(FP_NAN, FP_INFINITE, FP_NORMAL, FP_SUBNORMAL, FP_ZERO, x);
 }

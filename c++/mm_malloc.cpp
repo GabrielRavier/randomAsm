@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#undef __THROW
 #define __THROW
 
 extern void *malloc (size_t __size) __THROW __attribute_malloc__ __wur;

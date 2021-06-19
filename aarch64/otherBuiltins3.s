@@ -3,7 +3,7 @@
 	.text
 
 START_FUNC ceilf
-	frintp s0
+	frintp s0, s0
 	ret
 END_FUNC ceilf
 
@@ -12,7 +12,7 @@ END_FUNC ceilf
 
 
 START_FUNC fabsf
-	fabs s0
+	fabs s0, s0
 	ret
 END_FUNC fabsf
 
@@ -21,14 +21,11 @@ END_FUNC fabsf
 
 
 START_FUNC fabsl
-	fmov x0, d0
-	fmov x1, v0.d[1]
-	mov x3, x0
-	fmov d0, x3
-	mov x2, x1
-
-	and x1, x2, 0x7FFFFFFFFFFFFFFF
-	fmov v0.d[1], x1
+	str q0, [sp, -16]!
+	ldrb w8, [sp, 15]
+	and w8, w8, 0x7F
+	strb w8, [sp, 15]
+	ldr q0, [sp], 16
 	ret
 END_FUNC fabsl
 
@@ -37,7 +34,7 @@ END_FUNC fabsl
 
 
 START_FUNC floorf
-	frintm s0
+	frintm s0, s0
 	ret
 END_FUNC floorf
 
@@ -46,6 +43,6 @@ END_FUNC floorf
 
 
 START_FUNC sqrtf
-	fsqrt s0
+	fsqrt s0, s0
 	ret
 END_FUNC sqrtf

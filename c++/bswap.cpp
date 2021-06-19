@@ -10,3 +10,7 @@ using u64 = uint64_t;
 f2(bswap16, u16, u16)
 f2(bswap32, u32, u32)
 f2(bswap64, u64, u64)
+
+#ifdef __SIZEOF_INT128__
+f2(bswap128, unsigned __int128, unsigned __int128)
+#endif

@@ -13,6 +13,7 @@ f(64s, int64_t)
 f(128, unsigned __int128)
 f(128s, __int128)
 
+#undef f
 #define f(x, t) bool cmpne ## x(t a, t b) { return a != b; }
 
 f(8, uint8_t)
@@ -26,6 +27,7 @@ f(64s, int64_t)
 f(128, unsigned __int128)
 f(128s, __int128)
 
+#undef f
 #define f(x, t) bool cmplt ## x(t a, t b) { return a < b; }
 
 f(8, uint8_t)
@@ -39,6 +41,7 @@ f(64s, int64_t)
 f(128, unsigned __int128)
 f(128s, __int128)
 
+#undef f
 #define f(x, t) bool cmpgt ## x(t a, t b) { return a > b; }
 
 f(8, uint8_t)
@@ -52,6 +55,7 @@ f(64s, int64_t)
 f(128, unsigned __int128)
 f(128s, __int128)
 
+#undef f
 #define f(x, t) bool cmple ## x(t a, t b) { return a <= b; }
 
 f(8, uint8_t)
@@ -65,6 +69,7 @@ f(64s, int64_t)
 f(128, unsigned __int128)
 f(128s, __int128)
 
+#undef f
 #define f(x, t) bool cmpge ## x(t a, t b) { return a >= b; }
 
 f(8, uint8_t)

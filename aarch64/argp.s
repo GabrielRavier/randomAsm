@@ -14,32 +14,25 @@ END_FUNC __argp_usage
 
 
 START_FUNC __option_is_short
-	ldr w1, [x0, 24]
-	tbnz x1, 3, .LSret0
-
-	ldr w0, [x0, 8]
-	and w2, w1, 8
-
-	sub w1, w0, #1
-	cmp w1, 0xFE
-	bhi .LSretW2
-
 	stp x29, x30, [sp, -16]!
 	mov x29, sp
+	ldrb w8, [x0, 24]
+	tbnz w8, 3, .LSret0
+
+	ldr w0, [x0, 8]
+	sub w8, w0, 1
+	cmp w8, 0xFE
+	b.hi .LSret0
 
 	bl isprint
 	cmp w0, 0
-	cset w2, ne
-
-	mov w0, w2
+	cset w0, ne
 	ldp x29, x30, [sp], 16
 	ret
 
 .LSret0:
-	mov w2, 0
-
-.LSretW2:
-	mov w0, w2
+	mov w0, wzr
+	ldp x29, x30, [sp], 16
 	ret
 END_FUNC __option_is_short
 
@@ -48,26 +41,26 @@ END_FUNC __option_is_short
 
 
 START_FUNC __option_is_end
-	ldr w1, [x0, 8]
-	cbnz w1, .LEret0
+	mov x1, x0
+	ldr w0, [x0, 8]
+	cbnz w0, .LEret0
 
-	ldr x2, [x0]
-	cbz x2, .LEcontinue
+	ldr x2, [x1]
+	cbz x2, .LEfinish
 
-.LEretW1:
-	mov w0, w1
+.LEret:
 	ret
 
-.LEret0:
+LABEL_ALIGNED .LEret0
 	mov w0, 0
 	ret
 
-.LEcontinue:
-	ldr x2, [x0, 32]
-	cbnz x2, .LEretW1
+LABEL_ALIGNED .LEfinish
+	ldr x2, [x1, 32]
+	cbnz x2, .LEret
 
-	ldr w0, [x0, 40]
+	ldr w0, [x1, 40]
 	cmp w0, 0
-	cset w1, eq
-	b .LEretW1
+	cset w0, eq
+	ret
 END_FUNC __option_is_end

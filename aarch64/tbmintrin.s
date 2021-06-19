@@ -1,170 +1,56 @@
 .include "standard.inc"
 
 	.text
-	
-START_FUNC __blcfill_u32
-	add w1, w0, 1
-	and w0, w1, w0
-	ret
-END_FUNC __blcfill_u32
-	
-	
-	
-	
-	
-START_FUNC __blci_u32
-	add w1, w0, 1
-	orn w0, w1
-	ret
-END_FUNC __blci_u32
-	
-	
-	
-	
-	
-START_FUNC __blcic_u32
-	add w1, w0, 1
-	bic w0, w1, w0
-	ret
-END_FUNC __blcic_u32
-	
-	
-	
-	
-	
-START_FUNC __blcmsk_u32
-	add w1, w0, 1
-	eor w0, w1, w0
-	ret
-END_FUNC __blcmsk_u32
-	
-	
-	
-	
-	
-START_FUNC __blcs_u32
-	add w1, w0, 1
-	orr w0, w1, w0
-	ret
-END_FUNC __blcs_u32
-	
-	
-	
-	
-	
-START_FUNC __blsfill_u32
-	sub w1, w0, #1
-	orr w0, w1, w0
-	ret
-END_FUNC __blsfill_u32
-	
-	
-	
-	
-	
-START_FUNC __blsic_u32
-	sub w1, w0, #1
-	orn w0, w1, w0
-	ret
-END_FUNC __blsic_u32
-	
-	
-	
-	
-	
-START_FUNC __t1mskc_u32
-	add w1, w0, 1
-	orn w0, w1, w0
-	ret
-END_FUNC __t1mskc_u32
-	
-	
-	
-	
-	
-START_FUNC __tzmsk_u32
-	sub w1, w0, #1
-	bic w0, w1, w0
-	ret
-END_FUNC __tzmsk_u32
-	
-	
-	
-	
-	
-START_FUNC __blcfill_u64
-	add x1, x0, 1
-	and x0, x1, x0
-	ret
-END_FUNC __blcfill_u64
-	
-	
-	
-	
-	
-START_FUNC __blci_u64
-	add x1, x0, 1
-	orn x0, x1, x0
-	ret
-END_FUNC __blci_u64
-	
-	
-	
-	
-	
-START_FUNC __blcic_u64
-	add x1, x0, 1
-	bic x0, x1, x0
-	ret
-END_FUNC __blcic_u64
-	
-	
-	
-	
-	
-START_FUNC __blcmsk_u64
-	add x1, x0, 1
-	eor x0, x1, x0
-	ret
-END_FUNC __blcmsk_u64
-	
-	
-	
-	
-	
-START_FUNC __blcs_u64
-	add x1, x0, 1
-	orr x0, x1, x0
-	ret
-END_FUNC __blcs_u64
-	
-	
-	
-	
-	
-START_FUNC __blsfill_u64
-	sub x1, x0, #1
-	orn x0, x1, x0
-	ret
-END_FUNC __blsfill_u64
-	
-	
-	
-	
-	
-START_FUNC __t1mskc_u64
-	add x1, x0, 1
-	orn x0, x1, x0
-	ret
-END_FUNC __t1mskc_u64
-	
-	
-	
-	
-	
-START_FUNC __tzmsk_u64
-	sub x1, x0, #1
-	bic x0, x1, x0
-	ret
-END_FUNC __tzmsk_u64
 
+.macro make_op_1_and_op name, instr1, instr2, reg0, reg1
+
+START_FUNC \name
+	\instr1 \reg1, \reg0, 1
+	\instr2 \reg0, \reg1, \reg0
+	ret
+END_FUNC \name
+
+.endm
+
+.macro make_op_1_and_op_32 name, instr1, instr2
+
+	make_op_1_and_op \name, \instr1, \instr2, w0, w1
+
+.endm
+
+.macro make_add_1_and_op_32 name, instr
+
+	make_op_1_and_op_32 \name, add, \instr
+
+.endm
+
+.macro make_op_1_and_op_64 name, instr1, instr2
+
+	make_op_1_and_op \name, \instr1, \instr2, x0, x1
+
+.endm
+
+.macro make_add_1_and_op_64 name, instr
+
+	make_op_1_and_op_64 \name, add, \instr
+
+.endm
+
+	make_add_1_and_op_32 __blcfill_u32, and
+	make_add_1_and_op_32 __blci_u32, orn
+	make_add_1_and_op_32 __blcic_u32, bic
+	make_add_1_and_op_32 __blcmsk_u32, eor
+	make_add_1_and_op_32 __blcs_u32, orr
+	make_op_1_and_op_32 __blsfill_u32, sub, orr
+	make_op_1_and_op_32 __blsic_u32, sub, orn
+	make_add_1_and_op_32 __t1mskc_u32, orn
+	make_op_1_and_op_32 __tzmsk_u32, sub, bic
+	make_add_1_and_op_64 __blcfill_u64, and
+	make_add_1_and_op_64 __blci_u64, orn
+	make_add_1_and_op_64 __blcic_u64, bic
+	make_add_1_and_op_64 __blcmsk_u64, eor
+	make_add_1_and_op_64 __blcs_u64, orr
+	make_op_1_and_op_64 __blsfill_u64, sub, orr
+	make_op_1_and_op_64 __blsic_u64, sub, orn
+	make_add_1_and_op_64 __t1mskc_u64, orn
+	make_op_1_and_op_64 __tzmsk_u64, sub, bic

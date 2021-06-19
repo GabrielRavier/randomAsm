@@ -26,8 +26,3 @@ char *__argz_next(const char *argz, size_t argz_len, const char *entry)
 	else
 		return argz_len > 0 ? (char *)argz : 0;
 }
-
-char *argz_next(const char *argz, size_t argz_len, const char *entry)
-{
-	return __argz_next(argz, argz_len, entry);
-}

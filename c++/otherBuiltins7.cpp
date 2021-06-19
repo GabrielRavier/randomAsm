@@ -64,8 +64,20 @@ typedef va_list vlst;
 #define mkThreeCFltC3(x) f3(x ## f, cf, cf, cf) f3(x ## l, cld, cld, cld) f3(x, cd, cd, cd)
 
 mkIDD(isgreater)
+i isgreaterl(ld a, ld b) { return b(isgreater)(a, b); }
+i isgreaterf(f a, f b) { return b(isgreater)(a, b); }
 mkIDD(isgreaterequal)
+i isgreaterequall(ld a, ld b) { return b(isgreaterequal)(a, b); }
+i isgreaterequalf(f a, f b) { return b(isgreaterequal)(a, b); }
 mkIDD(isless)
+i islessl(ld a, ld b) { return b(isless)(a, b); }
+i islessf(f a, f b) { return b(isless)(a, b); }
 mkIDD(islessequal)
+i islessequall(ld a, ld b) { return b(islessequal)(a, b); }
+i islessequalf(f a, f b) { return b(islessequal)(a, b); }
 mkIDD(islessgreater)
+i islessgreaterl(ld a, ld b) { return b(islessgreater)(a, b); }
+i islessgreaterf(f a, f b) { return b(islessgreater)(a, b); }
 mkIDD(isunordered)
+i isunorderedl(ld a, ld b) { return b(isunordered)(a, b); }
+i isunorderedf(f a, f b) { return b(isunordered)(a, b); }

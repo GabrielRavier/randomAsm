@@ -2,199 +2,154 @@
 
 	.text
 
-START_FUNC __letf2
-START_FUNC __cmptf2
-START_FUNC __eqtf2
-START_FUNC __lttf2
-START_FUNC __netf2
-	fmov x1, v0.d[1]
-	fmov x0, d0
-	fmov x6, d1
-	fmov x7, v1.d[1]
-	and x4, x1, 0x7FFFFFFFFFFFFFFF
+.macro make_cmp name, op, reg0, reg1
 
-	mov x2, x1
-	mov x5, x6
-	mov x1, x0
-	mov x3, x7
-
-	mov x0, 0x7FFF000000000000
-	cmp x4, x0
-	mov w4, 1
-	bhi .Lhi
-	beq .LdoCbnz2
-
-	mov w4, 0
-
-.Lhi:
-	and x7, x3, 0x7FFFFFFFFFFFFFFF
-
-	mov x6, 0x7FFF000000000000
-	mov w0, 1
-	cmp x7, x6
-	bhi .Lcontinue
-	beq .LdoCbnz
-
-	mov w0, 0
-
-.Lcontinue:
-	orr w4, w0
-	mov w0, 1
-	tbnz x4, 0, .Lreturn
-
-	orr x6, x2, x3
-	orr x4, x1, x5
-	and x6, 0x7FFFFFFFFFFFFFFF
-
-	mov w0, 0
-	orr x4, x6
-	cbz x4, .Lreturn
-
-	tst x2, x3
-	bmi .LcheckGt
-
-	cmp x3, x2
-	bgt .LretMin1
-	beq .LcheckLess
-
-.Lfinish:
-	eor x0, x1, x5
-	eor x1, x2, x3
-	orr x1, x0, x1
-
-	cmp x1, 0
-	cset w0, ne
-
-.Lreturn:
+START_FUNC \name
+	fcmp \reg0, \reg1
+	cset w0, \op
 	ret
+END_FUNC \name
 
-.LdoCbnz:
-	cbnz x5, .Lcontinue
+.endm
 
-	mov w0, 0
-	b .Lcontinue
+	make_cmp cmpeqflt, eq, s0, s1
+	make_cmp cmpeqdbl, eq, d0, d1
 
-.LdoCbnz2:
-	cbnz x1, .Lhi
+.macro make_cmp_ldbl name, func, op
 
-	mov w4, 0
-	b .Lhi
+START_FUNC \name
+	stp x29, x30, [sp, -16]!
+	mov x29, sp
+	bl \func
 
-.LcheckGt:
-	cmp x2, x3
-	bgt .LretMin1
-	bne .Lfinish
-
-	cmp x1, x5
-	bls .Lfinish
-
-.LretMin1:
-	mov w0, -1
+	cmp w0, 0
+	cset w0, \op
+	ldp x29, x30, [sp], 16
 	ret
+END_FUNC \name
 
-.LcheckLess:
-	cmp x5, x1
-	bls .Lfinish
-	b .LretMin1
-END_FUNC __letf2
-END_FUNC __cmptf2
-END_FUNC __eqtf2
-END_FUNC __lttf2
-END_FUNC __netf2
+.endm
 
+	make_cmp_ldbl cmpeqldbl, __eqtf2, eq
+	make_cmp cmpeqfp16, eq, h0, h1
 
+.macro make_cmp_complex name, op, reg0, reg1, reg2, reg3
 
-
-
-START_FUNC __getf2
-START_FUNC __gttf2
-	fmov x1, v0.d[1]
-	fmov x0, d0
-	fmov x6, d1
-	fmov x7, v1.d[1]
-	and x4, x1, 0x7FFFFFFFFFFFFFFF
-
-	mov x2, x1
-	mov x5, x6
-	mov x1, x0
-	mov x3, x7
-
-	mov x0, 0x7FFF000000000000
-	cmp x4, x0
-	mov w4, 1
-	bhi .LGhi
-	beq .LGdoCbnz2
-
-	mov w4, 0
-
-.LGhi:
-	and x7, x3, 0x7FFFFFFFFFFFFFFF
-
-	mov x6, 0x7FFF000000000000
-	mov w0, 1
-	cmp x7, x6
-	bhi .LGcontinue
-	beq .LGdoCbnz
-
-	mov w0, 0
-
-.LGcontinue:
-	orr w4, w0
-	mov w0, -1
-	tbnz x4, 0, .LGreturn
-
-	orr x6, x2, x3
-	orr x4, x1, x5
-	and x6, 0x7FFFFFFFFFFFFFFF
-
-	mov w0, 0
-	orr x4, x6
-	cbz x4, .LGreturn
-
-	tst x2, x3
-	bmi .LGcheckGt
-
-	cmp x3, x2
-	bgt .LGlessUnordered
-	beq .LGcheckLess
-
-.LGfinish:
-	eor x0, x1, x5
-	eor x1, x2, x3
-	orr x1, x0, x1
-	cmp x1, 0
-	cset w0, ne
-
-.LGreturn:
+START_FUNC \name
+	fcmp \reg0, \reg2
+	fccmp \reg1, \reg3, 0, eq
+	cset w0, \op
 	ret
+END_FUNC \name
 
-.LGdoCbnz:
-	cbnz x5, .LGcontinue
+.endm
 
-	mov w0, 0
-	b .LGcontinue
+	make_cmp_complex cmpeqcflt, eq, s0, s1, s2, s3
+	make_cmp_complex cmpeqcdbl, eq, d0, d1, d2, d3
 
-.LGdoCbnz2:
-	cbnz x1, .LGhi
+.macro make_cmp_complex_ldbl name, func, op1, op2
 
-	mov w4, 0
-	b .LGhi
+START_FUNC \name
+	sub sp, sp, 64
+	stp x29, x30, [sp, 32]
+	str x19, [sp, 48]
+	add x29, sp, 32
+	stp q1, q3, [sp]
+	mov v1.16b, v2.16b
+	bl \func
 
-.LGcheckGt:
-	cmp x2, x3
-	bgt .LGlessUnordered
-	bne .LGfinish
+	ldp q0, q1, [sp]
+	cmp w0, 0
+	cset w19, \op1
 
-	cmp x1, x5
-	bls .LGfinish
+	bl \func
+	cmp w0, 0
+	cset w8, \op1
 
-.LGlessUnordered:
-	mov w0, -1
+	\op2 w0, w19, w8
+	ldr x19, [sp, 48]
+	ldp x29, x30, [sp, 32]
+	add sp, sp, 64
 	ret
+END_FUNC \name
 
-.LGcheckLess:
-	cmp x5, x1
-	bls .LGfinish
-	b .LGlessUnordered
-END_FUNC __getf2
-END_FUNC __gttf2
+.endm
+
+	make_cmp_complex_ldbl cmpeqcldbl, __eqtf2, eq, and
+
+	make_cmp cmpneflt, ne, s0, s1
+	make_cmp cmpnedbl, ne, d0, d1
+	make_cmp_ldbl cmpneldbl, __netf2, ne
+	make_cmp cmpnefp16, ne, h0, h1
+	make_cmp_complex cmpnecflt, ne, s0, s1, s2, s3
+	make_cmp_complex cmpnecdbl ne, d0, d1, d2, d3
+	make_cmp_complex_ldbl cmpnecldbl, __netf2, ne, orr
+
+	make_cmp cmpltflt, mi, s0, s1
+	make_cmp cmpltdbl, mi, d0, d1
+
+START_FUNC cmpltldbl
+	stp x29, x30, [sp, -16]!
+	mov x29, sp
+	bl __lttf2
+	lsr w0, w0, 31
+	ldp x29, x30, [sp], 16
+	ret
+END_FUNC cmpltldbl
+
+	make_cmp cmpltfp16 mi, h0, h1
+
+	make_cmp cmpgtflt gt, s0, s1
+	make_cmp cmpgtdbl gt, d0, d1
+	make_cmp_ldbl cmpgtldbl, __gttf2, gt
+	make_cmp cmpgtfp16 gt, h0, h1
+
+	make_cmp cmpleflt ls, s0, s1
+	make_cmp cmpledbl ls, d0, d1
+	make_cmp_ldbl cmpleldbl, __letf2, le
+	make_cmp cmplefp16 ls, h0, h1
+
+	make_cmp cmpgeflt ge, s0, s1
+	make_cmp cmpgedbl ge, d0, d1
+	make_cmp_ldbl cmpgeldbl, __getf2, ge
+	make_cmp cmpgefp16 ge, h0, h1
+
+.macro make_cmp_generic name, reg0, reg1
+
+START_FUNC \name
+	fcmp \reg0, \reg1
+	cset w1, gt
+	cset w0, mi
+	eor w0, w1, w0
+	ret
+END_FUNC \name
+
+.endm
+
+	make_cmp_generic cmpgenericflt, s0, s1
+	make_cmp_generic cmpgenericdbl, d0, d1
+
+START_FUNC cmpgenericldbl
+	stp x29, x30, [sp, -64]!
+	mov x29, sp
+	str x19, [sp, 16]
+	str q1, [sp, 32]
+	str q0, [sp, 48]
+
+	bl __gttf2
+	cmp w0, 0
+	cset w19, gt
+
+	ldr q2, [sp, 32]
+	ldr q4, [sp, 48]
+	mov v1.16b, v2.16b
+	mov v0.16b, v4.16b
+	bl __lttf2
+	eor w0, w19, w0, lsr 31
+
+	ldr x19, [sp, 16]
+	ldp x29, x30, [sp], 64
+	ret
+END_FUNC cmpgenericldbl
+
+	make_cmp_generic cmpgenericfp16 h0, h1

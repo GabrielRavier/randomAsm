@@ -67,13 +67,7 @@ mkDD(acos)
 mkDD(asin)
 mkDDD(atan2)
 mkDD(atan)
-
-#ifndef __clang__
-
 f3(calloc, vp, sz, sz)
-
-#endif
-
 mkDD(ceil)
 mkDD(cosh)
 
@@ -105,6 +99,7 @@ f3(fputs, i, ccp, FILE *)
 
 #endif
 
+f2(free, v, vp)
 f3(frexp, d, d, ip)
 
 #ifndef __clang__
@@ -157,6 +152,8 @@ f2(putchar, i, i)
 f2(puts, i, ccp)
 
 #endif
+
+f3(realloc, vp, vp, sz)
 
 #ifndef __AMDGCN__
 

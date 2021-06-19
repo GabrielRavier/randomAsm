@@ -30,12 +30,11 @@ END_FUNC N_FLAGS
 
 
 START_FUNC N_SET_INFO
-	and w1, 0xFFFF
-	ubfiz w2, 16, 0
-	orr w2, w1
-	orr w2, w3, lsl 24
-	sxtw x2, w2
-	str x2, [x0]
+	and w8, w2, 0xFF
+	bfi w1, w8, 16, 8
+	bfi w1, w3, 24, 8
+	sxtw x8, w1
+	str x8, [x0]
 	ret
 END_FUNC N_SET_INFO
 
@@ -45,12 +44,13 @@ END_FUNC N_SET_INFO
 
 START_FUNC N_BADMAG
 	ldrh w0, [x0]
-	mov x2, 20
-	cmp x0, 267
-	sub x1, x0, #263
-
-	ccmp x0, x2, 4, ne
-	ccmp x1, 1, 0, ne
-	cset w0, hi
+	mov x1, 1
+	movk x1, 0x9800, lsl 48
+	sub x0, x0, 204
+	cmp x0, 64
+	lsr x0, x1, x0
+	mvn x0, x0
+	and w0, w0, 1
+	csinc w0, w0, wzr, cc
 	ret
 END_FUNC N_BADMAG

@@ -2,44 +2,40 @@
 
 	.text
 
-START_FUNC abs
-	cmp w0, 0
-	csneg w0, ge
+.macro make_abs name, reg0
+
+START_FUNC \name
+	cmp \reg0, 0
+	cneg \reg0, \reg0, mi
 	ret
-END_FUNC abs
+END_FUNC \name
+
+.endm
+
+	make_abs abs, w0
 
 
 
 
-START_FUNC ceil
-	frintp d0
+.macro make_one_operand_op name, op
+
+START_FUNC \name
+	\op d0, d0
 	ret
-END_FUNC ceil
+END_FUNC \name
 
+.endm
 
-
-
-
-START_FUNC fabs
-	fabs d0
-	ret
-END_FUNC fabs
-
-
-
-
-
-START_FUNC floor
-	frintm d0
-	ret
-END_FUNC floor
+	make_one_operand_op ceil, frintp
+	make_one_operand_op fabs, fabs
+	make_one_operand_op floor, frintm
 
 
 
 
 
 START_FUNC isdigit
-	sub w0, #0x30
+	sub w0, w0, #0x30
 	cmp w0, 9
 	cset w0, ls
 	ret
@@ -49,17 +45,5 @@ END_FUNC isdigit
 
 
 
-START_FUNC labs
-	cmp x0, 0
-	csneg x0, ge
-	ret
-END_FUNC labs
-
-
-
-
-
-START_FUNC sqrt
-	fsqrt d0
-	ret
-END_FUNC sqrt
+	make_abs labs, x0
+	make_one_operand_op sqrt, fsqrt

@@ -4,7 +4,7 @@
 
 START_FUNC _mm_malloc
 	cmp x1, 1
-	beq .jmpMalloc
+	beq .Ltailc_malloc
 
 	mov x2, x0
 	sub x0, x1, #2
@@ -14,7 +14,7 @@ START_FUNC _mm_malloc
 	mov x3, 8
 	mov x29, sp
 
-	csel x1, x3, ne
+	csel x1, x1, x3, ne
 	add x0, sp, 0x18
 	bl posix_memalign
 
@@ -22,8 +22,11 @@ START_FUNC _mm_malloc
 	ldr x0, [sp, 0x18]
 
 	ldp x29, x30, [sp], 0x20
-	csel x0, xzr, eq
+	csel x0, x1, xzr, eq
 	ret
+
+LABEL_ALIGNED .Ltailc_malloc
+	b malloc
 END_FUNC _mm_malloc
 
 
