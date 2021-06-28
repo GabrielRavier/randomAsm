@@ -1,39 +1,106 @@
 "Optimal" (active most features) arch strings for everything:
-aarch64 gcc: -march=armv8.6-a+fp+simd+crypto+crc+lse+fp16+rcpc+rdma+dotprod+sha2+sha3+sm4+fp16fml+profile+rng+memtag+sb+ssbs+predres+tme+bf16+flagm+pauth
-aarch64 clang: -target aarch64 -march=armv8.6-a+fp+simd+crypto+crc+lse+fp16+rcpc+dotprod+sha2+sha3+sm4+fp16fml+profile+rng+memtag+sb+ssbs+predres+tme+bf16+flagm+pauth
-alpha: -mcpu=ev67 -mno-soft-float
-arc:
-arm: -march=armv8.6-a+simd+fp16+crypto+i8mm+bf16
-avr: -mmcu=avr6 -mrmw
-bfin: -mcpu=bf592
-epiphany: -mno-soft-cmpsf
-m6502: -O -Oi -Or -Os --cpu 65c02
-m68k: -mcpu=68060
-mips64el: -march=mips4
-msp430: -mmcu=msp430xv2
-powerpc64le: -mcpu=power8
-riscv64: -march=rv64imafdc
-wasm:
-x64: TODO
+aarch64 gcc: -Ofast -g0 -march=armv8.6-a+fp+simd+crypto+crc+lse+fp16+rcpc+rdma+dotprod+sha2+sha3+sm4+fp16fml+profile+rng+memtag+sb+ssbs+predres+tme+bf16+flagm+pauth
+aarch64 clang: -Ofast -g0 -target aarch64 -march=armv8.6-a+fp+simd+crypto+crc+lse+fp16+rcpc+dotprod+sha2+sha3+sm4+fp16fml+profile+rng+memtag+sb+ssbs+predres+tme+bf16+flagm+pauth
+alpha: -Ofast -g0 -mcpu=ev67 -mno-soft-float
+amdgcn: -Ofast -g0 -target amdgcn -mcpu=gfx1034
+arc: -Ofast -g0 -mcpu=arc700 -mea -msimd -mdpfp -mspfp -mswap -matomic -mbranch-index -mbbit-peephole -mauto-modify-reg -mtune=ARC750D
+arm gcc: -Ofast -g0 -march=armv8.6-a+fp16+simd+crypto+i8mm+bf16 -mfp16-format=ieee
+arm clang: TODO
+avr gcc: -Ofast -g0 -mmcu=avr6 -mrmw -mcall-prologues
+avr clang: TODO
+bfin: -Ofast -mfast-fp -g0 -mcpu=bf592 -momit-leaf-frame-pointer -mno-specld-anomaly -mno-csync-anomaly
+bpfel: -Ofast -g0 -target bpfel -mcpu=v3
+c6x: -Ofast -g0 -march=c674x
+cellspu: -Ofast -g0 -target cellspu
+cr16: TODO
+cris: -Ofast -g0 -march=v10 -mno-mul-bug-workaround
+ds400: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mds400 --use-accelerator
+epiphany: -Ofast -g0 -mno-soft-cmpsf
+fr30: TODO
+frv: -Ofast -g0 -mgpr-64 -mfpr-64 -mhard-float -malloc-cc -mdword -mdouble -mmedia -mmuladd -mno-linked-fp -macc-8 -mpack -mcpu=fr550
+ft32: TODO
+gbz80: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mgbz80
+gcn: TODO
+h8300: -Ofast -g0 -msx
+hc08: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mhc08
+hexagon: -Ofast -g0 -target hexagon -mcpu=hexagonv67
+hppa: -Ofast -g0 -march=2.0 -mgas
+hppa64: -Ofast -g0 -march=2.0 -mgas
+i386 gcc/clang: -Ofast -g0 -march=znver3
+ia16: TODO
+ia64: -Ofast -g0 -mlittle-endian -mregister-names -mearly-stop-bits
+iq2000: TODO
+lanai: -Ofast -g0 -target lanai -mcpu=v11
+llvm: -Ofast -g0 -emit-llvm
+lm32: TODO
+kalray mppa: -Ofast -g0 -march=kv3-2
+m32c: TODO
+m32r: -Ofast -g0 -m32rx -mbranch-cost=2
+m6502: -O -Oi --cpu 65816 --eagerly-inline-funcs --inline-stdfuncs --register-vars --standard cc65
+m68k: -Ofast -g0 -march=68030 -mhard-float -mdiv -mbitfield
+mcore: TODO
+mcs51: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mmcs51
+microblaze gcc: -Ofast -g0 -mhard-float -mcpu=v9.99.z -mno-xl-soft-mul -mno-xl-soft-div -mxl-barrel-shift -mxl-pattern-compare -mno-xl-multiply-high -mxl-float-convert -mxl-float-sqrt -mxl-reorder
+microblaze clang: -Ofast -g0 -target mblaze
+Note: have to manually make it -emit-llvm and then -march=mblaze -mcpu=mblaze5 -mattr=+barrel,+div,+mul,+patcmp,+fpu,+mul64,+sqrt, can't see any better option rn...
+mips64el gcc: -Ofast -g0 -EL -march=mips64r6 -mhard-float -mabs=2008 -mnan=2008 -mllsc -mdspr2 -msmartmips -mpaired-single -mdmx -mips3d -mmt -mmcu -meva -mvirt -mxpa -mcrc -mginv -mloongson-mmi -mloongson-ext -mloongson-ext2 -mmad -mimadd -mframe-header-opt
+mips64el clang: TODO
+mmix: TODO
+mn10300: -Ofast -g0 -mam34
+moxie: TODO
+msp430 gcc: -Ofast -g0 -mmcu=msp430xv2
+msp430 clang: TODO
+nds32: TODO
+nios2: -Ofast -g0 -march=r2 -mhw-mul -mhw-mulx -mhw-div -mbmx -mcdx -mcustom-fadds=1 -mcustom-fsubs=2 -mcustom-fdivs=3 -mcustom-fmuls=4 -mcustom-fnegs=5 -mcustom-fabss=6 -mcustom-fcmpeqs=7 -mcustom-fcmpges=8 -mcustom-fcmpgts=9 -mcustom-fcmples=10 -mcustom-fcmplts=11 -mcustom-fcmpnes=12 -mcustom-fmins=13 -mcustom-fmaxs=14 -mcustom-fsqrts=15 -mcustom-fcoss=16 -mcustom-fsins=17 -mcustom-ftans=18 -mcustom-fatans=19 -mcustom-fexps=20 -mcustom-flogs=21 -mcustom-faddd=22 -mcustom-fsubd=23 -mcustom-fdivd=24 -mcustom-fmuld=25 -mcustom-fnegd=26 -mcustom-fabsd=27 -mcustom-fcmpeqd=28 -mcustom-fcmpged=29 -mcustom-fcmpgtd=30 -mcustom-fcmpled=31 -mcustom-fcmpltd=32 -mcustom-fcmpned=33 -mcustom-fmind=34 -mcustom-fmaxd=35 -mcustom-fsqrtd=36 -mcustom-fcosd=37 -mcustom-fsind=38 -mcustom-ftand=39 -mcustom-fatand=40 -mcustom-fexpd=41 -mcustom-flogd=42 -mcustom-fextsd=43 -mcustom-ftruncds=44 -mcustom-fixsi=45 -mcustom-fixsu=46 -mcustom-fixdi=47 -mcustom-fixdu=48 -mcustom-round=49 -mcustom-floatis=50 -mcustom-floatus=51 -mcustom-floatid=52 -mcustom-floatud=53 -mcustom-fwrx=54 -mcustom-fwry=55 -mcustom-frdxhi=56 -mcustom-frdxlo=57 -mcustom-frdy=58
+nvptx64: -target nvptx64 -march=sm_86
+or1k: TODO
+pic14: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mpic14 --use-non-free
+pic16: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mpic16 --extended --denable-peeps --optimize-cmp --optimize-df
+powerpc64le gcc: -Ofast -g0 -mcpu=power10 -mpowerpc64 -mmfcrf -mpopcntb -mpopcntd -mfprnd -mcmpb -mhard-dfp -maltivec -misel -mvsx -mcrypto -mhtm -mpower8-vector -mpower8-fusion -mquad-memory-atomic -mfloat128 -mfloat128-hardware -mhard-float -mmulhw -mdlmzb -mlittle-endian -mmma -mprefixed
+powerpc64le clang: -Ofast -g0 -mcpu=power10 -mmfcrf -mpopcntd -mfprnd -mcmpb -maltivec -misel -mvsx -mcrypto -mhtm -mpower8-vector -mfloat128 -mhard-float -mlittle-endian -mmma -mprefixed
+r600: -Ofast -g0 -target r600 -mcpu=cayman
+riscv64 gcc: -Ofast -g0 -march=rv64imafdqlcbjtpvn -mfdiv -mdiv
+riscv64 clang: -Ofast -g0 -march=rv64imafdc
+rl78: TODO
+rx: TODO
+s08: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -ms08
+s390 gcc: -Ofast -g0 -march=arch13 -m64 -mhard-float -mhard-dfp -mhtm -mvx
+s390 clang: -target systemz -Ofast -g0 -march=arch13 -m64 -mhard-float -mhtm -mvx
+sh: -Ofast -g0 -m4a -ml -mbitops -matomic-model=hard-llcs -mtas
+sparc gcc: -Ofast -g0 -mhard-quad-float -mcpu=v9 -mvis4b -mcbcond -mfmaf -mfsmuld -mpopc -msubxc -m64
+sparc clang: -target sparcv9 -Ofast -g0 -mcpu=v9 -m64
+stm8: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mstm8
+tilegx: -Ofast -g0 -m64 -mlittle-endian
+TININative: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mTININative --use-accelerator
+tlcs90: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mtlcs90
+wasm: -Ofast -g0 -mcpu=bleeding-edge -msimd128 -msign-ext -matomics -mbulk-memory -mmutable-globals -mmultivalue -mtail-call -mreference-types -mnontrapping-fptoint
+x86-64 gcc/clang: -Ofast -g0 -march=znver3
+xcore: -target xcore -Ofast -g0
+xtensa: -Ofast -g0
+z180: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mz180
+z80: --std-sdcc2x --fomit-frame-pointer --peep-asm --peep-return --opt-code-speed --allow-unsafe-read -mz80
 
 How to compile each arch:
-aarch64, arm, mips, mips64el, msp430, powerpc, powerpc64le, riscv32, riscv64, x64, x86, wasm : godbolt.org->C++
-m6502, kalray MPPA : godbolt.org->C
-epiphany : http://gcc.parallella.org/
-m68k : https://franke.ms/cex or ct-ng
-amdgcn, bpfel, hexagon, lanai, llvm, nvptx, nvptx64, r600, sparcel, sparcv9, systemz, xcore : clang
-alpha, bfin: fedora cross compilers
-avr: fedora cross compilers until godbolt gets newer avr-gcc
-arc, nios2, s390, sh, xtensa : ct-ng
-mblaze : clang 3.3
-cellspu : clang 3.2
-ds400, gbz80, hc08, mcs51, pic14, pic16, r2k, r3ka, s08, stm8, TININative, tlcs90, z180, z80 : sdcc
-c6x, cr16, cris, ft32, h8300, hppa, ia64, iq2000, lm32, m32c, m32r, microblaze, moxie, nds32le, or1k, rl78, rx, tilegx, visium : other gcc ports
-ia16 : Turbo C++
+aarch64, arm, avr, msp430, riscv32, riscv64, x64, x86, wasm: godbolt.org->C++
+m6502, kalray MPPA: godbolt.org->C
+epiphany: http://gcc.parallella.org/
+m68k: https://franke.ms/cex or ct-ng
+amdgcn, bpfel, hexagon, lanai, llvm, nvptx, nvptx64, r600, sparcel, sparcv9, systemz, xcore: clang
+alpha, arc, bfin, c6x, cris, frv, h8300, hppa, hppa64, ia64, m32r, microblaze, nios2, s390, tilegx: fedora cross compilers
+mips64el, powerpc64le: fedora cross compilers until Godbolt gets a better version
+sh, xtensa: ct-ng
+mblaze: clang 3.3
+cellspu: clang 3.2
+ds400, gbz80, hc08, mcs51, pic14, pic16, r2k, r3ka, s08, stm8, TININative, tlcs90, z180, z80: godbolt.org->C->sdcc
+cr16, ft32, gcn, iq2000, lm32, m32c, mcore, mmix, moxie, nds32, or1k, pdp11, pru, rl78, rx, stormy16, tilepro, v850, vax, visium, vms, vxworks: other gcc ports
+ia16: Turbo C++
 
 Every platform for which a compiler is reasonably available:
 
-aarch64, alpha, amdgcn, arc, arm, avr, bfin, bpfel, c6x, cellspu, cr16, cris, ds400, epiphany, ft32, gbz80, h8300, hc08, hexagon, hppa, ia16, ia64, iq2000, lanai,
-llvm, lm32, kalray mppa, m32c, m32r, m6502, m68k, mblaze, mcs51, microblaze, mips, mips64el, moxie, msp430, nds32le, nios2, nvptx, nvptx64, or1k, pic14, pic16, powerpc, powerpc64le,
-r2k, r3k, r600, riscv32, riscv64, rl78, rx, s08, s390, sh, sparcel, sparcv9, stm8, systemz, tilegx, TININative, tlcs90, visium, x64, x86, xcore, xtensa, wasm, z180,
-z80
+aarch64, alpha, amdgcn, arc, arm, avr, bfin, bpfel, c6x, cellspu, cr16, cris, ds400, epiphany, fr30, frv, ft32, gbz80, gcn,
+h8300, hc08, hexagon, hppa, hppa64, i386, ia16, ia64, iq2000, lanai, llvm, lm32, kalray mppa, m32c, m32r, m6502, m68k, mblaze,
+mcore, mcs51, microblaze, mips64el, mmix, mn10300, moxie, msp430, nds32, nios2, nvptx64, or1k, pdp11, pic14, pic16,
+powerpc64le, pru, r2k, r3k, r600, riscv64, rl78, rx, s08, s390, sh, sparcel, sparcv9, stormy16, stm8, systemz, tilegx,
+tilepro, TININative, tlcs90, v850, vax, visium, vms, vxworks, wasm, x86-64, xcore, xtensa, z180, z80
+
+note: pa == hppa, s390 == systemz
