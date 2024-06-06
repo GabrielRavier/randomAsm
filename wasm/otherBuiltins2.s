@@ -87,7 +87,7 @@ conjl:
 	i64.load 0
 	i64.const 0x8000000000000000
 	i64.xor
-	i64.sotre 0
+	i64.store 0
 	end_function
 
 

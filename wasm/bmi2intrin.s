@@ -5,7 +5,7 @@ _mulx_u64:
 	i32.const 16
 	i32.sub
 
-	loca.tee 3
+	local.tee 3
 	global.set __stack_pointer
 
 	local.get 3
